@@ -1,0 +1,11 @@
+.MuiInputBase-input  {
+    /* background: red; */
+  }
+  
+  .MuiTextField-root {
+    background: rgba(255, 255, 255, 0.2);
+    /* height: 76px; */
+    border-radius: 15px;
+
+  }
+  
