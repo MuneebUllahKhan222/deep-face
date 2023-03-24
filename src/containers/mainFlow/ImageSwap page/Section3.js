@@ -3,12 +3,13 @@ import React from 'react'
 import got from '../../../assets/images/imageSwap-got.png'
 import play from '../../../assets/images/imageSwap-play.png'
 import gif from '../../../assets/images/imageSwap-gif.png'
+import { useNavigate } from 'react-router-dom'
 
 
 
 
 const Section3 = () => {
-
+    const navigate = useNavigate();
     const matches1200px = useMediaQuery('(max-width:1200px)')
     const matches1050px = useMediaQuery('(max-width:1050px and min-width:700px)')
     const matches700px = useMediaQuery('(max-width:700px)')
@@ -38,7 +39,7 @@ const Section3 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center' }}>
                                 Lorem ipsum dolor sit ametip consec tetur adipiscing elit. Sed lacinia sit eva
                             </Typography>
-                            <Button variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() =>navigate('/videoSwap/upload')}  variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
 
@@ -50,7 +51,7 @@ const Section3 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center' }}>
                                 Lorem ipsum dolor sit ametip consec tetur adipiscing elit. Sed lacinia sit eva
                             </Typography>
-                            <Button variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() =>navigate('/gifSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
                     </Box>

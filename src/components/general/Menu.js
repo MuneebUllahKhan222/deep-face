@@ -1,8 +1,8 @@
-import {  Drawer, Box } from '@mui/material'
+import {  Drawer, Box, Typography } from '@mui/material'
 import React from 'react'
 
 
-function Menu({open, toggleDrawer}) {
+function MenuDrawer({open, toggleDrawer}) {
     // const [open, setopen] = useState(false)
     // const toggleDrawer = ( bool) => {
     //     setopen(bool)
@@ -17,14 +17,14 @@ function Menu({open, toggleDrawer}) {
                             
                         >
                         {/* // INSIDE DRAWER COMPONENT PLACE ALL THE JSX YOU WANT TO SHOW IN DRAWER  */}
-                            <Box  sx={{width:'300px', backgroundColor:'black', height:'100%',color:'white'}}> 
-                                <Box onClick={() => toggleDrawer(false)} sx={{color:'white'}}>
+                            <Box  sx={{width:'300px', backgroundColor:'#1E1E1E', height:'100%',color:'white'}}> 
+                                <Box mb={2} onClick={() => toggleDrawer(false)} sx={{color:'white'}}>
                                     close
                                 </Box>
-                                <Box  sx={{height:'50px', borderBottom:'1px solid white'}}>
-                                    Pricing
+                                <Box pl={4} sx={{height:'60px', backgroundColor:'#2A2A2C',borderBottom:'1px solid white', display:'flex', alignItems:'center', '&:hover':{backgroundColor:'#323235'}}}>
+                                    <Typography fontSize={17} fontWeight={550}>Pricing</Typography>
                                 </Box>
-                                <Box  sx={{height:'50px', borderBottom:'1px solid white'}}>
+                                <Box   sx={{height:'50px', borderBottom:'1px solid white'}}>
                                     Pricing
                                 </Box>
                                 <Box  sx={{height:'50px', borderBottom:'1px solid white'}}>
@@ -41,4 +41,4 @@ function Menu({open, toggleDrawer}) {
     )
 }
 
-export default Menu
+export default MenuDrawer

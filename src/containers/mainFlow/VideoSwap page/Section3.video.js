@@ -1,12 +1,13 @@
 import { Box, Button, Typography, useMediaQuery } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import thor from '../../../assets/gifs/videoSwap-thor.gif'
 
 
 
 
 const Section3 = () => {
-
+    const navigate = useNavigate();
     const matches1200px = useMediaQuery('(max-width:1200px)')
     const matches1050px = useMediaQuery('(max-width:1050px and min-width:700px)')
     const matches700px = useMediaQuery('(max-width:700px)')
@@ -20,7 +21,7 @@ const Section3 = () => {
 
                 <img src={thor} alt='game of thrones' width={matches1200px ?'97%':matches700px ? '90%' : '80%'} height={matches1050px ?'450px' :matches700px ? '400px' : '500px'} />
 
-                <Button variant='text' sx={{color:'#FFD600', marginTop:'30px'}}>{'>> Try now'}</Button>
+                <Button onClick={() => navigate('/videoSwap/upload')} variant='text' sx={{color:'#FFD600', marginTop:'30px', fontWeight:700}}>{'>> Try now'}</Button>
 
             </Box>
 

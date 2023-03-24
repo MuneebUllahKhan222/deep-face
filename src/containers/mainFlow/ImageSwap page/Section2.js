@@ -1,7 +1,8 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react';
 import stick from '../../../assets/images/stick.png'
 import imageSwap from '../../../assets/images/imageSwap.png'
+import CustomButton from '../../../components/general/CustomButton';
 
 const Section2 = () => {
   return (
@@ -14,7 +15,8 @@ const Section2 = () => {
                     <img src={stick}  alt='stick' />
                 </Box>
                 <Typography fontSize={14} fontWeight={500}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed purus rutrum, malesuada risus vel, gravida orci. Sed lacinia aliquam dolor, non sodales est faucibus vel. Praesent arcu tortor, porta quis lorem et, dapibus dapibus neque.</Typography>
-                <Button variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Image Swap</Button>           
+                {/* <Button onClick={() => navigate('./upload')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Image Swap</Button>    */}
+                <CustomButton navigateTo={'./upload'} style={{marginTop:'25px', width:'fit-content'}} text={'Try Swap it'}/>        
             </Box>
 
 

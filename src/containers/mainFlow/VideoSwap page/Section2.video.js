@@ -1,12 +1,10 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react';
 import stick from '../../../assets/images/stick.png'
-import got from '../../../assets/images/videoSwap-got.png'
 import ronaldo from '../../../assets/gifs/videoSwap-ronaldo.gif'
-import { useNavigate } from 'react-router-dom';
+import CustomButton from '../../../components/general/CustomButton';
 
 const Section2 = () => {
-    const navigate = useNavigate();
     return (
         <Box sx={{ height: '60vh', backgroundColor: '#1E1E1E', '@media(max-width:800px)': { height: 'fit-content', padding: '60px 40px 60px 40px' } }}>
             <Box sx={{ height: '100%', display: 'flex', justifyContent: 'space-around', alignItems: 'center', '@media(max-width:800px)': { flexDirection: 'column-reverse' } }}>
@@ -16,7 +14,7 @@ const Section2 = () => {
                         <img src={stick} alt='stick' />
                     </Box>
                     <Typography fontSize={14} fontWeight={500}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed purus rutrum, malesuada risus vel, gravida orci. Sed lacinia aliquam dolor, non sodales est faucibus vel. Praesent arcu tortor, porta quis lorem et, dapibus dapibus neque.</Typography>
-                    <Button variant='contained' disableElevation onClick={() => navigate('/imageSwap')} sx={{ backgroundColor: '#FFD600', height: '45px', borderRadius: '12px', width: 'fit-content', marginTop: '25px', '&:hover': { backgroundColor: '#FFD600' } }}>Try Video Swap</Button>
+                    <CustomButton navigateTo={'/videoSwap/upload'}  style={{marginTop:'25px', width:'fit-content'}} text={'Try Video Swap'}/>
                 </Box>
                 <Box sx={{ width: '27%', '@media(max-width:800px)': { width: '40%' }, '@media(max-width:600px)': { width: '50%' }, '@media(max-width:450px)': { width: '60%' } }}>
                     <img src={ronaldo} alt={'ronaldo'} width={'100%'} />

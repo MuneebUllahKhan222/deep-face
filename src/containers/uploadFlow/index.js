@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Section1 from "../mainFlow/GifSwap page/Section1.gif";
+import UploadGif from "./gifUpload/UploadGif";
 import UploadImage from "./imageUpload/UploadImage";
+import UploadVideo from "./videoUpload/UploadVideo";
 
 
 
@@ -13,8 +14,8 @@ export default function UploadFlow() {
     <>
       <Routes>
         <Route path="/imageSwap/upload" element={<UploadImage />} />
-        {/* <Route path="/videoSwap" element={<VideoSwap />} />
-        <Route path="/gifSwap" element={<GifSwap />} /> */}
+        <Route path="/gifSwap/upload" element={<UploadGif />} />
+        <Route path="/videoSwap/upload" element={<UploadVideo />} />
       </Routes>
       </>
   );

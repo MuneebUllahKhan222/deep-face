@@ -2,8 +2,10 @@ import { Box, Button, Typography, useMediaQuery } from '@mui/material'
 import React from 'react'
 import pic from '../../../assets/images/videoSwap-pic.png'
 import play from '../../../assets/images/imageSwap-play.png'
+import { useNavigate } from 'react-router-dom'
 
 const Section5 = () => {
+    const navigate = useNavigate();
     const matches650px = useMediaQuery('(max-width:650px and min-width:450px)')
     const matches450px = useMediaQuery('(max-width:650px and min-width:450px)')
   return (
@@ -24,7 +26,7 @@ const Section5 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center' }}>
                                 Lorem ipsum dolor sit ametip consec tetur adipiscing elit. Sed lacinia sit eva
                             </Typography>
-                            <Button variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() => navigate('/imageSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
 
@@ -36,7 +38,7 @@ const Section5 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center' }}>
                                 Lorem ipsum dolor sit ametip consec tetur adipiscing elit. Sed lacinia sit eva
                             </Typography>
-                            <Button variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() => navigate('/videoSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
                     </Box>

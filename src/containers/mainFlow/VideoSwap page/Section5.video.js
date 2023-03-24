@@ -1,5 +1,6 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
+import CustomButton from '../../../components/general/CustomButton';
 // import workArrow from '../../../assets/images/work-arrow.png';
 import Footer from '../../../components/general/Footer';
 
@@ -12,8 +13,7 @@ const Section5 = () => {
                     <Typography  fontWeight={700} sx={{fontSize:'30px',color:'black','@media(max-width:600px)':{fontSize:'25px'},'@media(max-width:450px)':{fontSize:'20px'}}}>Try it <Typography component={'span'} sx={{fontSize:'30px',fontWeight:'700',background:'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)','-webkit-background-clip':'text',' -webkit-text-fill-color':'transparent',}}>NOW!!!</Typography></Typography>
 
                     <Box sx={{width:'30%',  display: 'flex', justifyContent:'space-around', alignItems:'center' }}>
-                    {/* <img src={workArrow} alt={'work1'} height={'60px'} width={'150px'}/> */}
-                    <Button variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',width:'fit-content',borderRadius:'12px',width:'150px',  '&:hover':{backgroundColor:'#FFD600'}}}>Swap It</Button>           
+                    <CustomButton text='Swap it' navigateTo={'/imageSwap/upload'} style={{width:'150px'}} />
                     </Box>
                 </Box>
             </Box>

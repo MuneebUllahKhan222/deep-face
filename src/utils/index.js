@@ -43,7 +43,6 @@ export const setCookies = (key, value, options) => {
 
 
     export const delCookies = (key, options) => {
-          
             cookies.remove(key, {
                 options,
                
