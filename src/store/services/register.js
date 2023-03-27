@@ -3,7 +3,8 @@ import { setCookies } from "../../utils";
 import { setRegisterUserEmail } from "../reducers/register";
 import { setUserData } from "../reducers/user";
 
-const basePath = "http://localhost:3002";//here you may use backend url
+// const basePath = "http://localhost:3002";//here you may use backend url
+const basePath = 'http://164.90.160.58:3002/'
 
 export const register = (info) => async (dispatch) => {
   try {
