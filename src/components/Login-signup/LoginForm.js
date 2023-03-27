@@ -1,5 +1,5 @@
-import { Box, Button, Checkbox, FormControlLabel, InputAdornment, Radio, RadioGroup, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Box, Button, Checkbox, FormControlLabel, InputAdornment,TextField,  } from '@mui/material'
+import React, {  useState } from 'react'
 // import './Form.css'
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
@@ -35,7 +35,7 @@ const LoginForm = ({ type, onSubmit }) => {
 
 
   return (
-    <Box p={4} sx={{ height: '350px', width: '400px', backdropFilter: 'blur(7.5px)', background: 'rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center', '@media(max-width:600px)':{width:'350px'},'@media(max-width:500px)':{width:'275px', height:'300px'} }} >
+    <Box pl={4} pr={4} pt={2} pb={3} sx={{ height: 'fit-content', width: '400px', backdropFilter: 'blur(7.5px)', background: 'rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center', '@media(max-width:600px)':{width:'350px'},'@media(max-width:500px)':{width:'275px', height:'fit-content'} }} >
       <Box sx={{ ...rowFlex, fontSize: '30px', fontWeight: 600, color: 'white', height: '10%' }}>
         {type}
       </Box>
@@ -47,21 +47,24 @@ const LoginForm = ({ type, onSubmit }) => {
             render={({ field: { onChange, value } }) => (
               <TextField
                 fullWidth
-                sx={{ borderRadius: '15px', backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', borderRadius: '15px' } }}
+                sx={{ borderRadius: '15px',height:'30px',display:'flex', alignItems:'center', width:'95%',padding:'20px 0px 20px 0px',backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', } }}
                 color='warning'
+                autoComplete='off'
                 inputMode='email'
+                variant='standard'
                 value={value}
                 error={errors.email ? true : false}
                 // helperText={errors.email ? errors.email.message : ''}
                 onChange={onChange}
                 placeholder='Email'
                 InputProps={{
-                  startAdornment: <InputAdornment position="start" ><PersonIcon sx={{ color: 'white' }} /></InputAdornment>,
+                  startAdornment: <InputAdornment position="start" ><PersonIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
+                  disableUnderline: true, 
                 }}
               />
             )}
           />
-          <Box ml={2} mb={2} sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
+          <Box ml={2} mb={0} sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
           {errors.email ? errors.email.message : ''}
           </Box>
           
@@ -71,23 +74,26 @@ const LoginForm = ({ type, onSubmit }) => {
             render={({ field: { onChange, value } }) => (
               <TextField
                 fullWidth
-                sx={{ borderRadius: '15px', backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', borderRadius: '15px' } }}
+                sx={{ borderRadius: '15px', marginTop:'15px',height:'30px',display:'flex', alignItems:'center',width:'95%', padding:'20px 0px 20px 0px',backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', } }}
                 color={'warning'}
-                inputMode='Password'
+                inputMode='password'
+                type='password'
+                variant='standard'
                 value={value}
                 error={errors.password ? true : false}
                 onChange={onChange}
                 placeholder='Password'
                 InputProps={{
-                  startAdornment: <InputAdornment position="start" ><LockIcon sx={{ color: 'white' }} /></InputAdornment>,
+                  startAdornment: <InputAdornment position="start" ><LockIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
+                  disableUnderline: true, 
                 }}
               />
             )}
           />
-          <Box ml={2} mb={2} sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
+          <Box ml={2} mb={0} sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
           {errors.password ? errors.password.message : ''}
           </Box>
-          <Button onClick={handleSubmit(onSubmit)} variant='contained' fullWidth sx={{ height: '28%', borderRadius: '15px', backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }}>
+          <Button onClick={handleSubmit(onSubmit)} variant='contained' fullWidth sx={{ height: '65px', marginTop:'15px',borderRadius: '15px', backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }}>
             {type}
           </Button>
 
@@ -97,7 +103,7 @@ const LoginForm = ({ type, onSubmit }) => {
 
 
       {type.toLowerCase() === 'log in' &&
-        <Box mt={5} sx={{ display: 'flex', justifyContent: 'space-between', color: 'white' }}>
+        <Box mt={2} sx={{ display: 'flex', justifyContent: 'space-between', color: 'white' }}>
           <Box onClick={handleSignupClick} fontSize={14} sx={{ '&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Signup</Box>
           <Box fontSize={14} sx={{ '&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Forgot Password?</Box>
         </Box>
@@ -105,7 +111,7 @@ const LoginForm = ({ type, onSubmit }) => {
 
       {type.toLowerCase() === 'sign up' &&
 
-        <Box mt={5} sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', flexDirection:'column' }}>
+        <Box mt={1} sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', flexDirection:'column' }}>
           <FormControlLabel
               control={
                 <Controller
@@ -144,18 +150,3 @@ const LoginForm = ({ type, onSubmit }) => {
 
 export default LoginForm
 
-
-{/* <TextField
-                fullWidth
-                sx={{ borderRadius: '15px', height: '28%', input: { color: 'white', height: '40px', borderRadius: '15px' } }}
-                color='warning'
-                inputMode='email'
-                value={value}
-                error={errors.email ? true : false}
-                helperText={errors.email ? errors.email.message : ''}
-                onChange={onChange}
-                placeholder='Email'
-                InputProps={{
-                  startAdornment: <InputAdornment position="start" ><PersonIcon sx={{ color: 'white' }} /></InputAdornment>,
-                }}
-              /> */}

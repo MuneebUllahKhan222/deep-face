@@ -4,7 +4,7 @@ import React from 'react'
 import work1 from '../../../assets/images/work-1.png'
 import work2 from '../../../assets/images/work-2.png'
 import work3 from '../../../assets/images/work-3.png'
-import workArrow from '../../../assets/images/work-arrow.png'
+// import workArrow from '../../../assets/images/work-arrow.png'
 
 
 const Section5 = () => {
@@ -12,8 +12,8 @@ const Section5 = () => {
     <Box sx={{height:'60vh', paddingTop:'40px',backgroundColor:'black', '@media(max-width:800px)':{ height:'fit-content',padding:'60px 40px 60px 40px'} }}>
         <Box  sx={{height:'80%', color:'#1F1F1F', '@media(max-width:800px)':{height:'fit-content'}}}>
             <Box p={2} sx={{height:'20%', display:'flex', flexDirection:'column',justifyContent:'center'}}>
-                <Typography fontSize={40} fontWeight={600} sx={{margin:'0 auto 0 auto', color:'white'}}>How It <Typography component={'span'} sx={{fontSize:'40px',fontWeight:'700',background:'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)','-webkit-background-clip':'text',' -webkit-text-fill-color':'transparent',}}>Works</Typography></Typography>
-                <Typography fontSize={15} fontWeight={700}  sx={{margin:'0 auto 0 auto'}}>Simple as you <Typography component={'span'} sx={{fontSize:'15px',fontWeight:'700',background:'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)','-webkit-background-clip':'text',' -webkit-text-fill-color':'transparent',}}>imagine</Typography></Typography>
+                <Typography fontSize={40} fontWeight={600} sx={{margin:'0 auto 0 auto', color:'white', textAlign:'center'}}>How It <Typography component={'span'} sx={{fontSize:'40px',fontWeight:'700',background:'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)','-webkit-background-clip':'text',' -webkit-text-fill-color':'transparent',}}>Works</Typography></Typography>
+                <Typography fontSize={15} fontWeight={700}  sx={{margin:'0 auto 0 auto'}}>Simple as using your <Typography component={'span'} sx={{fontSize:'15px',fontWeight:'700',background:'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)','-webkit-background-clip':'text',' -webkit-text-fill-color':'transparent',}}>imagination</Typography></Typography>
             </Box>
             <Box sx={{height:'80%', display:'flex', flexDirection:'row', justifyContent:'space-around', alignItems:'center', flexWrap:'wrap', columnGap:'10px', rowGap:'10px' }}>
                 <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', '@media(max-width:800px)':{margin:'40px 0px'}}}>

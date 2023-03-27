@@ -15,19 +15,19 @@ import { useNavigate } from 'react-router-dom';
 const Section1 = () => {
     const navigate = useNavigate();
   return (
-    <Box  sx={{height:'100vh',display:'flex', flexDirection:'column',justifyContent:'space=between',backgroundColor:'black','@media(max-width:800px)':{ height:'fit-content', padding:'0px 0 40px 0'}}}>
+    <Box  sx={{height:'100vh',display:'flex', flexDirection:'column',justifyContent:'space-between',backgroundColor:'black','@media(max-width:800px)':{ height:'fit-content', padding:'0px 0 40px 0'}}}>
     <Box sx={{height:'10%'}}>
     <Header />
     </Box>
-        <Box className='section-1'  sx={{display:'flex', height:'90%',flexDirection:'column', alignItems:'center',  justifyContent:'center', '@media(max-width:800px)':{paddingTop:'20px'}}}>
-        <Box sx={{height:'fit-content', display:'flex', justifyContent:'space-around', alignItems:'center','@media(max-width:800px)':{flexDirection:'column-reverse'}}}>
+        <Box className='section-1'  sx={{display:'flex', height:'90%',flexDirection:'column', alignItems:'center',  justifyContent:'center', '@media(max-width:800px)':{padding:'20px 30px 0px 30px'}}}>
+        <Box sx={{height:'fit-content', display:'flex', justifyContent:'space-between', '@media(max-width:1200px)':{width:'80%'},alignItems:'center','@media(max-width:800px)':{flexDirection:'column-reverse', width:'100%'}}}>
 
             <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
                 <Box sx={{ display:'flex', alignItems:'center'}}>
-                    <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>H1 heading</Typography>
+                    <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>Swap It!</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
-                <Typography fontSize={14} fontWeight={500} sx={{color:'white'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed purus rutrum, malesuada risus vel, gravida orci. Sed lacinia aliquam dolor, non sodales est faucibus vel. Praesent arcu tortor, porta quis lorem et, dapibus dapibus neque.</Typography>
+                <Typography fontSize={15} fontWeight={500} sx={{color:'white'}}>Swapping a face out on an Image, Video or GIF is easy peasy!  Use our swapper below to get started.</Typography>
                 <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Swap it</Button>           
             </Box>
 

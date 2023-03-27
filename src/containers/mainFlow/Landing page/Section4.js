@@ -15,7 +15,7 @@ const Section4 = () => {
                     <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>Gif Face Swap</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
-                <Typography fontSize={14} fontWeight={500}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed purus rutrum, malesuada risus vel, gravida orci. Sed lacinia aliquam dolor, non sodales est faucibus vel. Praesent arcu tortor, porta quis lorem et, dapibus dapibus neque.</Typography>
+                <Typography fontSize={16} fontWeight={500}>Have a favorite GIF? Put your face on it and text it to your friends.</Typography>
                 <Button onClick={() => navigate('/gifSwap')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try GIF Swap</Button>           
             </Box>
 

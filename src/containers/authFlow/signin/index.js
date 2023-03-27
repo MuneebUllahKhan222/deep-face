@@ -5,9 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/general/Footer';
 import Header from '../../../components/general/Header';
 import LoginForm from '../../../components/Login-signup/LoginForm';
-import register from '../../../store/reducers/register';
 import { login } from '../../../store/services/register';
-import { styles } from "./Style";
 
 
 const Signin = () => {

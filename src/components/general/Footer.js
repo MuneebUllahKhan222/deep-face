@@ -1,5 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
+import EmailIcon from '@mui/icons-material/Email';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TwitterIcon from '@mui/icons-material/Twitter';
 
 const Footer = ({ colorScheme }) => {
     return (
@@ -12,8 +16,8 @@ const Footer = ({ colorScheme }) => {
                         colorScheme === 'light'
                             ?
                             <>
-                                <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#E9E9E9', borderRadius: '50px' }}>
-
+                                <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                                    <EmailIcon />
                                 </Box>
                                 <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#E9E9E9', borderRadius: '50px' }}>
 
@@ -24,13 +28,13 @@ const Footer = ({ colorScheme }) => {
                             </>
                             :
                             <>
-                                <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px' }}>
+                                <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                                <EmailIcon sx={{color:'#DDDDDD'}} />
+                                </Box>
+                                <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
 
                                 </Box>
-                                <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px' }}>
-
-                                </Box>
-                                <Box sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px' }}>
+                                <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
 
                                 </Box>
                             </>
@@ -47,26 +51,26 @@ const Footer = ({ colorScheme }) => {
                         colorScheme === 'light'
                             ?
                             <>
-                                <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#E9E9E9', borderRadius: '50px' }}>
-
+                            <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                                <FacebookIcon />
                                 </Box>
-                                <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#E9E9E9', borderRadius: '50px' }}>
-
+                                <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                                <LinkedInIcon/>
                                 </Box>
-                                <Box sx={{ height: '30px', width: '30px', backgroundColor: '#E9E9E9', borderRadius: '50px' }}>
-
+                                <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                                <TwitterIcon/>
                                 </Box>
                             </>
                             :
                             <>
-                                <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px' }}>
-
+                            <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                                <FacebookIcon sx={{ color: '#B8B8B8' }} />
                                 </Box>
-                                <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px' }}>
-
+                                <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                                <LinkedInIcon sx={{ color: '#B8B8B8' }}/>
                                 </Box>
-                                <Box sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px' }}>
-
+                                <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                                <TwitterIcon sx={{ color: '#B8B8B8' }}/>
                                 </Box>
                             </>
 
