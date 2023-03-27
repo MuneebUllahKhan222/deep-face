@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,14 +11,15 @@ import { login } from '../../../store/services/register';
 
 const Signin = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const onSubmit = async(data) => {
-    console.log(data,'data');
+    
     const res = await dispatch(login(data))
     if (res.status === 200) {
       navigate('/')
+      enqueueSnackbar('Login Successful', {variant:'success', autoHideDuration:3000})
     }
-    console.log(res, 'res of signin');
   };
   return (
     <Box sx={{display:'flex', flexDirection:'column', height:'100%',alignItems:'center', justifyContent:'space-between'}}>
