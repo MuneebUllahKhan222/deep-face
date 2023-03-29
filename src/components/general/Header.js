@@ -43,9 +43,14 @@ const Header = ({ colorScheme }) => {
     };
 
     const handleLogout = () => {
-        delCookies('user', {
-            path: '/'
-        })
+        // delCookies('user', {
+        //     path: '/'
+        // })
+        document.cookie.split(";").forEach((c) => {
+            document.cookie = c
+              .replace(/^ +/, "")
+              .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+          });
         handleClose()
         navigate('/')
     }

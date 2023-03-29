@@ -1,18 +1,18 @@
 import { Box, Button, Grid, LinearProgress, Paper, Typography, useMediaQuery } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Footer from '../../../components/general/Footer'
 import Header from '../../../components/general/Header'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import '../uploadFlow.css';
 import ImageUploading from 'react-images-uploading';
-import test from '../../../assets/images/imageUpload-test.png'
+// import test from '../../../assets/images/imageUpload-test.png'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { DownloadForOffline } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
-import { imageUploader } from '../../../store/services/user';
+import { createDoc, getImage, imageUploader } from '../../../store/services/user';
 
 
 
@@ -23,6 +23,7 @@ const UploadImage = () => {
   const [apiCalled, setApiCalled] = useState(0);
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
+  const [result, setResult] = useState();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,15 +56,25 @@ const UploadImage = () => {
   }
 
 
-  useEffect(() => {
-    console.log(blobBase)
+  // const sendRequest = async () => {
 
-  }, [blobBase])
+  //   // const data = await dispatch(imageUploader(blobInput, blobBase, user?._id))
+  //   // console.log(data, 'data of image uploader')
+  //   const {result} = await dispatch(getImage('6422d0bc0c3c0ac6509b05f2'))
+  //   console.log(result, 'result of image fetch')
+  //   setResult(result)
+  // }
 
-  const sendRequest = async () => {
-
-    const data = await dispatch(imageUploader(blobInput, blobBase, user?._id))
+  const createDocument = async () => {
+    console.log('called')
+    const {_id} = await dispatch(createDoc(user?._id))
+    setApiCalled(1)
+    const data = await dispatch(imageUploader(blobInput, blobBase, user?._id,_id))
     console.log(data, 'data of image uploader')
+    const {result} = await dispatch(getImage(_id))
+    setResult(result)
+    setApiCalled(2)
+    return data
   }
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
@@ -116,6 +127,7 @@ const UploadImage = () => {
                   dragProps,
                   errors
                 }) => (
+                 
                   <Box sx={{ width: '100%', cursor: 'pointer', }} onClick={baseImage.length === 0 ? (user ? onImageUpload : navigateTologin) : null} {...dragProps} >
                     {baseImage.length === 0
                       ?
@@ -130,13 +142,13 @@ const UploadImage = () => {
                               Step 1
                             </Box>
                             <Typography sx={{ fontSize: { sm: '20px', xs: '17px' }, fontWeight: '700' }} ><strong>Click</strong>  or <strong>Drag</strong></Typography>
-                            <Typography sx={{ fontSize: { sm: '20px', xs: '17px' }, fontWeight: '700' }}>To upload a <strong>base image</strong></Typography>
-                            <Typography fontSize={13}><strong>File requirement</strong></Typography>
+                            <Typography fontSize={20}>To upload an <strong>input image</strong></Typography>                            <Typography fontSize={13}><strong>File requirement</strong></Typography>
                             <Box sx={{ display: 'flex', columnGap: '20px' }}>
                               <Typography fontSize={13}>1 pc max count</Typography>
                               <Typography fontSize={13}>5mb image size</Typography>
                             </Box>
                             {errors?.maxFileSize && <Typography fontSize={13} sx={{ color: 'red' }}>Selected image size more than 5 mb</Typography>}
+                            {errors?.acceptType && <span>Your selected file type is not allow</span>}
                           </Box>
                         </Box>
                       </Box>
@@ -223,7 +235,7 @@ const UploadImage = () => {
               {
                 apiCalled === 0
                   ?
-                  <Button onClick={user ? () => sendRequest() : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button onClick={user ? () => createDocument() : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                     ?
@@ -233,7 +245,7 @@ const UploadImage = () => {
                     </>
                     :
                     <>
-                      <Box component={'img'} src={test} sx={{ height: '80%', width: '40%', border: '2px solid #FFD600', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} />
+                      <Box component={'img'} src={result} sx={{ height: '80%', width: '50%', border: '2px solid #FFD600', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} />
                     </>
               }
 

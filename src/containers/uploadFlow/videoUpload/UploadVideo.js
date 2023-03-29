@@ -1,9 +1,9 @@
 import { Box, Button, Grid, LinearProgress, Paper, Typography, useMediaQuery } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Footer from '../../../components/general/Footer'
 import Header from '../../../components/general/Header'
 import '../uploadFlow.css';
-import test from '../../../assets/images/imageUpload-test.png'
+// import test from '../../../assets/images/imageUpload-test.png'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { DownloadForOffline } from '@mui/icons-material';
@@ -11,33 +11,51 @@ import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
 import Dropzone from 'react-dropzone'
 import { useDispatch } from 'react-redux';
-import { videoUploader } from '../../../store/services/user';
+import { createDoc, getImage, videoUploader } from '../../../store/services/user';
+import ImageUploading from 'react-images-uploading';
 
 
 
 const UploadVideo = () => {
   // const [images, setImages] = useState([]);
-  const [inputVideo, setInputVideo] = useState([]);
+  const [inputImage, setInputImage] = useState([]);
   const [baseVideo, setbaseVideo] = useState([]);
   const [apiCalled, setApiCalled] = useState(0);
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
+  const [result, setResult] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = getCookies('user')
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
 
+  const onChangeInputImage = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setInputImage(imageList);
+    fetch(imageList[0]['data_url'])
+      .then(async (res) => {
+        setBlobInput(await res.blob())
+      })
+
+  };
+
   const navigateTologin = () => {
     navigate('/signin')
   }
-
-
-  const sendRequest = async () => {
-
-    const data = await dispatch(videoUploader(blobInput, blobBase, user?._id))
+  const createDocument = async () => {
+    console.log('called')
+    const {_id} = await dispatch(createDoc(user?._id))
+    setApiCalled(1)
+    const data = await dispatch(videoUploader(blobInput, blobBase, user?._id,_id))
     console.log(data, 'data of image uploader')
+    const {result} = await dispatch(getImage(_id))
+    setResult(result)
+    setApiCalled(2)
+    return data
   }
+
   return (
     <Box sx={{ height: 'fit-content', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
       <Box sx={{ width: '100%' }}>
@@ -71,7 +89,7 @@ const UploadVideo = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px', width: '100%' }}>
               {baseVideo.length === 0
                 ?
-                <Dropzone maxFiles={1} accept={{ "video/*": [".mp4"] }} 
+                <Dropzone maxFiles={1} maxSize={1000000} accept={{ "video/*": [".mp4"] }} 
                 onDrop={acceptedFiles => {
                   setbaseVideo(URL.createObjectURL(...acceptedFiles))
                   fetch(URL.createObjectURL(...acceptedFiles))
@@ -94,11 +112,10 @@ const UploadVideo = () => {
                                 Step 1
                               </Box>
                               <Typography sx={{ fontSize: { sm: '20px', xs: '17px' }, fontWeight: '700' }} ><strong>Click</strong>  or <strong>Drag</strong></Typography>
-                              <Typography sx={{ fontSize: { sm: '20px', xs: '17px' }, fontWeight: '700' }}>To upload a <strong>base Video</strong></Typography>
-                              <Typography fontSize={13}><strong>File requirement</strong></Typography>
+                              <Typography fontSize={20}>To upload a <strong>base video</strong></Typography>                              <Typography fontSize={13}><strong>File requirement</strong></Typography>
                               <Box sx={{ display: 'flex', columnGap: '20px' }}>
                                 <Typography fontSize={13}>1 Video max count</Typography>
-                                <Typography fontSize={13}>5mb Video size</Typography>
+                                <Typography fontSize={13}>10mb Video size</Typography>
                               </Box>
                             </Box>
                           </Box>
@@ -120,22 +137,31 @@ const UploadVideo = () => {
                   </Box>
                 </Box>
               }
-
-              {inputVideo.length === 0
-                ?
-              <Dropzone maxFiles={1} accept={{ "video/*": [".mp4"] }} 
-              onDrop={acceptedFiles => {
-                  setInputVideo(URL.createObjectURL(...acceptedFiles))
-                  fetch(URL.createObjectURL(...acceptedFiles))
-                  .then(async (res) => {
-                    setBlobInput(await res.blob())
-                  })
-                }}
+              
+              
+              <ImageUploading
+                multiple
+                value={inputImage}
+                onChange={onChangeInputImage}
+                maxNumber={1}
+                width={'100%'}
+                dataURLKey="data_url"
+                acceptType={['jpg', 'png']}
+                maxFileSize={'5000000'}
               >
-                {({ getRootProps, getInputProps }) => (
-                  <section style={{ height: '100%' }}>
-                    <Box sx={{ width: '100%', cursor: 'pointer' }} {...getRootProps()}>
-                      <input {...getInputProps()} />
+                {({
+                  imageList,
+                  onImageUpload,
+                  onImageRemoveAll,
+                  onImageUpdate,
+                  onImageRemove,
+                  isDragging,
+                  dragProps,
+                  errors
+                }) => (
+                  <Box sx={{ width: '100%', cursor: 'pointer', }} onClick={inputImage.length === 0 ? (user ? onImageUpload : navigateTologin) : null} {...dragProps} >
+                    {inputImage.length === 0
+                      ?
                       <Box pt={3} pb={3} sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center', '@media(max-width:500px)': { paddingLeft: '20px' } }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px', '@media(max-width:500px)': { flexDirection: 'column', rowGap: '10px' } }}>
                           <Box sx={{ width: '60px', height: '60px', borderRadius: '60px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: 'white', fontWeight: 700, fontSize: '40px', background: 'linear-gradient(130deg, #0E33BE 20%, #14C483 30%, #FDE235 50%, #FF5757 100%)' }}>+</Box>
@@ -144,23 +170,20 @@ const UploadVideo = () => {
                               Step 2
                             </Box>
                             <Typography fontSize={20} ><strong>Click</strong>  or <strong>Drag</strong></Typography>
-                            <Typography fontSize={20}>To upload a <strong>input Video</strong></Typography>
+                            <Typography fontSize={20}>To upload an <strong>input image</strong></Typography>
                             <Typography fontSize={13}><strong>File requirement</strong></Typography>
                             <Box sx={{ display: 'flex', columnGap: '20px' }}>
-                              <Typography fontSize={13}>1 Video max count</Typography>
-                              <Typography fontSize={13}>5mb Video size</Typography>
+                              <Typography fontSize={13}>1 pc max count</Typography>
+                              <Typography fontSize={13}>5mb image size</Typography>
                             </Box>
+                            {errors?.maxFileSize && <Typography fontSize={13} sx={{ color: 'red' }}>Selected image size more than 5 mb</Typography>}
                           </Box>
                         </Box>
                       </Box>
-
-                    </Box>
-                  </section>
-                )}
-              </Dropzone>
-              :
-              <Box pt={2} pb={2}  sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
-                        <Box ml={3} component={'video'} sx={{height:'95%', width:'35%'}} ><source src={inputVideo} width='100%' height='100%' /></Box>
+                      :
+                      <Box pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
+                        {/* <img src={inputImage[0]['data_url']} alt='test' height='95%' width='25%' /> */}
+                        <Box ml={3} component={'img'} src={inputImage[0]['data_url']} sx={{ height: '95%', width: '35%' }} />
                         <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between' }}>
                           <Typography fontSize={15} fontWeight={600}>Input Image <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
                           <Box sx={{ width: '100px', height: '38px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white' }}>
@@ -169,7 +192,11 @@ const UploadVideo = () => {
                           </Box>
                         </Box>
                       </Box>
-              }
+                    }
+                  </Box>
+                )}
+              </ImageUploading>
+
 
             </Box>
           </Grid>
@@ -178,7 +205,7 @@ const UploadVideo = () => {
               {
                 apiCalled === 0
                   ?
-                  <Button onClick={user ? () => sendRequest() : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button onClick={user ? createDocument : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                     ?
@@ -188,7 +215,7 @@ const UploadVideo = () => {
                     </>
                     :
                     <>
-                      <Box component={'img'} src={test} sx={{ height: '80%', width: '40%', border: '2px solid #FFD600', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} />
+                      <Box component={'img'} src={result} sx={{ height: '80%', width: '40%', border: '2px solid #FFD600', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} />
                     </>
               }
 
