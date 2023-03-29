@@ -15,7 +15,7 @@ const Section7 = () => {
 
                     <Box sx={{ width: '30%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
                         {/* <img src={workArrow} alt={'work1'} height={'60px'} width={'150px'}/> */}
-                        <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation sx={{ backgroundColor: '#FFD600', height: '45px', borderRadius: '12px', width: '150px', '&:hover': { backgroundColor: '#FFD600' } }}>Swap It</Button>
+                        <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', height: '45px', borderRadius: '12px', width: '150px', '&:hover': { backgroundColor: '#FFD600' } }}>Swap It</Button>
                     </Box>
                 </Box>
             </Box>

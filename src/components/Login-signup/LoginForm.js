@@ -1,12 +1,14 @@
 import { Box, Button, InputAdornment,TextField,  } from '@mui/material'
-import React from 'react'
-// import './Form.css'
+import React, { useState } from 'react'
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { loginValidationSchema, } from './Validation';
 import { yupResolver } from '@hookform/resolvers/yup';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 
 
 
@@ -26,6 +28,7 @@ const LoginForm = ({ onSubmit }) => {
   const handleSignupClick = () => {
     navigate('/signup')
   }
+  const [showPassword, setshowPassword] = useState(false)
 
 
 
@@ -73,7 +76,7 @@ const LoginForm = ({ onSubmit }) => {
                 sx={{ borderRadius: '15px', marginTop:'15px',height:'30px',display:'flex', alignItems:'center',width:'95%', padding:'20px 0px 20px 0px',backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', } }}
                 color={'warning'}
                 inputMode='password'
-                type='password'
+                type={showPassword ?'text' : 'password'}
                 variant='standard'
                 value={value}
                 error={errors.password ? true : false}
@@ -81,6 +84,7 @@ const LoginForm = ({ onSubmit }) => {
                 placeholder='Password'
                 InputProps={{
                   startAdornment: <InputAdornment position="start" ><LockIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
+                  endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showPassword ? <VisibilityIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />: <VisibilityOffIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
                   disableUnderline: true, 
                 }}
               />

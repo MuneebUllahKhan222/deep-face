@@ -19,7 +19,7 @@ function Section3() {
                     {/* <img src={stick}  alt='stick' /> */}
                 </Box>
                 <Typography fontSize={16} fontWeight={500} sx={{color:'white'}}>Possibly the most fun of them all, swapping faces on a video is now the new reality! Find your favorite video and go to town.</Typography>
-                <Button variant='contained' onClick={() => navigate('/videoSwap')} disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Video Swap</Button>           
+                <Button variant='contained' onClick={() => navigate('/videoSwap')} disableElevation sx={{fontWeight:600,backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Video Swap</Button>           
             </Box>
 
     </Box>

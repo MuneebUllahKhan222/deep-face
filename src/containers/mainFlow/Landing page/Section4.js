@@ -16,7 +16,7 @@ const Section4 = () => {
                     <img src={stick}  alt='stick' />
                 </Box>
                 <Typography fontSize={16} fontWeight={500}>Have a favorite GIF? Put your face on it and text it to your friends.</Typography>
-                <Button onClick={() => navigate('/gifSwap')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try GIF Swap</Button>           
+                <Button onClick={() => navigate('/gifSwap')} variant='contained' disableElevation sx={{fontWeight:600,backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try GIF Swap</Button>           
             </Box>
 
 

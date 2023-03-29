@@ -1,5 +1,5 @@
 import { Box, Button, Grid, LinearProgress, Paper, Typography, useMediaQuery } from '@mui/material'
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import Footer from '../../../components/general/Footer'
 import Header from '../../../components/general/Header'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -11,6 +11,8 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { DownloadForOffline } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
+import { useDispatch } from 'react-redux';
+import { gifUploader } from '../../../store/services/user';
 
 
 
@@ -20,23 +22,44 @@ const UploadGif = () => {
   const [baseImage, setbaseImage] = useState([]);
   const [apiCalled, setApiCalled] = useState(0);
   const navigate = useNavigate();
-  const user = getCookies('user')
+  const user = getCookies('user');
+  const [blobBase, setBlobBase] = useState();
+  const [blobInput, setBlobInput] = useState();
+  const dispatch = useDispatch();
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setInputImage(imageList);
+    fetch(imageList[0]['data_url'])
+.then(async(res )=> {
+  setBlobInput(await res.blob())
+})
   };
 
   const onChangeBaseImage = (imageList, addUpdateIndex) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setbaseImage(imageList);
+    fetch(imageList[0]['data_url'])
+      .then(async (res) => {
+        setBlobBase(await res.blob())
+      })
   };
 
-  const navigateTologin = (fn) => {
+  const sendRequest = async () => {
+    console.log('running')
+    const data = await dispatch(gifUploader(blobInput, blobBase, user?._id))
+    console.log(data, 'data of gif uploader')
+  }
+
+  const navigateTologin = () => {
     navigate('/signin')  
 }
+useEffect(() => {
+  console.log(blobBase, 'base')
+
+}, [blobBase])
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
   return (
@@ -56,10 +79,10 @@ const UploadGif = () => {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px', width: 'fit-content' }}>
               <Typography sx={{ fontSize: '20px', fontWeight: '700', background: 'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)', '-webkit-background-clip': 'text', ' -webkit-text-fill-color': 'transparent', }}>Try these</Typography>
-              <Box onClick={() => navigate('/videoSwap/upload')} sx={{ borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+              <Box onClick={() => navigate('/videoSwap/upload')} sx={{ cursor:'pointer',borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
                 <PlayArrowIcon sx={{ fontSize: '30px' }} />
               </Box>
-              <Box onClick={() => navigate('/imageSwap/upload')} sx={{ borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '20px', fontWeight: '600' }}>
+              <Box onClick={() => navigate('/imageSwap/upload')} sx={{cursor:'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '20px', fontWeight: '600' }}>
                 IMG
               </Box>
             </Box>
@@ -75,6 +98,8 @@ const UploadGif = () => {
                 onChange={onChangeBaseImage}
                 maxNumber={1}
                 dataURLKey="data_url"
+                acceptType={['gif']}
+                maxFileSize={'5000000'}
               >
                 {({
                   imageList,
@@ -84,8 +109,9 @@ const UploadGif = () => {
                   onImageRemove,
                   isDragging,
                   dragProps,
+                  errors
                 }) => (
-                  <Box sx={{width:'100%'}} onClick={baseImage.length === 0 ? (user ? onImageUpload : navigateTologin): null} {...dragProps} >
+                  <Box sx={{width:'100%',cursor:'pointer',}} onClick={baseImage.length === 0 ? (user ? onImageUpload : navigateTologin): null} {...dragProps} >
                     {baseImage.length === 0
                       ?
                       <Box pt={3} pb={3} sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center','@media(max-width:500px)':{ paddingLeft:'20px'}  }}>
@@ -105,6 +131,7 @@ const UploadGif = () => {
                               <Typography fontSize={13}>1 gif max count</Typography>
                               <Typography fontSize={13}>5mb gif size</Typography>
                             </Box>
+                            {errors?.maxFileSize && <Typography fontSize={13} sx={{color:'red'}}>Selected gif size more than 5 mb</Typography>}
                           </Box>
                         </Box>
                       </Box>
@@ -132,7 +159,9 @@ const UploadGif = () => {
                 onChange={onChangeInputImage}
                 maxNumber={1}
                 width={'100%'}
+                acceptType={['gif']}
                 dataURLKey="data_url"
+                maxFileSize={'5000000'}
               >
                 {({
                   imageList,
@@ -142,8 +171,9 @@ const UploadGif = () => {
                   onImageRemove,
                   isDragging,
                   dragProps,
+                  errors
                 }) => (
-                  <Box sx={{ width: '100%' }} onClick={baseImage.length === 0 ? (user ? onImageUpload : navigateTologin): null} {...dragProps} >
+                  <Box sx={{ width: '100%',cursor:'pointer', }} onClick={baseImage.length === 0 ? (user ? onImageUpload : navigateTologin): null} {...dragProps} >
                     {inputImage.length === 0
                       ?
                       <Box pt={3} pb={3}  sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center','@media(max-width:500px)':{ paddingLeft:'20px'} }}>
@@ -160,6 +190,7 @@ const UploadGif = () => {
                               <Typography fontSize={13}>1 GIF max count</Typography>
                               <Typography fontSize={13}>5mb GIF size</Typography>
                             </Box>
+                            {errors?.maxFileSize && <Typography fontSize={13} sx={{color:'red'}}>Selected gif size more than 5 mb</Typography>}
                           </Box>
                         </Box>
                       </Box>
@@ -187,7 +218,7 @@ const UploadGif = () => {
               {
                 apiCalled === 0
                   ?
-                  <Button onClick={user ? () => setApiCalled(prev => prev+1): navigateTologin} variant='contained' disableElevation sx={{ backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button onClick={user ?  () => sendRequest(): navigateTologin} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                   ?

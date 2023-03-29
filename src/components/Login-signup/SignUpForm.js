@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, FormControlLabel, InputAdornment,TextField,  } from '@mui/material'
+import { Box, Button, Checkbox, FormControlLabel, InputAdornment,TextField, Typography,  } from '@mui/material'
 import React, {  useState } from 'react'
 // import './Form.css'
 import PersonIcon from '@mui/icons-material/Person';
@@ -6,6 +6,10 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Controller, useForm } from "react-hook-form";
 import { validationSchema } from './Validation';
 import { yupResolver } from '@hookform/resolvers/yup';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -21,7 +25,9 @@ const SignupForm = ({onSubmit }) => {
   const { handleSubmit, formState: { errors }, control } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  const [check, setCheck] = useState(false)
+  const navigate = useNavigate();
+  const [check, setCheck] = useState(false);
+  const [showPassword, setshowPassword] = useState(false);
 
 
 
@@ -69,7 +75,7 @@ const SignupForm = ({onSubmit }) => {
                 sx={{ borderRadius: '15px', marginTop:'15px',height:'30px',display:'flex', alignItems:'center',width:'95%', padding:'20px 0px 20px 0px',backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', } }}
                 color={'warning'}
                 inputMode='password'
-                type='password'
+                type={showPassword ?'text' : 'password'}
                 variant='standard'
                 value={value}
                 error={errors.password ? true : false}
@@ -77,6 +83,7 @@ const SignupForm = ({onSubmit }) => {
                 placeholder='Password'
                 InputProps={{
                   startAdornment: <InputAdornment position="start" ><LockIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
+                  endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showPassword ? <VisibilityIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />: <VisibilityOffIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
                   disableUnderline: true, 
                 }}
               />
@@ -86,7 +93,8 @@ const SignupForm = ({onSubmit }) => {
           {errors.password ? errors.password.message : ''}
           </Box>
 
-          <Box mt={1} sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', flexDirection:'column' }}>
+          <Box mt={1} sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', flexDirection:'column',}}>
+          <Box sx={{display:'flex', justifyContent:'flex-start', alignItems:'center'}}>
           <FormControlLabel
               control={
                 <Controller
@@ -109,9 +117,11 @@ const SignupForm = ({onSubmit }) => {
                   // control={control}
                 />
               }
-              label={"I agree to Terms of service and Privacy Policy"}
+              // label={"I agree to Terms of service and Privacy Policy"}
 
             />
+            <Box>I agree to <Typography component={'span'} onClick={() => navigate('/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Terms of service</Typography> and <Typography component={'span'} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Privacy Policy</Typography></Box>
+            </Box>
           <Box sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
           {errors.terms ? errors.terms.message : ''}
           </Box>

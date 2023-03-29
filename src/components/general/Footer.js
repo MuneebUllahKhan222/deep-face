@@ -17,7 +17,7 @@ const Footer = ({ colorScheme }) => {
                             ?
                             <>
                                 <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
-                                    <EmailIcon />
+                                    <EmailIcon sx={{color:'white'}} />
                                 </Box>
                                 <Box mr={1} sx={{ height: '30px', width: '30px', backgroundColor: '#E9E9E9', borderRadius: '50px' }}>
 
@@ -52,13 +52,13 @@ const Footer = ({ colorScheme }) => {
                             ?
                             <>
                             <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
-                                <FacebookIcon />
+                                <FacebookIcon sx={{color:'white'}} />
                                 </Box>
                                 <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
-                                <LinkedInIcon/>
+                                <LinkedInIcon sx={{color:'white'}}/>
                                 </Box>
                                 <Box mr={1} p={0.3} sx={{ height: '30px', width: '30px', backgroundColor: '#282828', borderRadius: '50px', display:'flex', justifyContent:'center', alignItems:'center' }}>
-                                <TwitterIcon/>
+                                <TwitterIcon sx={{color:'white'}}/>
                                 </Box>
                             </>
                             :

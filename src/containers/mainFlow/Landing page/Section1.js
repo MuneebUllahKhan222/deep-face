@@ -28,7 +28,7 @@ const Section1 = () => {
                     <img src={stick}  alt='stick' />
                 </Box>
                 <Typography fontSize={15} fontWeight={500} sx={{color:'white'}}>Swapping a face out on an Image, Video or GIF is easy peasy!  Use our swapper below to get started.</Typography>
-                <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Swap it</Button>           
+                <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', fontWeight:600,'&:hover':{backgroundColor:'#FFD600'}}}>Try Swap it</Button>           
             </Box>
 
 

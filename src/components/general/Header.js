@@ -61,7 +61,7 @@ const Header = ({ colorScheme }) => {
 
                 <Box onClick={() => navigate('/')} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                     <img src={logo} alt='logo' />
-                    <Typography sx={colorScheme === 'light' ? { color: '#363636' } : { color: 'white' }}>Deep duck</Typography>
+                    <Typography fontWeight={550} sx={colorScheme === 'light' ? { color: '#363636' } : { color: 'white' }}>Deep duck</Typography>
                 </Box>
 
                 <Box sx={{ flexGrow: 1 }}></Box>

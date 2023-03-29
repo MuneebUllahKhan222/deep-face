@@ -18,7 +18,7 @@ const Signin = () => {
     const res = await dispatch(login(data))
     if (res.status === 200) {
       navigate('/')
-      enqueueSnackbar('Login Successful', {variant:'success', autoHideDuration:3000})
+      enqueueSnackbar('Login successful', {variant:'success', autoHideDuration:3000})
     }
   };
   return (
