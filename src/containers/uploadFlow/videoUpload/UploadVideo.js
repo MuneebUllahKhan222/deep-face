@@ -1,5 +1,5 @@
 import { Box, Button, Grid, LinearProgress, Paper, Typography, useMediaQuery } from '@mui/material'
-import React, {  useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../../../components/general/Footer'
 import Header from '../../../components/general/Header'
 import '../uploadFlow.css';
@@ -24,8 +24,10 @@ const UploadVideo = () => {
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
   const [result, setResult] = useState();
+  const [error, setError] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [disableButton, setDisableButton] = useState(true);
   const user = getCookies('user')
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
@@ -41,16 +43,22 @@ const UploadVideo = () => {
 
   };
 
+  useEffect(() => {
+    if (inputImage.length > 0 && baseVideo.length > 0) {
+      setDisableButton(false)
+    }
+  }, [inputImage, baseVideo])
+
   const navigateTologin = () => {
     navigate('/signin')
   }
   const createDocument = async () => {
     console.log('called')
-    const {_id} = await dispatch(createDoc(user?._id))
+    const { _id } = await dispatch(createDoc(user?._id))
     setApiCalled(1)
-    const data = await dispatch(videoUploader(blobInput, blobBase, user?._id,_id))
+    const data = await dispatch(videoUploader(blobInput, blobBase, user?._id, _id))
     console.log(data, 'data of image uploader')
-    const {result} = await dispatch(getImage(_id))
+    const { result } = await dispatch(getImage(_id))
     setResult(result)
     setApiCalled(2)
     return data
@@ -89,14 +97,24 @@ const UploadVideo = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px', width: '100%' }}>
               {baseVideo.length === 0
                 ?
-                <Dropzone maxFiles={1} maxSize={1000000} accept={{ "video/*": [".mp4"] }} 
-                onDrop={acceptedFiles => {
-                  setbaseVideo(URL.createObjectURL(...acceptedFiles))
-                  fetch(URL.createObjectURL(...acceptedFiles))
-                  .then(async (res) => {
-                    setBlobBase(await res.blob())
-                  })
-                }}>
+                <Dropzone maxFiles={1} maxSize={1000000} accept={{ "video/*": [".mp4"] }}
+                  onDrop={(acceptedFiles, fileRejections )=> {
+                    fileRejections.forEach((file) => {
+        file.errors.forEach((err) => {
+          if (err.code === "file-too-large") {
+            setError(`Error: ${err.message}`);
+          }
+
+          if (err.code === "file-invalid-type") {
+            setError(`Error: ${err.message}`);
+          }
+        })})
+                    setbaseVideo(URL.createObjectURL(...acceptedFiles))
+                    fetch(URL.createObjectURL(...acceptedFiles))
+                      .then(async (res) => {
+                        setBlobBase(await res.blob())
+                      })
+                  }}>
                   {({ getRootProps, getInputProps }) => (
                     <section style={{ height: '100%' }}>
                       <Box sx={{ width: '100%', cursor: 'pointer' }} {...getRootProps()}>
@@ -117,6 +135,7 @@ const UploadVideo = () => {
                                 <Typography fontSize={13}>1 Video max count</Typography>
                                 <Typography fontSize={13}>10mb Video size</Typography>
                               </Box>
+                              {error && <Typography fontSize={13} sx={{ color: 'red' }}>{error}</Typography>}
                             </Box>
                           </Box>
                         </Box>
@@ -127,7 +146,18 @@ const UploadVideo = () => {
                 </Dropzone>
                 :
                 <Box pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
-                  <Box ml={3} component={'video'}  sx={{ height: '95%', width: '35%' }}><source src={baseVideo} width='100%' height='100%' /></Box>
+                  {/* <Box ml={3} component={'video'}  sx={{ height: '95%', width: '35%' }}><source src={baseVideo} width='100%' height='100%' /></Box> */}
+                  <video
+                    // onTimeUpdate={handleProgress}
+                    // ref={videoRef}
+                    width="35%"
+                    height="95%"
+                    autoPlay={true}
+                    loop={true}
+                    // controls={true}
+                  >
+                    <source src={baseVideo} type="video/mp4" />
+                  </video>
                   <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between' }}>
                     <Typography fontSize={15} fontWeight={600}>Base Video <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
                     <Box sx={{ width: '100px', height: '38px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white' }}>
@@ -137,8 +167,8 @@ const UploadVideo = () => {
                   </Box>
                 </Box>
               }
-              
-              
+
+
               <ImageUploading
                 multiple
                 value={inputImage}
@@ -146,7 +176,7 @@ const UploadVideo = () => {
                 maxNumber={1}
                 width={'100%'}
                 dataURLKey="data_url"
-                acceptType={['jpg', 'png']}
+                acceptType={['jpg', 'png', 'jpeg', 'svg', 'avi']}
                 maxFileSize={'5000000'}
               >
                 {({
@@ -177,6 +207,7 @@ const UploadVideo = () => {
                               <Typography fontSize={13}>5mb image size</Typography>
                             </Box>
                             {errors?.maxFileSize && <Typography fontSize={13} sx={{ color: 'red' }}>Selected image size more than 5 mb</Typography>}
+                            {errors?.acceptType && <Typography fontSize={13} sx={{ color: 'red' }}>Your selected file type is not allow</Typography>}
                           </Box>
                         </Box>
                       </Box>
@@ -205,7 +236,7 @@ const UploadVideo = () => {
               {
                 apiCalled === 0
                   ?
-                  <Button onClick={user ? createDocument : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button disabled={disableButton} onClick={user ? createDocument : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                     ?
@@ -215,7 +246,20 @@ const UploadVideo = () => {
                     </>
                     :
                     <>
-                      <Box component={'img'} src={result} sx={{ height: '80%', width: '40%', border: '2px solid #FFD600', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} />
+                    <Box  sx={{ height: '80%', width: '40%', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} >
+                    <video
+                    // onTimeUpdate={handleProgress}
+                    // ref={videoRef}
+                    width="100%"
+                    height="100%"
+                    autoPlay={true}
+                    loop={true}
+                    // controls={true}
+                  >
+                    <source src={result} type="video/mp4" />
+                  </video>
+                      {/* <Box component={'img'} src={result} sx={{ height: '80%', width: '40%', border: '2px solid #FFD600', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} /> */}
+                    </Box>
                     </>
               }
 
@@ -232,7 +276,7 @@ const UploadVideo = () => {
         }
       </Paper>
 
-      <Box mb={15} mt={15} sx={{ width: '60%' }}>
+      <Box mb={15} mt={15} sx={{ width: '80%' }}>
         <Footer colorScheme={'light'} />
       </Box>
 

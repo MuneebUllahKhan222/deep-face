@@ -15,7 +15,6 @@ export const getCookies = (key) => {
 
 
 export const setCookies = (key, value, options) => {
-    console.log(key, value,'cookies');
     const cookie = cookies.get(key);
     const expiryDate= cookie?.expiryDate
     // delete value['expiryDate']

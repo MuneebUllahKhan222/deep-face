@@ -9,7 +9,7 @@ const Section1 = () => {
     <Box className={'section-1-video'} sx={{ height: '100vh', display:'flex', flexDirection:'column',justifyContent:'space-between',backgroundColor: 'black', '@media(max-width:800px)': { height: '70vh' } }}>
       <Box sx={{height:'10%'}}>
 
-      <Header />
+      <Header colorScheme={'video'} />
       </Box>
       <Box sx={{ display: 'flex', height: '90%', flexDirection: 'column', alignItems: 'center', padding: '0px 40px 60px 40px' }}>
         <Box sx={{ height: '100%', display: 'flex', justifyContent: 'space-around', alignItems: 'center', '@media(max-width:800px)': { flexDirection: 'column-reverse' } }}>

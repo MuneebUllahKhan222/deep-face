@@ -83,7 +83,7 @@ const SignupForm = ({onSubmit }) => {
                 placeholder='Password'
                 InputProps={{
                   startAdornment: <InputAdornment position="start" ><LockIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
-                  endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showPassword ? <VisibilityIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />: <VisibilityOffIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
+                  endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showPassword ? <VisibilityIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginRight:'10px'  }} />: <VisibilityOffIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
                   disableUnderline: true, 
                 }}
               />
@@ -120,7 +120,7 @@ const SignupForm = ({onSubmit }) => {
               // label={"I agree to Terms of service and Privacy Policy"}
 
             />
-            <Box>I agree to <Typography component={'span'} onClick={() => navigate('/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Terms of service</Typography> and <Typography component={'span'} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Privacy Policy</Typography></Box>
+            <Box>I agree to <Typography component={'span'} onClick={() => navigate('/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Terms of service</Typography> and <Typography component={'span'}  onClick={() => navigate('/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Privacy Policy</Typography></Box>
             </Box>
           <Box sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
           {errors.terms ? errors.terms.message : ''}
@@ -130,9 +130,11 @@ const SignupForm = ({onSubmit }) => {
           <Button onClick={handleSubmit(onSubmit)} variant='contained' fullWidth sx={{ height: '65px', marginTop:'15px',borderRadius: '15px', backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }}>
             Sign up
           </Button>
+          {/* <Box  fontSize={14} sx={{ '&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Signup</Box> */}
 
 
         </Box>
+        <Box fontSize={14} onClick={() => navigate('/signin')} sx={{ color:'white',marginTop:'5px','&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Login</Box>
       </form>
       
 

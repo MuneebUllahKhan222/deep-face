@@ -26,6 +26,7 @@ const UploadGif = () => {
   const user = getCookies('user');
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
+  const [disableButton, setDisableButton] = useState(true);
   const dispatch = useDispatch();
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
@@ -37,6 +38,7 @@ const UploadGif = () => {
   setBlobInput(await res.blob())
 })
   };
+  console.log(inputImage, inputImage.length, 'length')
 
   const onChangeBaseImage = (imageList, addUpdateIndex) => {
     // data for submit
@@ -69,9 +71,10 @@ const UploadGif = () => {
     navigate('/signin')  
 }
 useEffect(() => {
-  console.log(blobBase, 'base')
-
-}, [blobBase])
+  if (inputImage.length > 0 && baseImage.length > 0) {
+    setDisableButton(false)
+  }
+}, [inputImage, baseImage])
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
   return (
@@ -144,6 +147,7 @@ useEffect(() => {
                               <Typography fontSize={13}>5mb GIF size</Typography>
                             </Box>
                             {errors?.maxFileSize && <Typography fontSize={13} sx={{color:'red'}}>Selected gif size more than 5 mb</Typography>}
+                            {errors?.acceptType && <Typography fontSize={13} sx={{ color: 'red' }}>Your selected file type is not allow</Typography>}
                           </Box>
                         </Box>
                       </Box>
@@ -171,7 +175,7 @@ useEffect(() => {
                 onChange={onChangeInputImage}
                 maxNumber={1}
                 width={'100%'}
-                acceptType={['jpg', 'png']}
+                acceptType={['jpg', 'png', 'jpeg', 'svg', 'avi']}
                 dataURLKey="data_url"
                 maxFileSize={'5000000'}
               >
@@ -185,7 +189,7 @@ useEffect(() => {
                   dragProps,
                   errors
                 }) => (
-                  <Box sx={{ width: '100%',cursor:'pointer', }} onClick={baseImage.length === 0 ? (user ? onImageUpload : navigateTologin): null} {...dragProps} >
+                  <Box sx={{ width: '100%',cursor:'pointer', }} onClick={inputImage.length === 0 ? (user ? onImageUpload : navigateTologin): null} {...dragProps} >
                     {inputImage.length === 0
                       ?
                       <Box pt={3} pb={3}  sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center','@media(max-width:500px)':{ paddingLeft:'20px'} }}>
@@ -202,6 +206,7 @@ useEffect(() => {
                               <Typography fontSize={13}>1 IMG max count</Typography>
                               <Typography fontSize={13}>5mb IMG size</Typography>
                             </Box>
+                            {errors?.acceptType && <Typography fontSize={13} sx={{ color: 'red' }}>Your selected file type is not allow</Typography>}
                             {errors?.maxFileSize && <Typography fontSize={13} sx={{color:'red'}}>Selected gif size more than 5 mb</Typography>}
                           </Box>
                         </Box>
@@ -230,7 +235,7 @@ useEffect(() => {
               {
                 apiCalled === 0
                   ?
-                  <Button onClick={user ? () => createDocument(): navigateTologin} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button disabled={disableButton} onClick={user ? () => createDocument(): navigateTologin} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                   ?
@@ -256,7 +261,7 @@ useEffect(() => {
               }
       </Paper>
 
-      <Box mb={15} mt={15} sx={{ width: '60%' }}>
+      <Box mb={15} mt={15} sx={{ width: '80%' }}>
         <Footer colorScheme={'light'} />
       </Box>
 

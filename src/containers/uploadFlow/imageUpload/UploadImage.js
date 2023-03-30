@@ -1,5 +1,5 @@
 import { Box, Button, Grid, LinearProgress, Paper, Typography, useMediaQuery } from '@mui/material'
-import React, {  useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import Footer from '../../../components/general/Footer'
 import Header from '../../../components/general/Header'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -23,6 +23,7 @@ const UploadImage = () => {
   const [apiCalled, setApiCalled] = useState(0);
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
+  const [disableButton, setDisableButton] = useState(true);
   const [result, setResult] = useState();
 
   const dispatch = useDispatch();
@@ -56,19 +57,16 @@ const UploadImage = () => {
   }
 
 
-  // const sendRequest = async () => {
-
-  //   // const data = await dispatch(imageUploader(blobInput, blobBase, user?._id))
-  //   // console.log(data, 'data of image uploader')
-  //   const {result} = await dispatch(getImage('6422d0bc0c3c0ac6509b05f2'))
-  //   console.log(result, 'result of image fetch')
-  //   setResult(result)
-  // }
+  useEffect(() => {
+    if (inputImage.length > 0 && baseImage.length > 0) {
+      setDisableButton(false)
+    }
+  }, [inputImage, baseImage])
 
   const createDocument = async () => {
     console.log('called')
-    const {_id} = await dispatch(createDoc(user?._id))
     setApiCalled(1)
+    const {_id} = await dispatch(createDoc(user?._id))  
     const data = await dispatch(imageUploader(blobInput, blobBase, user?._id,_id))
     console.log(data, 'data of image uploader')
     const {result} = await dispatch(getImage(_id))
@@ -113,7 +111,7 @@ const UploadImage = () => {
                 value={baseImage}
                 onChange={onChangeBaseImage}
                 maxNumber={1}
-                acceptType={['jpg', 'png']}
+                acceptType={['jpg', 'png', 'jpeg','svg', 'avi']}
                 dataURLKey="data_url"
                 maxFileSize={'5000000'}
               >
@@ -148,7 +146,7 @@ const UploadImage = () => {
                               <Typography fontSize={13}>5mb image size</Typography>
                             </Box>
                             {errors?.maxFileSize && <Typography fontSize={13} sx={{ color: 'red' }}>Selected image size more than 5 mb</Typography>}
-                            {errors?.acceptType && <span>Your selected file type is not allow</span>}
+                            {errors?.acceptType && <Typography fontSize={13} sx={{ color: 'red' }}>Your selected file type is not allow</Typography>}
                           </Box>
                         </Box>
                       </Box>
@@ -177,7 +175,7 @@ const UploadImage = () => {
                 maxNumber={1}
                 width={'100%'}
                 dataURLKey="data_url"
-                acceptType={['jpg', 'png']}
+                acceptType={['jpg', 'png', 'jpeg','svg', 'avi']}
                 maxFileSize={'5000000'}
               >
                 {({
@@ -208,6 +206,7 @@ const UploadImage = () => {
                               <Typography fontSize={13}>5mb image size</Typography>
                             </Box>
                             {errors?.maxFileSize && <Typography fontSize={13} sx={{ color: 'red' }}>Selected image size more than 5 mb</Typography>}
+                            {errors?.acceptType && <Typography fontSize={13} sx={{ color: 'red' }}>Your selected file type is not allow</Typography>}
                           </Box>
                         </Box>
                       </Box>
@@ -235,7 +234,7 @@ const UploadImage = () => {
               {
                 apiCalled === 0
                   ?
-                  <Button onClick={user ? () => createDocument() : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button disabled={disableButton} onClick={user ? () => createDocument() : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                     ?
@@ -276,7 +275,7 @@ const UploadImage = () => {
         }
       </Paper>
 
-      <Box mb={15} mt={15} sx={{ width: '60%' }}>
+      <Box mb={15} mt={15} sx={{ width: '80%' }}>
         <Footer colorScheme={'light'} />
       </Box>
 

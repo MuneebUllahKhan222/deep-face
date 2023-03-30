@@ -40,7 +40,7 @@ const GalleryTabsandContent = () => {
                 {
                     value === 0 && images.length === 0
                     ?
-                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
                         <Box mb={3} component={'img'} src={NoContent}></Box>
                         <Typography sx={{ color: '#6E6E6E', fontSize: '14px' }}>No media yet</Typography>
@@ -48,7 +48,7 @@ const GalleryTabsandContent = () => {
                     :
                     value === 0 && images.length !== 0
                     ?
-                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
                         
                     </Box>
@@ -60,7 +60,7 @@ const GalleryTabsandContent = () => {
                 {
                     value === 1 && gif.length === 0
                     ?
-                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
                         <Box mb={3} component={'img'} src={NoContent}></Box>
                         <Typography sx={{ color: '#6E6E6E', fontSize: '14px' }}>No media yet</Typography>
@@ -68,7 +68,7 @@ const GalleryTabsandContent = () => {
                     :
                     value === 1 && gif.length !== 0
                     ?
-                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
                         
                     </Box>
@@ -79,7 +79,7 @@ const GalleryTabsandContent = () => {
                 {
                     value === 2 && videos.length === 0
                     ?
-                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
                         <Box mb={3} component={'img'} src={NoContent}></Box>
                         <Typography sx={{ color: '#6E6E6E', fontSize: '14px' }}>No media yet</Typography>
@@ -87,7 +87,7 @@ const GalleryTabsandContent = () => {
                     :
                     value === 2 && videos.length !== 0
                     ?
-                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
                         
                     </Box>

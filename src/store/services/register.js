@@ -33,13 +33,15 @@ export const login = (info) => async (dispatch) => {
       password
     }
     const response = await axios.post(`${basePath}/auth/login`, data)
+    if (response?.data?.status === 200) {
     setCookies('user',response?.data?.data, {
       path:'/'
-    })
-    dispatch(setUserData(response?.data?.data))
-    
-    dispatch(setRegisterUserEmail(response?.data?.data));
+    })  
+      dispatch(setUserData(response?.data?.data)) 
+    dispatch(setRegisterUserEmail(response?.data?.data)); 
+    }
     return response?.data
+    
   } catch (err) {
     return {
       error: err,
