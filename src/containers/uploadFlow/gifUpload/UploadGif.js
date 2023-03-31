@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, gifUploader } from '../../../store/services/user';
+import { useSnackbar } from 'notistack';
 
 
 
@@ -28,6 +29,7 @@ const UploadGif = () => {
   const [blobInput, setBlobInput] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
     // data for submit
@@ -51,12 +53,16 @@ const UploadGif = () => {
   };
 
   const createDocument = async () => {
-    console.log('called')
-    const {_id} = await dispatch(createDoc(user?._id))
     setApiCalled(1)
-    const data = await dispatch(gifUploader(blobInput, blobBase, user?._id,_id))
+    const token = await dispatch(createDoc(user?._id))
+    if (!token) {
+      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+      setApiCalled(0)
+      return
+    } 
+    const data = await dispatch(gifUploader(blobInput, blobBase, token))
     console.log(data, 'data of image uploader')
-    const {result} = await dispatch(getImage(_id))
+    const {result} = await dispatch(getImage(token))
     setResult(result)
     setApiCalled(2)
   }

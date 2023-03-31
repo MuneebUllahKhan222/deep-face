@@ -13,6 +13,7 @@ import Dropzone from 'react-dropzone'
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, videoUploader } from '../../../store/services/user';
 import ImageUploading from 'react-images-uploading';
+import { useSnackbar } from 'notistack';
 
 
 
@@ -29,7 +30,7 @@ const UploadVideo = () => {
   const dispatch = useDispatch();
   const [disableButton, setDisableButton] = useState(true);
   const user = getCookies('user')
-
+  const { enqueueSnackbar } = useSnackbar();
   const matches900pxw = useMediaQuery('(max-width:900px)')
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
@@ -53,12 +54,17 @@ const UploadVideo = () => {
     navigate('/signin')
   }
   const createDocument = async () => {
-    console.log('called')
-    const { _id } = await dispatch(createDoc(user?._id))
     setApiCalled(1)
-    const data = await dispatch(videoUploader(blobInput, blobBase, user?._id, _id))
+    const token = await dispatch(createDoc(user?._id))
+    if (!token) {
+      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+      setApiCalled(0)
+      return
+    }
+    
+    const data = await dispatch(videoUploader(blobInput, blobBase, token))
     console.log(data, 'data of image uploader')
-    const { result } = await dispatch(getImage(_id))
+    const { result } = await dispatch(getImage(token))
     setResult(result)
     setApiCalled(2)
     return data
@@ -98,17 +104,18 @@ const UploadVideo = () => {
               {baseVideo.length === 0
                 ?
                 <Dropzone maxFiles={1} maxSize={1000000} accept={{ "video/*": [".mp4"] }}
-                  onDrop={(acceptedFiles, fileRejections )=> {
+                  onDrop={(acceptedFiles, fileRejections) => {
                     fileRejections.forEach((file) => {
-        file.errors.forEach((err) => {
-          if (err.code === "file-too-large") {
-            setError(`Error: ${err.message}`);
-          }
+                      file.errors.forEach((err) => {
+                        if (err.code === "file-too-large") {
+                          setError(`Error: ${err.message}`);
+                        }
 
-          if (err.code === "file-invalid-type") {
-            setError(`Error: ${err.message}`);
-          }
-        })})
+                        if (err.code === "file-invalid-type") {
+                          setError(`Error: ${err.message}`);
+                        }
+                      })
+                    })
                     setbaseVideo(URL.createObjectURL(...acceptedFiles))
                     fetch(URL.createObjectURL(...acceptedFiles))
                       .then(async (res) => {
@@ -130,7 +137,7 @@ const UploadVideo = () => {
                                 Step 1
                               </Box>
                               <Typography sx={{ fontSize: { sm: '20px', xs: '17px' }, fontWeight: '700' }} ><strong>Click</strong>  or <strong>Drag</strong></Typography>
-                              <Typography fontSize={20}>To upload a <strong>base video</strong></Typography>                              <Typography fontSize={13}><strong>File requirement</strong></Typography>
+                              <Typography fontSize={20}>To upload a <strong>base video</strong></Typography><Typography fontSize={13}><strong>File requirement</strong></Typography>
                               <Box sx={{ display: 'flex', columnGap: '20px' }}>
                                 <Typography fontSize={13}>1 Video max count</Typography>
                                 <Typography fontSize={13}>10mb Video size</Typography>
@@ -154,7 +161,7 @@ const UploadVideo = () => {
                     height="95%"
                     autoPlay={true}
                     loop={true}
-                    // controls={true}
+                  // controls={true}
                   >
                     <source src={baseVideo} type="video/mp4" />
                   </video>
@@ -246,20 +253,20 @@ const UploadVideo = () => {
                     </>
                     :
                     <>
-                    <Box  sx={{ height: '80%', width: '40%', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} >
-                    <video
-                    // onTimeUpdate={handleProgress}
-                    // ref={videoRef}
-                    width="100%"
-                    height="100%"
-                    autoPlay={true}
-                    loop={true}
-                    // controls={true}
-                  >
-                    <source src={result} type="video/mp4" />
-                  </video>
-                      {/* <Box component={'img'} src={result} sx={{ height: '80%', width: '40%', border: '2px solid #FFD600', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} /> */}
-                    </Box>
+                      <Box sx={{ height: '80%', width: '40%', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} >
+                        <video
+                          // onTimeUpdate={handleProgress}
+                          // ref={videoRef}
+                          width="100%"
+                          height="100%"
+                          autoPlay={true}
+                          loop={true}
+                        // controls={true}
+                        >
+                          <source src={result} type="video/mp4" />
+                        </video>
+                        {/* <Box component={'img'} src={result} sx={{ height: '80%', width: '40%', border: '2px solid #FFD600', borderRadius: '30px', '@media(max-width:600px)': { width: '60%' } }} /> */}
+                      </Box>
                     </>
               }
 

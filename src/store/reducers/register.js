@@ -17,11 +17,19 @@ export const registerSlice = createSlice({
       }
       
     },
+    setOTPEmail: (state, action) => {
+      const { payload } = action;
+      console.log('in reducer', action)
+      if (payload) {
+        state.email = payload.email;
+      }
+      
+    },
  
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setRegisterUserEmail } = registerSlice.actions;
+export const { setRegisterUserEmail, setOTPEmail } = registerSlice.actions;
 
 export default registerSlice.reducer;

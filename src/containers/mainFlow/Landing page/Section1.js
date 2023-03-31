@@ -20,11 +20,11 @@ const Section1 = () => {
     <Header />
     </Box>
         <Box className='section-1'  sx={{display:'flex', height:'90%',flexDirection:'column', alignItems:'center',  justifyContent:'center', '@media(max-width:800px)':{padding:'20px 30px 0px 30px'}}}>
-        <Box sx={{height:'fit-content', display:'flex', justifyContent:'space-between', '@media(max-width:1200px)':{width:'80%'},alignItems:'center','@media(max-width:800px)':{flexDirection:'column-reverse', width:'100%'}}}>
+        <Box sx={{height:'fit-content', display:'flex', justifyContent:'space-between', '@media(max-width:1200px)':{width:'80%'},alignItems:'center','@media(max-width:800px)':{flexDirection:'column', width:'100%'}}}>
 
             <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
-                <Box sx={{ display:'flex', alignItems:'center'}}>
-                    <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>Swap It!</Typography>
+                <Box sx={{ display:'flex', alignItems:'center', '@media(max-width:800px)':{justifyContent:'center'}}}>
+                    <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px',}}}>Swap It!</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
                 <Typography fontSize={15} fontWeight={500} sx={{color:'white'}}>Swapping a face out on an Image, Video or GIF is easy peasy!  Use our swapper below to get started.</Typography>
