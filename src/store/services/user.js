@@ -7,7 +7,7 @@ import { getCookies } from "../../utils";
 // const basePath = "http://localhost:3002"
 // const basePath = 'http://164.90.160.58:3002'
 const baseAiPath = "http://deepduck.ai/backend"
-const basePath = 'http://deepduck.ai/web-backend
+const basePath = 'http://deepduck.ai/web-backend'
 
 
 
