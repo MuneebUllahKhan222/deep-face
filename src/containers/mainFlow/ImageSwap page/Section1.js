@@ -11,18 +11,18 @@ const Section1 = () => {
     <Header colorScheme={'light'} />
     </Box>
         <Box pt={7} pb={5} sx={{display:'flex', flexDirection:'column', alignItems:'center', height:'90%', justifyContent:'center'}}>
-        <Box  sx={{height:'fit-content', display:'flex', justifyContent:'space-around', alignItems:'center','@media(max-width:800px)':{flexDirection:'column-reverse'}}}>
+        <Box  sx={{height:'fit-content', display:'flex', justifyContent:'space-around', alignItems:'center','@media(max-width:800px)':{flexDirection:'column'}}}>
 
-            <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
+            <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%', alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
                 <Box sx={{ display:'flex', alignItems:'center'}}>
-                    <Typography fontWeight={600} sx={{color:'#1A1A1A',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>H1 heading</Typography>
+                    <Typography fontWeight={600} sx={{color:'#1A1A1A',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>Image Face Swap</Typography>
                 </Box>
-                <Typography fontSize={14} fontWeight={500} sx={{color:'#1A1A1A'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed purus rutrum, malesuada risus vel, gravida orci. Sed lacinia aliquam dolor, non sodales est faucibus vel. Praesent arcu tortor, porta quis lorem et, dapibus dapibus neque.</Typography>
+                <Typography fontSize={14} fontWeight={500} sx={{color:'#1A1A1A','@media(max-width:800px)':{textAlign:'center'}}} > You’re joking? you’re joking? I can’t believe my eyes! Deep Duck offers 99.9% accuracy on all face swaps.</Typography>
                 <CustomButton navigateTo={'./upload'} style={{marginTop:'25px', width:'fit-content'}} text={'Try Swap it'}/>
             </Box>
 
 
-            <Box sx={{width:'35%','@media(max-width:800px)':{width:'40%'}, '@media(max-width:600px)':{width:'50%'}, '@media(max-width:450px)':{width:'60%'}}}>
+            <Box sx={{width:'35%','@media(max-width:800px)':{width:'40%', marginTop:'30px'}, '@media(max-width:600px)':{width:'50%'}, '@media(max-width:450px)':{width:'80%'}}}>
                 <img src={before} alt={'before and after'} width={'100%'} />
             </Box>
 

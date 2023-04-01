@@ -120,7 +120,7 @@ useEffect(() => {
                 maxNumber={1}
                 dataURLKey="data_url"
                 acceptType={['gif']}
-                maxFileSize={'5000000'}
+                maxFileSize={'5300000'}
               >
                 {({
                   imageList,
@@ -183,7 +183,7 @@ useEffect(() => {
                 width={'100%'}
                 acceptType={['jpg', 'png', 'jpeg', 'svg', 'avi']}
                 dataURLKey="data_url"
-                maxFileSize={'5000000'}
+                maxFileSize={'5300000'}
               >
                 {({
                   imageList,

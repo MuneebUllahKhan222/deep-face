@@ -72,7 +72,7 @@ const SignupForm = ({onSubmit }) => {
             render={({ field: { onChange, value } }) => (
               <TextField
                 fullWidth
-                sx={{ borderRadius: '15px', marginTop:'15px',height:'30px',display:'flex', alignItems:'center',width:'95%', padding:'20px 0px 20px 0px',backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', } }}
+                sx={{ borderRadius: '15px', marginTop:'15px',height:'30px',display:'flex', alignItems:'center',width:'95%', padding:'20px 0px 20px 0px',backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', userSelect:'none' } }}
                 color={'warning'}
                 inputMode='password'
                 type={showPassword ?'text' : 'password'}

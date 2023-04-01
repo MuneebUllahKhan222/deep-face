@@ -22,8 +22,8 @@ const Section1 = () => {
         <Box className='section-1'  sx={{display:'flex', height:'90%',flexDirection:'column', alignItems:'center',  justifyContent:'center', '@media(max-width:800px)':{padding:'20px 30px 0px 30px'}}}>
         <Box sx={{height:'fit-content', display:'flex', justifyContent:'space-between', '@media(max-width:1200px)':{width:'80%'},alignItems:'center','@media(max-width:800px)':{flexDirection:'column', width:'100%'}}}>
 
-            <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
-                <Box sx={{ display:'flex', alignItems:'center', '@media(max-width:800px)':{justifyContent:'center'}}}>
+            <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%', alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
+                <Box sx={{ display:'flex', alignItems:'center', '@media(max-width:800px)':{justifyContent:'center', marginTop:'30px'}}}>
                     <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px',}}}>Swap It!</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
@@ -32,7 +32,7 @@ const Section1 = () => {
             </Box>
 
 
-            <Box sx={{width:'27%','@media(max-width:800px)':{width:'40%'}, '@media(max-width:600px)':{width:'50%'}, '@media(max-width:450px)':{width:'60%'}}}>
+            <Box sx={{width:'27%','@media(max-width:800px)':{width:'40%', marginTop:'30px'}, '@media(max-width:600px)':{width:'50%'}, '@media(max-width:450px)':{width:'60%'}}}>
                 <img src={heading} alt={'imageSwap'} width={'100%'} />
             </Box>
 

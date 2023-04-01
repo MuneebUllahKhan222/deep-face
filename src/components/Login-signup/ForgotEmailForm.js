@@ -2,11 +2,9 @@ import { Box, Button, InputAdornment,TextField,  } from '@mui/material'
 import React from 'react'
 import PersonIcon from '@mui/icons-material/Person';
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
-import { loginValidationSchema, sendOTPOnEmailValidationSchema, } from './Validation';
+import {  sendOTPOnEmailValidationSchema, } from './Validation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
-import { sendOTP } from '../../store/services/register';
+
 
 
 
@@ -22,7 +20,6 @@ const ForgotEmailForm = ({onSubmit}) => {
     const { handleSubmit, formState: { errors }, control } = useForm({
         resolver: yupResolver(sendOTPOnEmailValidationSchema),
       });
-      const dispatch = useDispatch();
 
     //   const onSubmitter = async (data) => {
     //     const res = await dispatch(sendOTP(data))
@@ -59,7 +56,7 @@ const ForgotEmailForm = ({onSubmit}) => {
                 error={errors.email ? true : false}
                 // helperText={errors.email ? errors.email.message : ''}
                 onChange={onChange}
-                placeholder='Email'
+                placeholder='Enter your email'
                 InputProps={{
                   startAdornment: <InputAdornment position="start" ><PersonIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
                   disableUnderline: true, 
@@ -68,7 +65,7 @@ const ForgotEmailForm = ({onSubmit}) => {
             )}
           />
           <Box ml={2} mb={0} sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
-          {errors.email ? errors.email.message : ''}
+          {errors.forgetEmail ? errors.forgetEmail.message : ''}
           </Box>
             <Button 
             onClick={handleSubmit(onSubmit)} variant='contained' fullWidth sx={{ fontWeight:600,height: '65px', marginTop:'15px',borderRadius: '15px', backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }}>Send OTP </Button>

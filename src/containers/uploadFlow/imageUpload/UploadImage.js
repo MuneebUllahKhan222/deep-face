@@ -122,7 +122,7 @@ const UploadImage = () => {
                 maxNumber={1}
                 acceptType={['jpg', 'png', 'jpeg','svg', 'avi']}
                 dataURLKey="data_url"
-                maxFileSize={'5000000'}
+                maxFileSize={'5300000'}
               >
                 {({
                   imageList,
@@ -185,7 +185,7 @@ const UploadImage = () => {
                 width={'100%'}
                 dataURLKey="data_url"
                 acceptType={['jpg', 'png', 'jpeg','svg', 'avi']}
-                maxFileSize={'5000000'}
+                maxFileSize={'5300000'}
               >
                 {({
                   imageList,

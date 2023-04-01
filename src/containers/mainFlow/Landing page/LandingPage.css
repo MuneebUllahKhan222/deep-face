@@ -3,3 +3,13 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+
+
+
+@media screen and (max-width: 800px) {
+    .section-1{
+        background-image: url('../../../assets/images/stride-small.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+}

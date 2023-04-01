@@ -103,7 +103,7 @@ const UploadVideo = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px', width: '100%' }}>
               {baseVideo.length === 0
                 ?
-                <Dropzone maxFiles={1} maxSize={1000000} accept={{ "video/*": [".mp4"] }}
+                <Dropzone maxFiles={1} maxSize={10000000} accept={{ "video/*": [".mp4"] }}
                   onDrop={(acceptedFiles, fileRejections) => {
                     fileRejections.forEach((file) => {
                       file.errors.forEach((err) => {
@@ -184,7 +184,7 @@ const UploadVideo = () => {
                 width={'100%'}
                 dataURLKey="data_url"
                 acceptType={['jpg', 'png', 'jpeg', 'svg', 'avi']}
-                maxFileSize={'5000000'}
+                maxFileSize={'5300000'}
               >
                 {({
                   imageList,

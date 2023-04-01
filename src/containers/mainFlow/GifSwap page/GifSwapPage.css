@@ -3,3 +3,10 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+
+
+@media screen and (max-width: 800px) {
+    .section1-gif{
+        background-image: none;
+    }
+}

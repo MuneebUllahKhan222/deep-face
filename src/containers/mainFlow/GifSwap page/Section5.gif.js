@@ -18,7 +18,7 @@ const Section5 = () => {
                     </Typography>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-around', width:'80%',flexWrap: 'wrap', columnGap: '15px', rowGap: '15px', '@media(max-width:650px)':{width:'85%'}, '@media(max-width:450px)':{flexDirection:'column', alignItems:'center'} }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30%', '@media(max-width:650px)':{width:'45%'} }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30%', '@media(max-width:650px)':{width:'65%'} }}>
                             <img src={pic} alt='play' width={matches650px ?'100px': matches450px ? '100%' : '130px'} />
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, marginTop: '20px', textAlign:'center' }}>
                                 Swap Face on Image
@@ -30,7 +30,7 @@ const Section5 = () => {
 
                         </Box>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30%',textAlign:'center', '@media(max-width:650px)':{width:'45%'} }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30%',textAlign:'center', '@media(max-width:650px)':{width:'65%'} }}>
                             <img src={play} alt='play' width={matches650px ?'100px': '130px'} />
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, marginTop: '20px', textAlign:'center' }}>
                                 Swap Face on Video

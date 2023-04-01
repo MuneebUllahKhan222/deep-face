@@ -21,7 +21,7 @@ const TabsandContent = () => {
   return (
     <Box >
       <Tabs value={value} onChange={handleChange} textColor='warning' TabIndicatorProps={{style: {backgroundColor: "transparent",textColor:'white'} }} >
-        <Tab label="Terms of service" sx={{ borderRadius:'333px', ...styleTerms }} />
+        <Tab label="Terms of services" sx={{ borderRadius:'333px', ...styleTerms }} />
         <Tab label="Privacy policy" sx={{ borderRadius:'333px', ...stylePrivacy, }} />
       </Tabs>
       <Box mt={2} sx={{ height: 'fit-content', width: '100%', backgroundColor: '#1F1F1F', borderRadius: '20px' }}>

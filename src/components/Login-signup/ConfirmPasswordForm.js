@@ -2,7 +2,6 @@ import { Box, Button, InputAdornment,TextField,  } from '@mui/material'
 import React, { useState } from 'react'
 import LockIcon from '@mui/icons-material/Lock';
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
 import { confirmPassSchema,  } from './Validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -23,9 +22,9 @@ const ConfirmPasswordForm = ({onSubmit}) => {
   const { handleSubmit, formState: { errors }, control } = useForm({
     resolver: yupResolver(confirmPassSchema),
   });
-  const navigate = useNavigate();
 
   const [showPassword, setshowPassword] = useState(false)
+  const [showconfirmPassword, setshowConfirmPassword] = useState(false)
 
 
 
@@ -73,7 +72,7 @@ const ConfirmPasswordForm = ({onSubmit}) => {
                 sx={{ borderRadius: '15px', marginTop:'15px',height:'30px',display:'flex', alignItems:'center',width:'95%', padding:'20px 0px 20px 0px',backgroundColor:'rgba(255, 255, 255, 0.2)',input: { color: 'white', } }}
                 color={'warning'}
                 inputMode='password'
-                type={showPassword ?'text' : 'password'}
+                type={showconfirmPassword ?'text' : 'password'}
                 variant='standard'
                 value={value}
                 error={errors.confirmPassword ? true : false}
@@ -81,7 +80,7 @@ const ConfirmPasswordForm = ({onSubmit}) => {
                 placeholder='confirm Password'
                 InputProps={{
                   startAdornment: <InputAdornment position="start" ><LockIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
-                  endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showPassword ? <VisibilityIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginRight:'10px' }} />: <VisibilityOffIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
+                  endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showconfirmPassword ? <VisibilityIcon onClick={() => setshowConfirmPassword(prev => !prev)} sx={{ color: 'white', marginRight:'10px' }} />: <VisibilityOffIcon onClick={() => setshowConfirmPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
                   disableUnderline: true, 
                 }}
               />

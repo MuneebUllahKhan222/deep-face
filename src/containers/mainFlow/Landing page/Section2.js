@@ -8,9 +8,9 @@ const Section2 = () => {
     const navigate = useNavigate();
   return (
     <Box sx={{height:'60vh','@media(max-width:800px)':{ height:'fit-content',padding:'60px 40px 60px 40px'}}}>
-        <Box  sx={{height:'100%', display:'flex', justifyContent:'space-around', alignItems:'center', '@media(max-width:800px)':{flexDirection:'column-reverse'}}}>
+        <Box  sx={{height:'100%', display:'flex', justifyContent:'space-around', alignItems:'center', '@media(max-width:800px)':{flexDirection:'column'}}}>
 
-            <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
+            <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%',alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
                 <Box sx={{ display:'flex', alignItems:'center'}}>
                     <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>Image Swap</Typography>
                     <img src={stick}  alt='stick' />
@@ -20,7 +20,7 @@ const Section2 = () => {
             </Box>
 
 
-            <Box sx={{width:'27%', '@media(max-width:800px)':{width:'40%'}, '@media(max-width:600px)':{width:'50%'}, '@media(max-width:450px)':{width:'60%'}}}>
+            <Box sx={{width:'27%', '@media(max-width:800px)':{width:'40%', marginTop:"30px"}, '@media(max-width:600px)':{width:'50%'}, '@media(max-width:450px)':{width:'60%'}}}>
                 <img src={imageSwap} alt={'imageSwap'} width={'100%'} />
             </Box>
 
