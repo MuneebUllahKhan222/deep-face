@@ -12,7 +12,7 @@ import { DownloadForOffline } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
-import { createDoc, getImage, gifUploader } from '../../../store/services/user';
+import { createDoc, getImage, gifUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
 
 
@@ -67,11 +67,6 @@ const UploadGif = () => {
     setApiCalled(2)
   }
 
-  // const sendRequest = async () => {
-  //   console.log('running')
-  //   const data = await dispatch(gifUploader(blobInput, blobBase, user?._id))
-  //   console.log(data, 'data of gif uploader')
-  // }
 
   const navigateTologin = () => {
     navigate('/signin')  
@@ -81,6 +76,31 @@ useEffect(() => {
     setDisableButton(false)
   }
 }, [inputImage, baseImage])
+
+const downloadContent= (event) => {
+  event.preventDefault();
+  const link = document.createElement('a');
+  link.href = result;
+  link.download = 'result.gif';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+const saveImage = async() => {
+  const data = {url:result, uid:user?._id, type:'gif'}
+  const save = await dispatch(saveContent(data))
+  console.log(save, 'res of save')
+  if (save?.status === 201) {
+    enqueueSnackbar("GIF saved sucessfully", { variant: 'success', autoHideDuration: 3000 })
+  }else if (save?.status === 300) {
+    enqueueSnackbar('GIF already saved', { variant: 'warning', autoHideDuration: 3000 })
+  }
+   else {
+    enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+  }
+
+}
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
   return (
@@ -146,7 +166,7 @@ useEffect(() => {
                               Step 1
                             </Box>
                             <Typography sx={{fontSize:{sm:'20px', xs:'17px'}, fontWeight:'700'}} ><strong>Click</strong>  or <strong>Drag</strong></Typography>
-                            <Typography fontSize={20}>To upload a <strong>base GIF</strong></Typography>                              <Typography fontSize={13}><strong>File requirement</strong></Typography>
+                            <Typography fontSize={20}>To upload a <strong>base GIF</strong></Typography>
                             <Typography fontSize={13}><strong>File requirement</strong></Typography>
                             <Box sx={{ display: 'flex', columnGap: '20px' }}>
                               <Typography fontSize={13}>1 GIF max count</Typography>
@@ -261,8 +281,8 @@ useEffect(() => {
                 apiCalled === 2
                 &&
                 <Box sx={{display:'flex', width:'100%', justifyContent:'flex-end', columnGap:'20px', '@media(max-width:500px)':{flexDirection:'column', justifyContent:'space-between', rowGap:'20px', alignItems:'center'}}}>
-                    <Button variant='contained' disableElevation disableFocusRipple sx={{backgroundColor:'#B8B8B8', width:'150px',  height:'55px',fontWeight:600,fontSize:'15px','&:hover':{backgroundColor:'#B8B8B8'} }}>Save</Button>
-                    <Button variant='contained' startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{backgroundColor:'#FFD600', width:'150px', height:'55px',fontWeight:600,fontSize:'15px','&:hover':{backgroundColor:'#FFD600'} }}>Download</Button>
+                    <Button variant='contained' onClick={() => saveImage() } disableElevation disableFocusRipple sx={{backgroundColor:'#B8B8B8', width:'150px',  height:'55px',fontWeight:600,fontSize:'15px','&:hover':{backgroundColor:'#B8B8B8'} }}>Save</Button>
+                    <Button variant='contained' onClick={(e) => downloadContent(e) } startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{backgroundColor:'#FFD600', width:'150px', height:'55px',fontWeight:600,fontSize:'15px','&:hover':{backgroundColor:'#FFD600'} }}>Download</Button>
                 </Box>
               }
       </Paper>

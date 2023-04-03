@@ -1,41 +1,33 @@
-import {  Drawer, Box, Typography } from '@mui/material'
+import { Drawer, Box } from '@mui/material'
 import React from 'react'
+import SignoutDrawer from './SignoutDrawer'
+import LoginDrawer from './LoginDrawer'
+import { getCookies } from '../../utils'
 
 
-function MenuDrawer({open, toggleDrawer}) {
-    // const [open, setopen] = useState(false)
-    // const toggleDrawer = ( bool) => {
-    //     setopen(bool)
-    // }
+function MenuDrawer({ open, toggleDrawer }) {
+    const user = getCookies('user');
 
     return (
         <Box>
-                        <Drawer
-                            anchor={'right'} // FROM WHERE DO YOU WANT DRAWER TO ORIGINATE E.G LEFT RIGHT TOP BOTTM
-                            open={open}
-                            onClose={() => toggleDrawer(false)}
-                            
-                        >
-                        {/* // INSIDE DRAWER COMPONENT PLACE ALL THE JSX YOU WANT TO SHOW IN DRAWER  */}
-                            <Box  sx={{width:'300px', backgroundColor:'#1E1E1E', height:'100%',color:'white'}}> 
-                                <Box mb={2} onClick={() => toggleDrawer(false)} sx={{color:'white'}}>
-                                    close
-                                </Box>
-                                <Box pl={4} sx={{height:'60px', backgroundColor:'#2A2A2C',borderBottom:'1px solid white', display:'flex', alignItems:'center', '&:hover':{backgroundColor:'#323235'}}}>
-                                    <Typography fontSize={17} fontWeight={550}>Pricing</Typography>
-                                </Box>
-                                <Box   sx={{height:'50px', borderBottom:'1px solid white'}}>
-                                    Pricing
-                                </Box>
-                                <Box  sx={{height:'50px', borderBottom:'1px solid white'}}>
-                                    Pricing
-                                </Box>
+            <Drawer
+                anchor={'right'} // FROM WHERE DO YOU WANT DRAWER TO ORIGINATE E.G LEFT RIGHT TOP BOTTM
+                open={open}
+                onClose={() => toggleDrawer(false)}
 
-                                {/* {
-                                    ['OKR','OKR','OKR','OKR',].map(okr => <Box>{okr}</Box>)                               
-                                } */}
-                            </Box>
-                        </Drawer>
+            >
+                {/* // INSIDE DRAWER COMPONENT PLACE ALL THE JSX YOU WANT TO SHOW IN DRAWER  */}
+
+                <Box sx={{ width: '390px', backgroundColor: '#0E0E0E', height: '100%', color: 'white', '@media(max-width:430px)': { width: '300px' }, '@media(max-width:500px)': { width: '330px' } }}>
+                    {user
+                        ?
+                        <LoginDrawer toggleDrawer={toggleDrawer} />
+                        :
+                        <SignoutDrawer toggleDrawer={toggleDrawer} />
+                    }
+                </Box>
+
+            </Drawer>
 
         </Box>
     )

@@ -12,7 +12,7 @@ import { DownloadForOffline } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
-import { createDoc, getImage, imageUploader } from '../../../store/services/user';
+import { createDoc, getImage, imageUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
 
 
@@ -81,8 +81,33 @@ const UploadImage = () => {
     const {result} = await dispatch(getImage(token))
     setResult(result)
     setApiCalled(2)
-    return data
+    
   }
+
+  const saveImage = async() => {
+    const data = {url:result, uid:user?._id, type:'image'}
+    const save = await dispatch(saveContent(data))
+    console.log(save, 'res of save')
+    if (save?.status === 201) {
+      enqueueSnackbar("Image saved successfully", { variant: 'success', autoHideDuration: 3000 })
+    }else if (save?.status === 300) {
+      enqueueSnackbar("Image already saved", { variant: 'warning', autoHideDuration: 3000 })
+    }
+     else {
+      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+    }
+
+  }
+
+  const downloadContent= (event) => {
+    event.preventDefault();
+    const link = document.createElement('a');
+    link.href = result;
+    link.download = 'result.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
   return (
@@ -278,8 +303,8 @@ const UploadImage = () => {
           apiCalled === 2
           &&
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'flex-end', columnGap: '20px', '@media(max-width:500px)': { flexDirection: 'column', justifyContent: 'space-between', rowGap: '20px', alignItems: 'center' } }}>
-            <Button variant='contained' disableElevation disableFocusRipple sx={{ backgroundColor: '#B8B8B8', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#B8B8B8' } }}>Save</Button>
-            <Button variant='contained' startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#FFD600' } }}>Download</Button>
+            <Button variant='contained' onClick={() => saveImage()} disableElevation disableFocusRipple sx={{ backgroundColor: '#B8B8B8', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#B8B8B8' } }}>Save</Button>
+            <Button variant='contained' onClick={(e) => downloadContent(e)} startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#FFD600' } }}>Download</Button>
           </Box>
         }
       </Paper>

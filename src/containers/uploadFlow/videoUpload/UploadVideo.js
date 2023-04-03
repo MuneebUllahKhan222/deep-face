@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
 import Dropzone from 'react-dropzone'
 import { useDispatch } from 'react-redux';
-import { createDoc, getImage, videoUploader } from '../../../store/services/user';
+import { createDoc, getImage, saveContent, videoUploader } from '../../../store/services/user';
 import ImageUploading from 'react-images-uploading';
 import { useSnackbar } from 'notistack';
 
@@ -68,6 +68,31 @@ const UploadVideo = () => {
     setResult(result)
     setApiCalled(2)
     return data
+  }
+
+  const downloadContent= (event) => {
+    event.preventDefault();
+    console.log('clicked')
+    const link = document.createElement('a');
+    link.href = result;
+    link.download = 'result.mp4';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  const saveVideo = async() => {
+    const data = {url:result, uid:user?._id, type:'video'}
+    const save = await dispatch(saveContent(data))
+    console.log(save, 'res of save')
+    if (save?.status === 201) {
+      enqueueSnackbar("Video saved successfully", { variant: 'success', autoHideDuration: 3000 })
+    }else if (save?.status === 300) {
+      enqueueSnackbar('Video already saved', { variant: 'warning', autoHideDuration: 3000 })
+    }
+     else {
+      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+    }
+  
   }
 
   return (
@@ -152,13 +177,14 @@ const UploadVideo = () => {
                   )}
                 </Dropzone>
                 :
-                <Box pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
+                <Box  pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
                   {/* <Box ml={3} component={'video'}  sx={{ height: '95%', width: '35%' }}><source src={baseVideo} width='100%' height='100%' /></Box> */}
                   <video
                     // onTimeUpdate={handleProgress}
                     // ref={videoRef}
                     width="35%"
                     height="95%"
+                    style={{marginLeft:'23px'}}
                     autoPlay={true}
                     loop={true}
                   // controls={true}
@@ -277,8 +303,8 @@ const UploadVideo = () => {
           apiCalled === 2
           &&
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'flex-end', columnGap: '20px', '@media(max-width:500px)': { flexDirection: 'column', justifyContent: 'space-between', rowGap: '20px', alignItems: 'center' } }}>
-            <Button variant='contained' disableElevation disableFocusRipple sx={{ backgroundColor: '#B8B8B8', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#B8B8B8' } }}>Save</Button>
-            <Button variant='contained' startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#FFD600' } }}>Download</Button>
+            <Button variant='contained' onClick={() => saveVideo()}  disableElevation disableFocusRipple sx={{ backgroundColor: '#B8B8B8', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#B8B8B8' } }}>Save</Button>
+            <Button variant='contained' onClick={(e) => downloadContent(e)}  startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#FFD600' } }}>Download</Button>
           </Box>
         }
       </Paper>

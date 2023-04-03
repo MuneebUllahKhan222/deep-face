@@ -79,7 +79,7 @@ export const createDoc = (uid) => async (dispatch) => {
     const {token} = await getCookies('user')
 
 
-      const response = await axios.post(`${basePath}/video/create`, uid, { headers: {"Authorization" : token} })
+      const response = await axios.post(`${basePath}/video/create`, {uid}, { headers: {"Authorization" : token} })
       console.log( response, 'response of create doc, servicessss')
       if (response?.data?.success) {
         return response?.data?.data
@@ -99,6 +99,21 @@ export const getImage = (docToken) => async (dispatch) => {
       if (response?.data?.success) {
         return response?.data?.data
       }
+  } catch (error) {
+      return error
+  }
+}
+
+
+export const saveContent = (data) => async (dispatch) => {
+  try {
+    console.log(data)
+
+      const response = await axios.post(`${basePath}/save/content`, data)
+      console.log( response, 'response of save image, servicessss')
+
+        return response?.data
+
   } catch (error) {
       return error
   }

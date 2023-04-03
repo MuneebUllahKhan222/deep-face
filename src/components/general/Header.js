@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem, Typography, useMediaQuery } from '@mui/material'
+import { Avatar, Box, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip, Typography, useMediaQuery } from '@mui/material'
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logo.png'
@@ -47,9 +47,6 @@ const Header = ({ colorScheme }) => {
     };
 
     const handleLogout = () => {
-        // delCookies('user', {
-        //     path: '/'
-        // })
         document.cookie.split(";").forEach((c) => {
             document.cookie = c
               .replace(/^ +/, "")
@@ -63,6 +60,8 @@ const Header = ({ colorScheme }) => {
         handleCloseFeature()
         navigate(route)
     }
+
+    
 
     return (
         <Box sx={{ height: '70px', display: 'flex', justifyContent: 'center', background: 'transparent' }}>
@@ -205,9 +204,11 @@ const Header = ({ colorScheme }) => {
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                 >
+                                        <Tooltip title={user?.email} placement='top-start'>
                                     <MenuItem sx={{ backgroundColor: '#2A2A2C' }} onClick={handleClose}>
-                                        <Avatar sx={{ width: '32px', height: '32px', marginRight: '9px', backgroundColor: '#323235', color: '#707070' }} /> {user?.email}
+                                        <Avatar sx={{ width: '32px', fontSize:'10px',height: '32px', marginRight: '9px', backgroundColor: '#323235', color: '#707070' }} /> {user?.email.substring(0,15)}  . . .
                                     </MenuItem>
+                                        </Tooltip>
                                     <Divider />
                                     <MenuItem sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }} onClick={handleClose}>
                                         <ListItemIcon>
@@ -228,7 +229,8 @@ const Header = ({ colorScheme }) => {
                     </>
                     :
                     <>
-                        <IconButton sx={{ color: '#FFD600' }} onClick={() => setopen(true)}><MenuIcon fontSize='large' /></IconButton>
+                    <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', borderRadius: '6px', width: 'fit-content', '&:hover': { backgroundColor: '#FFD600' }, marginRight:'10px', height:'35px' }}>Swap it</Button>
+                        <IconButton sx={colorScheme === 'light' ?{color:'black'} :{ color: 'white' }} onClick={() => setopen(true)}><MenuIcon fontSize='large' /></IconButton>
                         <MenuDrawer open={open} toggleDrawer={toggleDrawer} />
                     </>
 
