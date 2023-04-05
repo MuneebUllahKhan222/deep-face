@@ -14,6 +14,7 @@ import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, gifUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
+import { setModalOpen } from '../../../store/reducers/user';
 
 
 
@@ -67,10 +68,10 @@ const UploadGif = () => {
     setApiCalled(2)
   }
 
-
-  const navigateTologin = () => {
-    navigate('/signin')  
-}
+ 
+  const checkAuth = () => {
+    dispatch(setModalOpen())
+  }
 useEffect(() => {
   if (inputImage.length > 0 && baseImage.length > 0) {
     setDisableButton(false)
@@ -152,7 +153,7 @@ const saveImage = async() => {
                   dragProps,
                   errors
                 }) => (
-                  <Box sx={{width:'100%',cursor:'pointer',}} onClick={baseImage.length === 0 ? (user ? onImageUpload : navigateTologin): null} {...dragProps} >
+                  <Box sx={{width:'100%',cursor:'pointer',}} onClick={baseImage.length === 0 ? (onImageUpload): null} {...dragProps} >
                     {baseImage.length === 0
                       ?
                       <Box pt={3} pb={3} sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center','@media(max-width:500px)':{ paddingLeft:'20px'}  }}>
@@ -215,7 +216,7 @@ const saveImage = async() => {
                   dragProps,
                   errors
                 }) => (
-                  <Box sx={{ width: '100%',cursor:'pointer', }} onClick={inputImage.length === 0 ? (user ? onImageUpload : navigateTologin): null} {...dragProps} >
+                  <Box sx={{ width: '100%',cursor:'pointer', }} onClick={inputImage.length === 0 ? (onImageUpload): null} {...dragProps} >
                     {inputImage.length === 0
                       ?
                       <Box pt={3} pb={3}  sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center','@media(max-width:500px)':{ paddingLeft:'20px'} }}>
@@ -261,7 +262,7 @@ const saveImage = async() => {
               {
                 apiCalled === 0
                   ?
-                  <Button disabled={disableButton} onClick={user ? () => createDocument(): navigateTologin} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button disabled={disableButton} onClick={user ? () => createDocument(): checkAuth} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                   ?

@@ -4,9 +4,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/general/Footer';
-import Header from '../../../components/general/Header';
-import LoginForm from '../../../components/Login-signup/LoginForm';
-import { login, updatePassword } from '../../../store/services/register';
+import Header from '../../../components/general/Header';import {  updatePassword } from '../../../store/services/register';
 import ConfirmPasswordForm from '../../../components/Login-signup/ConfirmPasswordForm';
 import { getCookies } from '../../../utils';
 

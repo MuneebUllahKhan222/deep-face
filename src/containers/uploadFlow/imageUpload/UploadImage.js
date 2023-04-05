@@ -14,6 +14,7 @@ import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, imageUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
+import { setModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
 
 
 
@@ -54,8 +55,9 @@ const UploadImage = () => {
       })
   };
 
-  const navigateTologin = () => {
-    navigate('/signin')
+  const checkAuth = () => {
+    dispatch(setPricingModalOpen())
+    // dispatch(setModalOpen())
   }
 
 
@@ -87,7 +89,6 @@ const UploadImage = () => {
   const saveImage = async() => {
     const data = {url:result, uid:user?._id, type:'image'}
     const save = await dispatch(saveContent(data))
-    console.log(save, 'res of save')
     if (save?.status === 201) {
       enqueueSnackbar("Image saved successfully", { variant: 'success', autoHideDuration: 3000 })
     }else if (save?.status === 300) {
@@ -96,7 +97,6 @@ const UploadImage = () => {
      else {
       enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
     }
-
   }
 
   const downloadContent= (event) => {
@@ -160,7 +160,7 @@ const UploadImage = () => {
                   errors
                 }) => (
                  
-                  <Box sx={{ width: '100%', cursor: 'pointer', }} onClick={baseImage.length === 0 ? (user ? onImageUpload : navigateTologin) : null} {...dragProps} >
+                  <Box sx={{ width: '100%', cursor: 'pointer', }} onClick={baseImage.length === 0 ? (onImageUpload) : null} {...dragProps} >
                     {baseImage.length === 0
                       ?
                       <Box pt={3} pb={3} sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center', '@media(max-width:500px)': { paddingLeft: '20px' } }}>
@@ -222,7 +222,7 @@ const UploadImage = () => {
                   dragProps,
                   errors
                 }) => (
-                  <Box sx={{ width: '100%', cursor: 'pointer', }} onClick={inputImage.length === 0 ? (user ? onImageUpload : navigateTologin) : null} {...dragProps} >
+                  <Box sx={{ width: '100%', cursor: 'pointer', }} onClick={inputImage.length === 0 ? (onImageUpload) : null} {...dragProps} >
                     {inputImage.length === 0
                       ?
                       <Box pt={3} pb={3} sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center', '@media(max-width:500px)': { paddingLeft: '20px' } }}>
@@ -268,7 +268,7 @@ const UploadImage = () => {
               {
                 apiCalled === 0
                   ?
-                  <Button disabled={disableButton} onClick={user ? () => createDocument() : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button disabled={disableButton} onClick={user ? () => createDocument() : checkAuth} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                     ?

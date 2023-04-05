@@ -8,9 +8,13 @@ import { Logout } from '@mui/icons-material';
 import TollIcon from '@mui/icons-material/Toll';
 import { getCookies } from '../../utils';
 import PersonIcon from '@mui/icons-material/Person';
+import ModalAuth from '../modal/ModalAuth';
+import { useSelector } from 'react-redux';
+import ModalPricing from '../modal/ModalPricing';
+import ModalStripe from '../modal/ModalStripe';
 
 const Header = ({ colorScheme }) => {
-
+    const {modalState, pricingModalState, stripeModalState} = useSelector(state => state?.user)
     const navigate = useNavigate();
     const [open, setopen] = useState(false)
     const [showFeatureMenu, setShowFeatureMenu] = useState(false)
@@ -236,6 +240,9 @@ const Header = ({ colorScheme }) => {
 
                 }
             </Box>
+            <ModalAuth authModalOpen={modalState} />
+            <ModalPricing open={pricingModalState} />
+            <ModalStripe open={stripeModalState} />
         </Box>
     )
 }

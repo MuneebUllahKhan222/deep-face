@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { createDoc, getImage, saveContent, videoUploader } from '../../../store/services/user';
 import ImageUploading from 'react-images-uploading';
 import { useSnackbar } from 'notistack';
+import { setModalOpen } from '../../../store/reducers/user';
 
 
 
@@ -43,6 +44,7 @@ const UploadVideo = () => {
       })
 
   };
+  console.log(user, 'user')
 
   useEffect(() => {
     if (inputImage.length > 0 && baseVideo.length > 0) {
@@ -50,11 +52,11 @@ const UploadVideo = () => {
     }
   }, [inputImage, baseVideo])
 
-  const navigateTologin = () => {
-    navigate('/signin')
+  const checkAuth = () => {
+    dispatch(setModalOpen())
   }
   const createDocument = async () => {
-    setApiCalled(1)
+      setApiCalled(1)
     const token = await dispatch(createDoc(user?._id))
     if (!token) {
       enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
@@ -68,6 +70,8 @@ const UploadVideo = () => {
     setResult(result)
     setApiCalled(2)
     return data
+    
+    
   }
 
   const downloadContent= (event) => {
@@ -130,6 +134,7 @@ const UploadVideo = () => {
                 ?
                 <Dropzone maxFiles={1} maxSize={10000000} accept={{ "video/*": [".mp4"] }}
                   onDrop={(acceptedFiles, fileRejections) => {
+                  
                     fileRejections.forEach((file) => {
                       file.errors.forEach((err) => {
                         if (err.code === "file-too-large") {
@@ -146,7 +151,9 @@ const UploadVideo = () => {
                       .then(async (res) => {
                         setBlobBase(await res.blob())
                       })
-                  }}>
+                  }}
+                  
+                  >
                   {({ getRootProps, getInputProps }) => (
                     <section style={{ height: '100%' }}>
                       <Box sx={{ width: '100%', cursor: 'pointer' }} {...getRootProps()}>
@@ -222,7 +229,7 @@ const UploadVideo = () => {
                   dragProps,
                   errors
                 }) => (
-                  <Box sx={{ width: '100%', cursor: 'pointer', }} onClick={inputImage.length === 0 ? (user ? onImageUpload : navigateTologin) : null} {...dragProps} >
+                  <Box sx={{ width: '100%', cursor: 'pointer', }} onClick={inputImage.length === 0 ? (onImageUpload) : null} {...dragProps} >
                     {inputImage.length === 0
                       ?
                       <Box pt={3} pb={3} sx={{ height: 'fit-content', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center', '@media(max-width:500px)': { paddingLeft: '20px' } }}>
@@ -269,7 +276,7 @@ const UploadVideo = () => {
               {
                 apiCalled === 0
                   ?
-                  <Button disabled={disableButton} onClick={user ? createDocument : navigateTologin} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button disabled={disableButton} onClick={ user !== null ? () => createDocument(): checkAuth} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                     ?

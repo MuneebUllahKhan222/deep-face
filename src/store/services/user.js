@@ -4,10 +4,10 @@ import { getCookies } from "../../utils";
 // const baseAiPath = "http://192.168.100.14:5000"; // transworld
 // const baseAiPath = "http://192.168.18.30:5000"; // storm
 // const baseAiPath = "http://164.90.160.58:5000";
-// const basePath = "http://localhost:3002"
+const basePath = "http://localhost:3002"
 // const basePath = 'http://164.90.160.58:3002'
 const baseAiPath = "https://deepduck.ai/backend"
-const basePath = 'https://deepduck.ai/web-backend'
+// const basePath = 'https://deepduck.ai/web-backend'
 
 
 
@@ -118,3 +118,47 @@ export const saveContent = (data) => async (dispatch) => {
       return error
   }
 }
+
+export const createIntent = (data) => async (dispatch) => {
+  try {
+
+      const response = await axios.post(`${basePath}/payment/createIntent`, data)
+      console.log( response, 'response of payment intent, servicessss')
+
+        return response?.data
+
+  } catch (error) {
+      return error
+  }
+}
+
+export const fetchContent = (data) => async (dispatch) => {
+  try {
+    const {uid, type} = data
+
+      const response = await axios.get(`${basePath}/save/getContent/${uid}/${type}`)
+      console.log( response, 'response of save image, servicessss')
+
+        return response?.data
+
+  } catch (error) {
+      return error
+  }
+}
+
+
+// export const yarooq = () => async (dispatch) => {
+//   try {
+//     const data={
+//       abc:'xyz'
+//     }
+//       const response = await axios.post(`http://192.168.0.129:8001/getchat/`, data)
+
+//       console.log( response, 'response of save image, servicessss')
+
+//         return response?.data
+
+//   } catch (error) {
+//       return error
+//   }
+// }
