@@ -39,6 +39,12 @@ export const setCookies = (key, value, options) => {
 
 }
 
+export const setCredits = (credits) => {
+    setCookies('credits',{credits}, {
+        path:'/'
+      })
+}
+
 
 
     export const delCookies = (key, options) => {

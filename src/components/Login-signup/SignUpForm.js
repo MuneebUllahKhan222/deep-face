@@ -40,7 +40,7 @@ const SignupForm = ({onSubmit }) => {
       <form style={{ height: 'fit-content' }}>
         <Box mt={3} sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
           <Controller
-            name={"email"}
+            name={"emailSignup"}
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -51,7 +51,7 @@ const SignupForm = ({onSubmit }) => {
                 inputMode='email'
                 variant='standard'
                 value={value}
-                error={errors.email ? true : false}
+                error={errors.emailSignup ? true : false}
                 // helperText={errors.email ? errors.email.message : ''}
                 onChange={onChange}
                 placeholder='Email'
@@ -63,11 +63,11 @@ const SignupForm = ({onSubmit }) => {
             )}
           />
           <Box ml={2} mb={0} sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
-          {errors.email ? errors.email.message : ''}
+          {errors.emailSignup ? errors.emailSignup.message : ''}
           </Box>
           
           <Controller
-            name={"password"}
+            name={"passwordSignup"}
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextField
@@ -78,7 +78,7 @@ const SignupForm = ({onSubmit }) => {
                 type={showPassword ?'text' : 'password'}
                 variant='standard'
                 value={value}
-                error={errors.password ? true : false}
+                error={errors.passwordSignup ? true : false}
                 onChange={onChange}
                 placeholder='Password'
                 InputProps={{
@@ -90,7 +90,7 @@ const SignupForm = ({onSubmit }) => {
             )}
           />
           <Box ml={2} mb={0} sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
-          {errors.password ? errors.password.message : ''}
+          {errors.passwordSignup ? errors.passwordSignup.message : ''}
           </Box>
 
           <Box mt={1} sx={{ display: 'flex', justifyContent: 'space-between', color: 'white', flexDirection:'column',}}>

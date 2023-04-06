@@ -1,13 +1,15 @@
 import { Box, Dialog, Radio, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { setModalOpen, setPricingModalClose, setStripeModalOpen } from '../../store/reducers/user';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { setModalOpen, setPricingModalClose, setPurchaseAmount, setPurchaseCredit, setStripeModalOpen } from '../../store/reducers/user';
 import CloseIcon from '@mui/icons-material/Close';
 import { getCookies } from '../../utils';
+import { useSnackbar } from 'notistack';
 
 const ModalPricing = ({open}) => {
 
-    const [selectedValue, setSelectedValue] = useState();
+    const {purchaseAmount} = useSelector(state => state?.user)
+    const {enqueueSnackbar} = useSnackbar();
     const dispatch = useDispatch();
     const handleClose = () => {
         const user = getCookies('user')
@@ -17,6 +19,11 @@ const ModalPricing = ({open}) => {
             dispatch(setPricingModalClose());
             dispatch(setModalOpen());
         }
+    }
+
+    const handleChange =async (amount, credits) => {
+        await dispatch(setPurchaseAmount(amount))
+        await dispatch(setPurchaseCredit(credits))
     }
     const packages = [
         {
@@ -54,7 +61,12 @@ const ModalPricing = ({open}) => {
     ]
 
     const handleClick = () => {
-        dispatch(setStripeModalOpen())
+        if(purchaseAmount) {
+
+            dispatch(setStripeModalOpen())
+        } else {
+            enqueueSnackbar('Please select a package', {variant:'warning', autoHideDuration:3000})
+        }
     }
 
     return (
@@ -71,15 +83,15 @@ const ModalPricing = ({open}) => {
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%' }}>
                 <Box pt={4} sx={{ display: 'flex', flexDirection: 'column', }}>
                 <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
-                    <Typography textAlign={'center'} fontWeight={600} fontSize={32} sx={{ color: '#FFD600' }}>Pay as you go</Typography>
-                    <Typography textAlign={'center'} fontSize={22} fontWeight={400} sx={{ color: '#A2A2A2' }}>Credits available for use forever</Typography>
+                    <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600' }}>Pay as you go</Typography>
+                    <Typography textAlign={'center'} fontSize={{sm:22, xs:19}} fontWeight={400} sx={{ color: '#A2A2A2' }}>Credits available for use forever</Typography>
                 </Box>
 
                 <Typography textAlign={'center'} fontWeight={600} fontSize={32} sx={{ color: '#FFD600' }}>USD $1 <Typography component={'span'} fontSize={18}>/credit</Typography></Typography>
 
                 <Box >
                     <TableContainer sx={{ width: '100%' }}>
-                        <Table sx={{ minWidth: 650, }}>
+                        <Table sx={{ minWidth: 800, }}>
                             <TableBody>
                                 {
                                     packages?.map(p => (
@@ -88,8 +100,8 @@ const ModalPricing = ({open}) => {
                                         <Radio
                                         disableTouchRipple
                                         disableFocusRipple
-                                            checked={selectedValue === p?.amount?.toString()}
-                                            onChange={(e) => setSelectedValue(e.target.value)}
+                                            checked={purchaseAmount?.toString() === p?.amount?.toString()}
+                                            onChange={(e) => handleChange( p?.amount, p?.credits)}
                                             value={p?.amount}
                                             name="radio-buttons"
                                             sx={{

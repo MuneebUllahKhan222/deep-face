@@ -14,6 +14,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar} = useSnackbar();
   const onSubmit = async(data) => {
+    console.log(data,'dataof signup')
     const res =  await dispatch(register(data))
     console.log(res,' res of signup')
     if (res?.status === 200) {

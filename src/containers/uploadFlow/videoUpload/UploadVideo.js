@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { createDoc, getImage, saveContent, videoUploader } from '../../../store/services/user';
 import ImageUploading from 'react-images-uploading';
 import { useSnackbar } from 'notistack';
-import { setModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
+import { setPricingModalOpen } from '../../../store/reducers/user';
 
 
 
@@ -59,23 +59,21 @@ const UploadVideo = () => {
     } else {
       dispatch(setPricingModalOpen())
     }
-    // dispatch(setModalOpen())
   }
   const createDocument = async () => {
-      setApiCalled(1)
-    const token = await dispatch(createDoc(user?._id))
-    if (!token) {
-      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+
+    setApiCalled(1)
+    const res= await dispatch(createDoc({uid:user?._id, credits:3})) 
+    if (!res?.success) {
+      enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       setApiCalled(0)
       return
-    }
-    
-    const data = await dispatch(videoUploader(blobInput, blobBase, token))
-    console.log(data, 'data of image uploader')
-    const { result } = await dispatch(getImage(token))
+    } 
+    console.log(res?.data, 'token')
+    await dispatch(videoUploader(blobInput, blobBase, res?.data))
+    const {result} = await dispatch(getImage(res?.data))
     setResult(result)
     setApiCalled(2)
-    return data
     
     
   }

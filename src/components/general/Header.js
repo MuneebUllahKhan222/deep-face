@@ -27,6 +27,7 @@ const Header = ({ colorScheme }) => {
     }
     // const user = true
     const user = getCookies('user')
+    const credits = getCookies('credits')
     const handleClose = () => {
         setShowAvatarMenu(false)
     }
@@ -218,7 +219,7 @@ const Header = ({ colorScheme }) => {
                                         <ListItemIcon>
                                             <TollIcon sx={{ color: 'white' }} fontSize="small" />
                                         </ListItemIcon>
-                                        Credit: 20
+                                        Credits: {credits?.credits}
                                     </MenuItem>
                                     <MenuItem sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }} onClick={handleLogout}>
                                         <ListItemIcon>

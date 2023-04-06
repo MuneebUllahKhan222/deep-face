@@ -14,7 +14,7 @@ import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, imageUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
-import { setModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
+import {  setPricingModalOpen } from '../../../store/reducers/user';
 
 
 
@@ -32,6 +32,7 @@ const UploadImage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = getCookies('user')
+  
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
     // data for submit
@@ -74,19 +75,15 @@ const UploadImage = () => {
   }, [inputImage, baseImage])
 
   const createDocument = async () => {
-    console.log('called')
     setApiCalled(1)
-    const token = await dispatch(createDoc(user?._id)) 
-    console.log(token ,'token')
-
-    if (!token) {
-      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+    const res= await dispatch(createDoc({uid:user?._id, credits:0.5})) 
+    if (!res?.success) {
+      enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       setApiCalled(0)
       return
     } 
-    const data = await dispatch(imageUploader(blobInput, blobBase, token))
-    console.log(data, 'data of image uploader')
-    const {result} = await dispatch(getImage(token))
+    await dispatch(imageUploader(blobInput, blobBase, res?.data))
+    const {result} = await dispatch(getImage(res?.data))
     setResult(result)
     setApiCalled(2)
     
@@ -114,8 +111,7 @@ const UploadImage = () => {
     link.click();
     document.body.removeChild(link);
 }
-console.log(user,'userrr')
-  const matches900pxw = useMediaQuery('(max-width:900px)')
+const matches900pxw = useMediaQuery('(max-width:900px)')
   return (
     <Box sx={{ height: 'fit-content', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
       <Box sx={{ width: '100%' }}>

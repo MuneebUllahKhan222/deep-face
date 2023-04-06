@@ -1,13 +1,13 @@
 import axios from "axios";
-import { getCookies } from "../../utils";
+import { getCookies, setCookies, setCredits } from "../../utils";
 
 // const baseAiPath = "http://192.168.100.14:5000"; // transworld
 // const baseAiPath = "http://192.168.18.30:5000"; // storm
 // const baseAiPath = "http://164.90.160.58:5000";
-// const basePath = "http://localhost:3002"
+const basePath = "http://localhost:3002"
 // const basePath = 'http://164.90.160.58:3002'
 const baseAiPath = "https://deepduck.ai/backend"
-const basePath = 'https://deepduck.ai/web-backend'
+// const basePath = 'https://deepduck.ai/web-backend'
 
 
 
@@ -19,6 +19,7 @@ export const imageUploader = (source, target, token) => async (dispatch) => {
         data.append("target", target); // base img
         // data.append("id", id);
         // data.append("_id", _id);
+
         const response = await axios.post(`${baseAiPath}/Generate_Image`, data, { headers: {"Authorization" : token}})
         console.log(await response, 'response of image uploader, servicessss')
         return response
@@ -68,16 +69,15 @@ export const videoUploader = (source, target, token) => async (dispatch) => {
 }
 
 
-export const createDoc = (uid) => async (dispatch) => {
+export const createDoc = (data) => async (dispatch) => {
   try {
     const {token} = await getCookies('user')
 
 
-      const response = await axios.post(`${basePath}/video/create`, {uid}, { headers: {"Authorization" : token} })
+      const response = await axios.post(`${basePath}/video/create`, data, { headers: {"Authorization" : token} })
       console.log( response, 'response of create doc, servicessss')
-      if (response?.data?.success) {
-        return response?.data?.data
-      }
+        setCredits(response?.data?.credits || 0)
+        return response?.data
   } catch (error) {
       return error
   }
@@ -140,19 +140,19 @@ export const fetchContent = (data) => async (dispatch) => {
   }
 }
 
+export const purchaseCredits = (data) => async (dispatch) => {
+  try {
+      const response = await axios.post(`${basePath}/payment/purchaseCredits`, data)
+      console.log( response, 'response of purchase image, servicessss')
+      if (response?.data?.status === 200) {
+        setCookies('credits',{credits:response?.data?.data.credits}, {
+          path:'/'
+        })
+      }
+        return response?.data
 
-// export const yarooq = () => async (dispatch) => {
-//   try {
-//     const data={
-//       abc:'xyz'
-//     }
-//       const response = await axios.post(`http://192.168.0.129:8001/getchat/`, data)
+  } catch (error) {
+      return error
+  }
+}
 
-//       console.log( response, 'response of save image, servicessss')
-
-//         return response?.data
-
-//   } catch (error) {
-//       return error
-//   }
-// }

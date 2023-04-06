@@ -14,7 +14,7 @@ import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, gifUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
-import { setModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
+import {  setPricingModalOpen } from '../../../store/reducers/user';
 
 
 
@@ -41,7 +41,6 @@ const UploadGif = () => {
   setBlobInput(await res.blob())
 })
   };
-  console.log(inputImage, inputImage.length, 'length')
 
   const onChangeBaseImage = (imageList, addUpdateIndex) => {
     // data for submit
@@ -55,15 +54,15 @@ const UploadGif = () => {
 
   const createDocument = async () => {
     setApiCalled(1)
-    const token = await dispatch(createDoc(user?._id))
-    if (!token) {
-      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+    const res= await dispatch(createDoc({uid:user?._id, credits:1})) 
+    if (!res?.success) {
+      enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       setApiCalled(0)
       return
     } 
-    const data = await dispatch(gifUploader(blobInput, blobBase, token))
-    console.log(data, 'data of image uploader')
-    const {result} = await dispatch(getImage(token))
+    console.log(res?.data, 'token')
+    await dispatch(gifUploader(blobInput, blobBase, res?.data))
+    const {result} = await dispatch(getImage(res?.data))
     setResult(result)
     setApiCalled(2)
   }

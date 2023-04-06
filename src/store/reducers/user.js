@@ -5,7 +5,9 @@ const initialState = {
   id:null,
   modalState:false,
   pricingModalState:false,
-  stripeModalState:false
+  stripeModalState:false,
+  purchaseAmount:null,
+  purchaseCredits:null
 }
 
 export const userSlice = createSlice({
@@ -35,10 +37,19 @@ export const userSlice = createSlice({
     setStripeModalClose: (state) => {   
       state.stripeModalState = false;
     },
+    setPurchaseAmount: (state,action) => {  
+      const {payload} = action 
+      console.log('payload', payload)
+      state.purchaseAmount = payload;
+    },
+    setPurchaseCredit: (state,action) => {   
+      const {payload} = action 
+      state.purchaseCredits = payload;
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const {setUserData, setModalClose, setModalOpen, setPricingModalClose, setPricingModalOpen, setStripeModalClose, setStripeModalOpen } = userSlice.actions
+export const {setUserData, setModalClose, setModalOpen, setPricingModalClose, setPricingModalOpen, setStripeModalClose, setStripeModalOpen, setPurchaseAmount, setPurchaseCredit } = userSlice.actions
 
 export default userSlice.reducer

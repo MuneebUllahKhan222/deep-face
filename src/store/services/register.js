@@ -3,13 +3,12 @@ import { setCookies } from "../../utils";
 import {  setRegisterUserEmail } from "../reducers/register";
 import { setUserData } from "../reducers/user";
 
-// const basePath = "http://localhost:3002";//here you may use backend url
+const basePath = "http://localhost:3002";//here you may use backend url
 // const basePath = 'http://164.90.160.58:3002'
-const basePath = 'https://deepduck.ai/web-backend'
+// const basePath = 'https://deepduck.ai/web-backend'
 
 export const register = (info) => async (dispatch) => {
   try {
-    console.log('in register')
     const {emailSignup:email, passwordSignup:password} = info
     const data = {
       email,
@@ -21,6 +20,9 @@ export const register = (info) => async (dispatch) => {
       setCookies('user',response?.data?.data, {
         path:'/'
       })  
+      setCookies('credits',{credits:response?.data?.data.credits}, {
+        path:'/'
+      })
         dispatch(setUserData(response?.data?.data)) 
       dispatch(setRegisterUserEmail(response?.data?.data)); 
       }
@@ -41,10 +43,14 @@ export const login = (info) => async (dispatch) => {
       password
     }
     const response = await axios.post(`${basePath}/auth/login`, data)
+    console.log(response, 'res of login')
     if (response?.data?.status === 200) {
     setCookies('user',response?.data?.data, {
       path:'/'
     })  
+    setCookies('credits',{credits:response?.data?.data.credits}, {
+      path:'/'
+    })
       dispatch(setUserData(response?.data?.data)) 
     dispatch(setRegisterUserEmail(response?.data?.data)); 
     }

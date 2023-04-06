@@ -5,8 +5,9 @@ import React, { useState }  from 'react';
 import ModalAuth from '../../components/modal/ModalAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { setModalOpen, setPricingModalClose, setStripeModalClose } from '../../store/reducers/user';
-// import { useDispatch } from 'react-redux';
-// import { useDispatch } from '../../redux/store';
+import { purchaseCredits } from '../../store/services/user';
+import { getCookies } from '../../utils';
+
 
 
 function Checkoutform({total}) {
@@ -18,11 +19,7 @@ function Checkoutform({total}) {
     const dispatch= useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const [buttonDisable, setbuttonDisable] = useState(false);
-    // const createDoc = async() => {
-    //     const contestData = await handleCreateContest()
-    //     const data = await dispatch(createRecord(user?._id,contestData?._id,total))
-    //     setbuttonDisable(false)
-    // }
+    const {purchaseAmount, purchaseCredits:credits} = useSelector(state => state?.user)
 
     const handleSubmit = async (e) => {
         // setLoading(true)
@@ -47,8 +44,11 @@ function Checkoutform({total}) {
             redirect: 'if_required'
         });
 
-        console.log(error, 'error')
         if (!error) {
+            const user = getCookies('user')
+            console.log(purchaseAmount, credits, ' creds')
+            const res = await dispatch(purchaseCredits({uid:user?._id, amount: purchaseAmount, credits:credits}))
+            console.log(res, 'res of pucrhase')
             dispatch(setStripeModalClose())
             enqueueSnackbar('Payment successful', { variant: 'success' })
         }
@@ -61,8 +61,13 @@ function Checkoutform({total}) {
     };
 
     const handleClick =() => {
-        dispatch(setModalOpen())
-        dispatch(setPricingModalClose())
+        const user = getCookies('user')
+        if (!user) {
+            dispatch(setModalOpen())
+            dispatch(setPricingModalClose())
+        } else {
+            handleSubmit()
+        }
     }
     return (
         <Box style={{ display: 'flex', flexDirection: 'column' }} >
