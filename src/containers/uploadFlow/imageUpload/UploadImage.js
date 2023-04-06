@@ -56,7 +56,13 @@ const UploadImage = () => {
   };
 
   const checkAuth = () => {
-    dispatch(setPricingModalOpen())
+    const userCheck = getCookies('user');
+    if (userCheck){
+      createDocument()
+    } else {
+
+      dispatch(setPricingModalOpen())
+    }
     // dispatch(setModalOpen())
   }
 
@@ -108,7 +114,7 @@ const UploadImage = () => {
     link.click();
     document.body.removeChild(link);
 }
-
+console.log(user,'userrr')
   const matches900pxw = useMediaQuery('(max-width:900px)')
   return (
     <Box sx={{ height: 'fit-content', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -268,7 +274,7 @@ const UploadImage = () => {
               {
                 apiCalled === 0
                   ?
-                  <Button disabled={disableButton} onClick={user ? () => createDocument() : checkAuth} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button disabled={disableButton} onClick={checkAuth} variant='contained' disableElevation sx={{ fontWeight: 600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                     ?

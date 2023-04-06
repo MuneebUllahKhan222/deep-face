@@ -1,14 +1,22 @@
 import { Box, Dialog, Radio, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { setPricingModalClose, setStripeModalOpen } from '../../store/reducers/user';
+import { setModalOpen, setPricingModalClose, setStripeModalOpen } from '../../store/reducers/user';
+import CloseIcon from '@mui/icons-material/Close';
+import { getCookies } from '../../utils';
 
 const ModalPricing = ({open}) => {
 
     const [selectedValue, setSelectedValue] = useState();
-    const disaptch = useDispatch();
+    const dispatch = useDispatch();
     const handleClose = () => {
-        disaptch(setPricingModalClose())
+        const user = getCookies('user')
+        if (user) {
+            dispatch(setPricingModalClose())
+        } else {
+            dispatch(setPricingModalClose());
+            dispatch(setModalOpen());
+        }
     }
     const packages = [
         {
@@ -46,7 +54,7 @@ const ModalPricing = ({open}) => {
     ]
 
     const handleClick = () => {
-        disaptch(setStripeModalOpen())
+        dispatch(setStripeModalOpen())
     }
 
     return (
@@ -61,8 +69,8 @@ const ModalPricing = ({open}) => {
                 },
             }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%' }}>
-
                 <Box pt={4} sx={{ display: 'flex', flexDirection: 'column', }}>
+                <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
                     <Typography textAlign={'center'} fontWeight={600} fontSize={32} sx={{ color: '#FFD600' }}>Pay as you go</Typography>
                     <Typography textAlign={'center'} fontSize={22} fontWeight={400} sx={{ color: '#A2A2A2' }}>Credits available for use forever</Typography>
                 </Box>
@@ -106,7 +114,7 @@ const ModalPricing = ({open}) => {
                                     <TableCell align='center' sx={{ color: 'white', fontSize: '14px' }}>
                                          {p?.vs}<br />{p?.gs}<br />{p?.is}
                                     </TableCell>
-                                    <TableCell textAlign={'center'}  sx={{ height:'100%',color: 'white', fontSize: '18px', }}>
+                                    <TableCell   sx={{ height:'100%',color: 'white', fontSize: '18px', textAlign:'center' }}>
                                         <Box onClick={handleClick} sx={{width:'125px', cursor:'pointer',height:'45px', borderBottom:'none',backgroundColor:'#FFD600', borderRadius:'50px', display:'flex', justifyContent:'center', alignItems:'center'}}>
                                             Buy now
                                         </Box>

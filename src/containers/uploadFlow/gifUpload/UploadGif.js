@@ -14,7 +14,7 @@ import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, gifUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
-import { setModalOpen } from '../../../store/reducers/user';
+import { setModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
 
 
 
@@ -70,7 +70,13 @@ const UploadGif = () => {
 
  
   const checkAuth = () => {
-    dispatch(setModalOpen())
+    const userCheck = getCookies('user');
+    if (userCheck){
+      createDocument()
+    } else {
+      dispatch(setPricingModalOpen())
+    }
+    // dispatch(setModalOpen())
   }
 useEffect(() => {
   if (inputImage.length > 0 && baseImage.length > 0) {
@@ -262,7 +268,7 @@ const saveImage = async() => {
               {
                 apiCalled === 0
                   ?
-                  <Button disabled={disableButton} onClick={user ? () => createDocument(): checkAuth} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
+                  <Button disabled={disableButton} onClick={() => checkAuth()} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} startIcon={<PlayCircleIcon />}>Face Swap</Button>
                   :
                   apiCalled === 1
                   ?

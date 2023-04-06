@@ -2,6 +2,9 @@ import { Box, Button } from '@mui/material';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useSnackbar } from 'notistack';
 import React, { useState }  from 'react';
+import ModalAuth from '../../components/modal/ModalAuth';
+import { useDispatch, useSelector } from 'react-redux';
+import { setModalOpen, setPricingModalClose, setStripeModalClose } from '../../store/reducers/user';
 // import { useDispatch } from 'react-redux';
 // import { useDispatch } from '../../redux/store';
 
@@ -11,7 +14,8 @@ function Checkoutform({total}) {
 
     const stripe = useStripe()
     const elements = useElements();
-    // const dispatch= useDispatch();
+    const {modalState,} = useSelector(state => state?.user)
+    const dispatch= useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const [buttonDisable, setbuttonDisable] = useState(false);
     // const createDoc = async() => {
@@ -45,6 +49,7 @@ function Checkoutform({total}) {
 
         console.log(error, 'error')
         if (!error) {
+            dispatch(setStripeModalClose())
             enqueueSnackbar('Payment successful', { variant: 'success' })
         }
         if (error) {
@@ -54,18 +59,23 @@ function Checkoutform({total}) {
         // setLoading(false)
 
     };
+
+    const handleClick =() => {
+        dispatch(setModalOpen())
+        dispatch(setPricingModalClose())
+    }
     return (
         <Box style={{ display: 'flex', flexDirection: 'column' }} >
             {/* <CardElement /> */}
             <PaymentElement />
 
-
+            <ModalAuth  authModalOpen={modalState} pay={handleSubmit} elements={elements} />
             <Box mt={5} sx={{ width: "100%", display: 'flex', justifyContent: "space-between" }}>
                 <Button 
                     sx={{backgroundColor:'#FFD600', fontWeight:600, height:'60px', borderRadius:'10px'}}
                     fullWidth
                     variant="contained"
-                    onClick={handleSubmit}
+                    onClick={handleClick}
                     disabled={buttonDisable}
                 >
                     Pay Now

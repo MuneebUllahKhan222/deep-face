@@ -10,7 +10,7 @@ import { login, register } from '../../store/services/register';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 
-const ModalAuth = ({ authModalOpen}) => {
+const ModalAuth = ({ authModalOpen, pay, elements}) => {
 
   const [loginRegister, setloginRegister] = useState(false)
   const [check, setCheck] = useState(false)
@@ -28,13 +28,27 @@ const ModalAuth = ({ authModalOpen}) => {
   }
 
   const onLogin = async (data) => {
-    console.log(data, 'login called')
-    const res = await dispatch(login(data))
+    
+    if (elements !==null || undefined) {
+      console.log('if entered')
+      const res = await dispatch(login(data))
+      if (res.status === 200) {
+        handleClose()
+        pay();
+        // dispatch(setStripeModalClose())
+        enqueueSnackbar('Login successful', { variant: 'success', autoHideDuration: 3000 })
+      } else {
+        enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
+      }
+    } else {
+      console.log('else entered')
+      const res = await dispatch(login(data))
     if (res.status === 200) {
       handleClose()
       enqueueSnackbar('Login successful', { variant: 'success', autoHideDuration: 3000 })
     } else {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
+    }
     }
   };
 
