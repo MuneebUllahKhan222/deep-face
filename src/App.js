@@ -3,7 +3,7 @@ import './App.css';
 import AuthFlow from './containers/authFlow';
 import MainFlow from './containers/mainFlow';
 import UploadFlow from './containers/uploadFlow';
-// import PaymentFlow from './containers/paymentFlow';
+import PaymentFlow from './containers/paymentFlow';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <MainFlow />
       <AuthFlow />
       <UploadFlow />
-      {/* <PaymentFlow /> */}
+      <PaymentFlow />
     </div>
     </SnackbarProvider>
   );

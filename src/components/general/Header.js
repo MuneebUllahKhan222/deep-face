@@ -121,7 +121,7 @@ const Header = ({ colorScheme }) => {
                                     </MenuItem>
                                 </Menu>
                             </Box>
-                                <Box sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                <Box onClick={() => handleNavigation('/pay')}  sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Pricing
                                 </Box>
                             </Box>
@@ -164,7 +164,7 @@ const Header = ({ colorScheme }) => {
                                     </MenuItem>
                                 </Menu>
                                 </Box>
-                                <Box sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                <Box onClick={() => handleNavigation('/pay')}  sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Pricing
                                 </Box>
                                 <Box onClick={() => navigate('/gallery')} sx={colorScheme === 'light' ? { color: 'black', fontWeight:600,cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888', fontWeight:600,cursor: 'pointer', '&:hover': { color: 'white' } }}>
