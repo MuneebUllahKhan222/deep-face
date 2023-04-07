@@ -76,7 +76,9 @@ const UploadImage = () => {
 
   const createDocument = async () => {
     setApiCalled(1)
-    const res= await dispatch(createDoc({uid:user?._id, credits:0.5})) 
+    const userForId = getCookies('user')
+    console.log(userForId?._id, user?._id, 'ids of user')
+    const res= await dispatch(createDoc({uid:userForId?._id, credits:0.5})) 
     if (!res?.success) {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       setApiCalled(0)
