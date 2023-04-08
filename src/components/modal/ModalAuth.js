@@ -52,15 +52,6 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
   };
 
   const onSignUp = async(data) => {
-    // console.log(data, 'signup called')
-    // const res =  await dispatch(register(data))
-    // console.log(res,' res of signup')
-    // if (res?.status === 200) {
-    //   handleClose()
-    //   enqueueSnackbar('Sign up successful', { variant: 'success', autoHideDuration:3000 })
-    // } else {
-    //   enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration:3000 })
-    // }
     if (elements !==null || undefined) {
       const res = await dispatch(register(data))
       if (res.status === 200) {

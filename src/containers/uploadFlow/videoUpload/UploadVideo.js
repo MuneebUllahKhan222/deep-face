@@ -30,6 +30,7 @@ const UploadVideo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [disableButton, setDisableButton] = useState(true);
+  const [videoDuration, setVideoDuration] = useState();
   const user = getCookies('user')
   const { enqueueSnackbar } = useSnackbar();
   const matches900pxw = useMediaQuery('(max-width:900px)')
@@ -44,7 +45,6 @@ const UploadVideo = () => {
       })
 
   };
-  console.log(user, 'user')
 
   useEffect(() => {
     if (inputImage.length > 0 && baseVideo.length > 0) {
@@ -54,31 +54,38 @@ const UploadVideo = () => {
 
   const checkAuth = () => {
     const userCheck = getCookies('user');
-    if (userCheck){
+    if (userCheck) {
       createDocument()
     } else {
       dispatch(setPricingModalOpen())
     }
   }
   const createDocument = async () => {
-
-    setApiCalled(1)
-    const res= await dispatch(createDoc({uid:user?._id, credits:3})) 
+    const creds = getCookies('credits')
+    const credits = (Math.ceil(videoDuration/10) * 10)/10;
+    if (creds?.credits >= credits){
+      setApiCalled(1)
+    const res = await dispatch(createDoc({ uid: user?._id, credits: credits }))
     if (!res?.success) {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       setApiCalled(0)
       return
-    } 
+    }
     console.log(res?.data, 'token')
     await dispatch(videoUploader(blobInput, blobBase, res?.data))
-    const {result} = await dispatch(getImage(res?.data))
+    const { result } = await dispatch(getImage(res?.data))
     setResult(result)
     setApiCalled(2)
+    }else {
+      enqueueSnackbar('Insufficient credits', { variant: 'error', autoHideDuration: 3000 });
+      dispatch(setPricingModalOpen())
+    }
     
-    
+
+
   }
 
-  const downloadContent= (event) => {
+  const downloadContent = (event) => {
     event.preventDefault();
     console.log('clicked')
     const link = document.createElement('a');
@@ -88,19 +95,19 @@ const UploadVideo = () => {
     link.click();
     document.body.removeChild(link);
   }
-  const saveVideo = async() => {
-    const data = {url:result, uid:user?._id, type:'video'}
+  const saveVideo = async () => {
+    const data = { url: result, uid: user?._id, type: 'video' }
     const save = await dispatch(saveContent(data))
     console.log(save, 'res of save')
     if (save?.status === 201) {
       enqueueSnackbar("Video saved successfully", { variant: 'success', autoHideDuration: 3000 })
-    }else if (save?.status === 300) {
+    } else if (save?.status === 300) {
       enqueueSnackbar('Video already saved', { variant: 'warning', autoHideDuration: 3000 })
     }
-     else {
+    else {
       enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
     }
-  
+
   }
 
   return (
@@ -136,9 +143,21 @@ const UploadVideo = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px', width: '100%' }}>
               {baseVideo.length === 0
                 ?
-                <Dropzone maxFiles={1} maxSize={10000000} accept={{ "video/*": [".mp4"] }}
+                <Dropzone maxFiles={1} maxSize={20971520} accept={{ "video/*": [".mp4"] }}
                   onDrop={(acceptedFiles, fileRejections) => {
-                  
+
+                    acceptedFiles.forEach(file => {
+                      const reader = new FileReader();
+                      reader.onload = function () {
+                        const video = document.createElement('video');
+                        video.onloadedmetadata = function () {
+                          setVideoDuration(video?.duration)
+                        }
+                        video.src = reader.result;
+                      }
+                      reader.readAsDataURL(file);
+                    });
+
                     fileRejections.forEach((file) => {
                       file.errors.forEach((err) => {
                         if (err.code === "file-too-large") {
@@ -156,8 +175,8 @@ const UploadVideo = () => {
                         setBlobBase(await res.blob())
                       })
                   }}
-                  
-                  >
+
+                >
                   {({ getRootProps, getInputProps }) => (
                     <section style={{ height: '100%' }}>
                       <Box sx={{ width: '100%', cursor: 'pointer' }} {...getRootProps()}>
@@ -176,7 +195,7 @@ const UploadVideo = () => {
                               <Typography fontSize={20}>To upload a <strong>base video</strong></Typography><Typography fontSize={13}><strong>File requirement</strong></Typography>
                               <Box sx={{ display: 'flex', columnGap: '20px' }}>
                                 <Typography fontSize={13}>1 Video max count</Typography>
-                                <Typography fontSize={13}>10mb Video size</Typography>
+                                <Typography fontSize={13}>20mb Video size</Typography>
                               </Box>
                               {error && <Typography fontSize={13} sx={{ color: 'red' }}>{error}</Typography>}
                             </Box>
@@ -188,14 +207,14 @@ const UploadVideo = () => {
                   )}
                 </Dropzone>
                 :
-                <Box  pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
+                <Box pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
                   {/* <Box ml={3} component={'video'}  sx={{ height: '95%', width: '35%' }}><source src={baseVideo} width='100%' height='100%' /></Box> */}
                   <video
                     // onTimeUpdate={handleProgress}
                     // ref={videoRef}
                     width="35%"
                     height="95%"
-                    style={{marginLeft:'23px'}}
+                    style={{ marginLeft: '23px' }}
                     autoPlay={true}
                     loop={true}
                   // controls={true}
@@ -314,8 +333,8 @@ const UploadVideo = () => {
           apiCalled === 2
           &&
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'flex-end', columnGap: '20px', '@media(max-width:500px)': { flexDirection: 'column', justifyContent: 'space-between', rowGap: '20px', alignItems: 'center' } }}>
-            <Button variant='contained' onClick={() => saveVideo()}  disableElevation disableFocusRipple sx={{ backgroundColor: '#B8B8B8', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#B8B8B8' } }}>Save</Button>
-            <Button variant='contained' onClick={(e) => downloadContent(e)}  startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#FFD600' } }}>Download</Button>
+            <Button variant='contained' onClick={() => saveVideo()} disableElevation disableFocusRipple sx={{ backgroundColor: '#B8B8B8', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#B8B8B8' } }}>Save</Button>
+            <Button variant='contained' onClick={(e) => downloadContent(e)} startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#FFD600' } }}>Download</Button>
           </Box>
         }
       </Paper>

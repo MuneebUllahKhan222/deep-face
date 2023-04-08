@@ -8,11 +8,18 @@ import { createIntent } from "../../store/services/user";
 
 
 function StripeForm() {
-    const {purchaseAmount} = useSelector(state => state?.user)
+    const {purchaseAmount, purchaseSubscriptionAmount, subscriptionFlow} = useSelector(state => state?.user)
     const dispatch = useDispatch();
     const [clientSecret, setClientSecret] = useState("");
     const [stripe, setStripe] = useState('')
-    const total = purchaseAmount
+    let total;
+    // Very imp if statement decides b/w locker flow or credit flow
+    if(subscriptionFlow){
+      total = purchaseSubscriptionAmount;
+    } else {
+     total = purchaseAmount
+    }
+    
     
     const fetchData = async () => {
         const info = {
@@ -39,24 +46,17 @@ function StripeForm() {
 
 
   return (
-    <div className="App">
-    {/* {clientSecret && ( */}
-    
+    <div className="App">    
       {clientSecret
       ?
-        <Elements options={options} stripe={stripe}>
-        
-        <Checkoutform total={total} />
-        {/* <PaymentElement />  */}
-        {/* <TextField /> */}
-        
+        <Elements options={options} stripe={stripe}>    
+        <Checkoutform total={total} />    
       </Elements>
       :
       <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}> 
         <CircularProgress />
       </Box>
       }
-    {/* )} */}
   </div>
   )
 }

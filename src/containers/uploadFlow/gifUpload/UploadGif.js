@@ -53,18 +53,26 @@ const UploadGif = () => {
   };
 
   const createDocument = async () => {
-    setApiCalled(1)
-    const res= await dispatch(createDoc({uid:user?._id, credits:1})) 
-    if (!res?.success) {
-      enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
-      setApiCalled(0)
-      return
-    } 
-    console.log(res?.data, 'token')
-    await dispatch(gifUploader(blobInput, blobBase, res?.data))
-    const {result} = await dispatch(getImage(res?.data))
-    setResult(result)
-    setApiCalled(2)
+    const creds = getCookies('credits')
+    const credits = 1
+    if (creds?.credits >= credits){
+      setApiCalled(1)
+      const res= await dispatch(createDoc({uid:user?._id, credits})) 
+      if (!res?.success) {
+        enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
+        setApiCalled(0)
+        return
+      } 
+      console.log(res?.data, 'token')
+      await dispatch(gifUploader(blobInput, blobBase, res?.data))
+      const {result} = await dispatch(getImage(res?.data))
+      setResult(result)
+      setApiCalled(2)
+    } else {
+      enqueueSnackbar('Insufficient credits', { variant: 'error', autoHideDuration: 3000 });
+      dispatch(setPricingModalOpen())
+    }
+   
   }
 
  

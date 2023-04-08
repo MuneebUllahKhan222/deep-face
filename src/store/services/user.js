@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookies, setCookies, setCredits } from "../../utils";
+import { getCookies, setCookies, setCredits, updateCookie } from "../../utils";
 
 // const baseAiPath = "http://192.168.100.14:5000"; // transworld
 // const baseAiPath = "http://192.168.18.30:5000"; // storm
@@ -155,4 +155,27 @@ export const purchaseCredits = (data) => async (dispatch) => {
       return error
   }
 }
+
+
+export const purchaseSubscription = (data) => async (dispatch) => {
+  try {
+      const response = await axios.post(`${basePath}/payment/subscribe`, data)
+      console.log( response, 'response of purchase subcription, servicessss')
+      if (response?.data?.success === true) {
+        const saveObj = {
+          ...response?.data?.data
+        }
+        delete saveObj.hash
+        delete saveObj.__v
+      updateCookie('user',saveObj, {
+        path:'/'
+      })  
+      }
+        return response?.data
+
+  } catch (error) {
+      return error
+  }
+}
+
 

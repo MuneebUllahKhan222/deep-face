@@ -1,70 +1,37 @@
 import { Box, Dialog, Radio, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { resetFlows, setModalOpen, setPricingModalClose, setPurchaseAmount, setPurchaseCredit, setStripeModalOpen } from '../../store/reducers/user';
+import { resetFlows,  setLockerPricingModalClose, setPurchaseSubAmount, setPurchaseSubMonth, setStripeModalOpen, setSubcriptionFlow } from '../../store/reducers/user';
 import CloseIcon from '@mui/icons-material/Close';
-import { getCookies } from '../../utils';
 import { useSnackbar } from 'notistack';
 
-const ModalPricing = ({open}) => {
+const ModalLockerPricing = ({open}) => {
 
-    const {purchaseAmount} = useSelector(state => state?.user)
+    const {purchaseSubscriptionAmount} = useSelector(state => state?.user)
     const {enqueueSnackbar} = useSnackbar();
     const dispatch = useDispatch();
     const handleClose = () => {
-        const user = getCookies('user')
-        if (user) {
-            dispatch(setPricingModalClose())
+            dispatch(setLockerPricingModalClose())
             dispatch(resetFlows())
-        } else {
-            dispatch(setPricingModalClose());
-            dispatch(setModalOpen());
-            dispatch(resetFlows())
-        }
+
     }
 
-    const handleChange =async (amount, credits) => {
-        await dispatch(setPurchaseAmount(amount))
-        await dispatch(setPurchaseCredit(credits))
+    const handleChange =async (amount, months) => {
+        console.log(months, 'month')
+        await dispatch(setPurchaseSubAmount(amount))
+        await dispatch(setPurchaseSubMonth(months))
+        await dispatch(setSubcriptionFlow())
     }
     const packages = [
         {
-            credits:10,
-            amount:10,
-            perCredit:1,
-            vs:'100 sec of video swap',
-            gs:'10 GIF swaps',
-            is:'20 image swaps'
-        },
-        {
-            credits:100,
-            amount:100,
-            perCredit:1,
-            vs:'1000 sec of video swap',
-            gs:'100 GIF swap',
-            is:'200 image swaps'
-        },
-        {
-            credits:500,
-            amount:500,
-            perCredit:1,
-            vs:'5000 sec of video swap',
-            gs:'500 GIF swap',
-            is:'1000 image swaps' 
-        },
-        {
-            credits:1000,
-            amount:975,
-            perCredit:0.975,
-            vs:'10000 sec of video swap',
-            gs:'1000 GIF swap',
-            is:'2000 image swaps'
+            month:1,
+            amount:4.99,
+            offer:'Unlimited storage for 1 month',
         },
     ]
 
     const handleClick = () => {
-        if(purchaseAmount) {
-
+        if(purchaseSubscriptionAmount) {
             dispatch(setStripeModalOpen())
         } else {
             enqueueSnackbar('Please select a package', {variant:'warning', autoHideDuration:3000})
@@ -76,8 +43,8 @@ const ModalPricing = ({open}) => {
             PaperProps={{
                 style: {
                     backgroundColor: '#1F1F1F',
-                    height: '80%',
-                    width: '79%',
+                    height: '40%',
+                    width: '60%',
                     borderRadius: '10px',
 
                 },
@@ -85,11 +52,11 @@ const ModalPricing = ({open}) => {
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%' }}>
                 <Box pt={4} sx={{ display: 'flex', flexDirection: 'column', }}>
                 <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
-                    <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600' }}>Pay as you go</Typography>
-                    <Typography textAlign={'center'} fontSize={{sm:22, xs:19}} fontWeight={400} sx={{ color: '#A2A2A2' }}>Credits available for use forever</Typography>
+                    <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600' }}>Buy Locker Storage</Typography>
+                    <Typography textAlign={'center'} fontSize={{sm:22, xs:19}} fontWeight={400} sx={{ color: '#A2A2A2' }}>Unlimited Locker Storage</Typography>
                 </Box>
 
-                <Typography textAlign={'center'} fontWeight={600} fontSize={32} sx={{ color: '#FFD600' }}>USD $1 <Typography component={'span'} fontSize={18}>/credit</Typography></Typography>
+                {/* <Typography textAlign={'center'} fontWeight={600} fontSize={32} sx={{ color: '#FFD600' }}>USD $1 <Typography component={'span'} fontSize={18}>/credit</Typography></Typography> */}
 
                 <Box >
                     <TableContainer sx={{ width: '100%' }}>
@@ -102,8 +69,8 @@ const ModalPricing = ({open}) => {
                                         <Radio
                                         disableTouchRipple
                                         disableFocusRipple
-                                            checked={purchaseAmount?.toString() === p?.amount?.toString()}
-                                            onChange={(e) => handleChange( p?.amount, p?.credits)}
+                                            checked={purchaseSubscriptionAmount?.toString() === p?.amount?.toString()}
+                                            onChange={(e) => handleChange( p?.amount, p?.month)}
                                             value={p?.amount}
                                             name="radio-buttons"
                                             sx={{
@@ -116,22 +83,21 @@ const ModalPricing = ({open}) => {
                                                 },
                                             }}
                                         />
-                                        {`${p?.credits} credits`}
+                                        {`${p?.month} month`}
                                     </TableCell>
                                     <TableCell align='center' sx={{ color: '#E9E9E9', fontSize: '16px' }}>
                                         ${p?.amount}
                                     </TableCell>
-                                    <TableCell align='center' sx={{ color: 'white', fontSize: '18px' }}>
-                                        $ {p?.perCredit}/credit
-                                    </TableCell>
-
                                     <TableCell align='center' sx={{ color: 'white', fontSize: '14px' }}>
-                                         {p?.vs}<br />{p?.gs}<br />{p?.is}
+                                         {p?.offer}
                                     </TableCell>
-                                    <TableCell   sx={{ height:'100%',color: 'white', fontSize: '18px', textAlign:'center' }}>
-                                        <Box onClick={handleClick} sx={{width:'125px', cursor:'pointer',height:'45px', borderBottom:'none',backgroundColor:'#FFD600', borderRadius:'50px', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                                            Buy now
+                                    <TableCell  align='center'  sx={{ height:'100%',color: 'white', fontSize: '18px', textAlign:'center' }}>
+                                    <Box sx={{display:'flex',justifyContent:'center', alignItems:'center', height:'100%', width:'100%'}}>
+                                    <Box onClick={handleClick} sx={{padding:'0px 20px 0px 20px', width:'125px',cursor:'pointer',height:'45px', borderBottom:'none',backgroundColor:'#FFD600', borderRadius:'50px', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                                            Subcribe now
                                         </Box>
+                                    </Box>
+                                        
                                     </TableCell>
                                 </TableRow>
                                     ))
@@ -147,4 +113,4 @@ const ModalPricing = ({open}) => {
     )
 }
 
-export default ModalPricing
+export default ModalLockerPricing

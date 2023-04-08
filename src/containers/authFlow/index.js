@@ -6,7 +6,7 @@ import './authFlow.css'
 import ForgetPassword from "./forgetPassword";
 import OTP from "./otp";
 import NewPassword from "./newPassword";
-// import ProtectedRoute from "../../components/general/ProtectedRoute";
+import RequireNoAuth from "../../components/ProtectedRoutes/RequireNoAuth";
 
 
 
@@ -14,17 +14,14 @@ export default function AuthFlow() {
 
 
   return (
-    <>
-      
+    <> 
         <Routes>
-          <Route path="/signin" element={<div className="background-signin"><Signin /></div>} />
-          {/* <Route path="/signup" element={<ProtectedRoute><div className="background-signin"><Signup /></div></ProtectedRoute>} /> */}
-          <Route path="/signup" element={<div className="background-signin"><Signup /></div>} />
+          <Route path="/signin" element={<RequireNoAuth><div className="background-signin"><Signin/></div></RequireNoAuth>} />
+          <Route path="/signup" element={<RequireNoAuth><div className="background-signin"><Signup /></div></RequireNoAuth>} />
           <Route path="/forgetPassword" element={<div className="background-signin"><ForgetPassword/></div>} />
           <Route path="/otp" element={<div className="background-signin"><OTP/></div>} />
           <Route path="/newPassword" element={<div className="background-signin"><NewPassword/></div>} />
         </Routes>
-      {/* </div> */}
     </>
   );
 }

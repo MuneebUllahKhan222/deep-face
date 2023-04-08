@@ -12,9 +12,11 @@ import ModalAuth from '../modal/ModalAuth';
 import { useSelector } from 'react-redux';
 import ModalPricing from '../modal/ModalPricing';
 import ModalStripe from '../modal/ModalStripe';
+import ModalLocker from '../modal/ModalLocker';
+import ModalLockerPricing from '../modal/ModalLockerPricing';
 
 const Header = ({ colorScheme }) => {
-    const {modalState, pricingModalState, stripeModalState} = useSelector(state => state?.user)
+    const { modalState, pricingModalState, stripeModalState, lockerAdModalState, lockerPricingModalState } = useSelector(state => state?.user)
     const navigate = useNavigate();
     const [open, setopen] = useState(false)
     const [showFeatureMenu, setShowFeatureMenu] = useState(false)
@@ -54,9 +56,9 @@ const Header = ({ colorScheme }) => {
     const handleLogout = () => {
         document.cookie.split(";").forEach((c) => {
             document.cookie = c
-              .replace(/^ +/, "")
-              .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-          });
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
         handleClose()
         navigate('/')
     }
@@ -66,7 +68,7 @@ const Header = ({ colorScheme }) => {
         navigate(route)
     }
 
-    
+
 
     return (
         <Box sx={{ height: '70px', display: 'flex', justifyContent: 'center', background: 'transparent' }}>
@@ -83,93 +85,97 @@ const Header = ({ colorScheme }) => {
                     <>
                         {!user
                             ?
-                            <Box sx={{ display: 'flex', alignItems: 'center', width: 'fit-content', columnGap:'25px',justifyContent: 'space-between',}}>
-                                <Box onClick={() => navigate('/imageSwap/upload')} sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }} : { color: '#888888', fontWeight:600,cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', width: 'fit-content', columnGap: '25px', justifyContent: 'space-between', }}>
+                                <Box onClick={() => navigate('/imageSwap/upload')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Swap it
                                 </Box>
                                 <Box>
-                                <Box onClick={handleClickFeature} sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
-                                    Features
+                                    <Box onClick={handleClickFeature} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                        Features
+                                    </Box>
+                                    <Menu
+                                        anchorEl={anchorElFeature}
+                                        id="account-menu"
+                                        open={showFeatureMenu}
+                                        onClose={handleCloseFeature}
+                                        onClick={handleCloseFeature}
+                                        PaperProps={{
+                                            elevation: 0,
+                                            sx: {
+                                                backgroundColor: '#2A2A2C',
+                                                borderRadius: '15px',
+                                                padding: '15px',
+                                                color: 'white',
+                                                width: '241px'
+                                            },
+                                        }}
+                                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                    >
+                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                                            Image Swap
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                                            GIF Swap
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                                            Video Swap
+                                        </MenuItem>
+                                    </Menu>
                                 </Box>
-                                <Menu
-                                    anchorEl={anchorElFeature}
-                                    id="account-menu"
-                                    open={showFeatureMenu}
-                                    onClose={handleCloseFeature}
-                                    onClick={handleCloseFeature}
-                                    PaperProps={{
-                                        elevation: 0,
-                                        sx: {
-                                            backgroundColor: '#2A2A2C',
-                                            borderRadius: '15px',
-                                            padding: '15px',
-                                            color: 'white',
-                                            width: '241px'
-                                        },
-                                    }}
-                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                >
-                                    <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                        Image Swap
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                        GIF Swap
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
-                                        Video Swap
-                                    </MenuItem>
-                                </Menu>
-                            </Box>
-                                <Box onClick={() => handleNavigation('/pay')}  sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                <Box onClick={() => handleNavigation('/pay')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Pricing
                                 </Box>
                             </Box>
                             :
-                            <Box sx={{ display: 'flex', alignItems: 'center', width: 'fit-content', columnGap:'25px',justifyContent: 'space-between'}}>
-                                <Box onClick={() => navigate('/imageSwap/upload')} sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', width: 'fit-content', columnGap: '25px', justifyContent: 'space-between' }}>
+                                <Box onClick={() => navigate('/imageSwap/upload')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Swap it
                                 </Box>
                                 <Box>
-                                <Box onClick={handleClickFeature} sx={colorScheme === 'light' ? {color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
-                                Features
+                                    <Box onClick={handleClickFeature} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                        Features
+                                    </Box>
+                                    <Menu
+                                        anchorEl={anchorElFeature}
+                                        id="account-menu"
+                                        open={showFeatureMenu}
+                                        onClose={handleCloseFeature}
+                                        onClick={handleCloseFeature}
+                                        PaperProps={{
+                                            elevation: 0,
+                                            sx: {
+                                                backgroundColor: '#2A2A2C',
+                                                borderRadius: '15px',
+                                                padding: '15px',
+                                                color: 'white',
+                                                width: '241px'
+                                            },
+                                        }}
+                                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                    >
+                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                                            Image Swap
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                                            GIF Swap
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                                            Video Swap
+                                        </MenuItem>
+                                    </Menu>
                                 </Box>
-                                <Menu
-                                    anchorEl={anchorElFeature}
-                                    id="account-menu"
-                                    open={showFeatureMenu}
-                                    onClose={handleCloseFeature}
-                                    onClick={handleCloseFeature}
-                                    PaperProps={{
-                                        elevation: 0,
-                                        sx: {
-                                            backgroundColor: '#2A2A2C',
-                                            borderRadius: '15px',
-                                            padding: '15px',
-                                            color: 'white',
-                                            width: '241px'
-                                        },
-                                    }}
-                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                                >
-                                    <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                        Image Swap
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                        GIF Swap
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
-                                        Video Swap
-                                    </MenuItem>
-                                </Menu>
-                                </Box>
-                                <Box onClick={() => handleNavigation('/pay')}  sx={colorScheme === 'light' ? { color: 'black', fontWeight:600, cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888',fontWeight:600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                <Box onClick={() => handleNavigation('/pay')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Pricing
                                 </Box>
-                                <Box onClick={() => navigate('/gallery')} sx={colorScheme === 'light' ? { color: 'black', fontWeight:600,cursor: 'pointer', '&:hover': { color: 'black' }}: colorScheme === 'video' ? { color: '#FFFFFF', fontWeight:600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' }}  : { color: '#888888', fontWeight:600,cursor: 'pointer', '&:hover': { color: 'white' } }}>
-                                    Gallery
-                                </Box>
+                                {
+                                    user?.lockerSubscription === true
+                                    &&
+                                    <Box onClick={() => navigate('/gallery')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                        Gallery
+                                    </Box>
+                                }
                             </Box>
                         }
 
@@ -180,7 +186,7 @@ const Header = ({ colorScheme }) => {
                         {!user
                             ?
                             <Box sx={{ display: 'flex', alignItems: 'center', width: 'fit-content' }}>
-                                <Button onClick={() => navigate('/signin')} sx={ colorScheme === 'video' ? { marginRight: '15px', color: 'white', fontWeight:600, } : { marginRight: '15px', color: '#888888', fontWeight:600, }} disableElevation disableFocusRipple variant='text'>
+                                <Button onClick={() => navigate('/signin')} sx={colorScheme === 'video' ? { marginRight: '15px', color: 'white', fontWeight: 600, } : { marginRight: '15px', color: '#888888', fontWeight: 600, }} disableElevation disableFocusRipple variant='text'>
                                     Log in
                                 </Button>
                                 <Button onClick={() => navigate('/signup')} variant='contained' disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', borderRadius: '12px', width: 'fit-content', '&:hover': { backgroundColor: '#FFD600' } }}>Sign up</Button>
@@ -209,11 +215,11 @@ const Header = ({ colorScheme }) => {
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                 >
-                                        <Tooltip title={user?.email} placement='top-start'>
-                                    <MenuItem sx={{ backgroundColor: '#2A2A2C' }} onClick={handleClose}>
-                                        <Avatar sx={{ width: '32px', fontSize:'10px',height: '32px', marginRight: '9px', backgroundColor: '#323235', color: '#707070' }} /> {user?.email.substring(0,15)}  . . .
-                                    </MenuItem>
-                                        </Tooltip>
+                                    <Tooltip title={user?.email} placement='top-start'>
+                                        <MenuItem sx={{ backgroundColor: '#2A2A2C' }} onClick={handleClose}>
+                                            <Avatar sx={{ width: '32px', fontSize: '10px', height: '32px', marginRight: '9px', backgroundColor: '#323235', color: '#707070' }} /> {user?.email.substring(0, 15)}  . . .
+                                        </MenuItem>
+                                    </Tooltip>
                                     <Divider />
                                     <MenuItem sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }} onClick={handleClose}>
                                         <ListItemIcon>
@@ -234,8 +240,8 @@ const Header = ({ colorScheme }) => {
                     </>
                     :
                     <>
-                    <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', borderRadius: '6px', width: 'fit-content', '&:hover': { backgroundColor: '#FFD600' }, marginRight:'10px', height:'35px' }}>Swap it</Button>
-                        <IconButton sx={colorScheme === 'light' ?{color:'black'} :{ color: 'white' }} onClick={() => setopen(true)}><MenuIcon fontSize='large' /></IconButton>
+                        <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', borderRadius: '6px', width: 'fit-content', '&:hover': { backgroundColor: '#FFD600' }, marginRight: '10px', height: '35px' }}>Swap it</Button>
+                        <IconButton sx={colorScheme === 'light' ? { color: 'black' } : { color: 'white' }} onClick={() => setopen(true)}><MenuIcon fontSize='large' /></IconButton>
                         <MenuDrawer open={open} toggleDrawer={toggleDrawer} />
                     </>
 
@@ -244,6 +250,8 @@ const Header = ({ colorScheme }) => {
             <ModalAuth authModalOpen={modalState} />
             <ModalPricing open={pricingModalState} />
             <ModalStripe open={stripeModalState} />
+            <ModalLocker open={lockerAdModalState} />
+            <ModalLockerPricing open={lockerPricingModalState} />
         </Box>
     )
 }

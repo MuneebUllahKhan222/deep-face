@@ -1,7 +1,7 @@
 import { Navigate,} from 'react-router-dom';
 import { getCookies } from '../../utils';
 
-const ProtectedRoute = ({ children}) => {
+const RequireAuth = ({ children}) => {
     const isAuthenticated = getCookies('user');
     if (!isAuthenticated) {
         return <Navigate replace to={'/signin'}/>
@@ -9,4 +9,4 @@ const ProtectedRoute = ({ children}) => {
   return children
 };
 
-export default ProtectedRoute;
+export default RequireAuth;

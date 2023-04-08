@@ -3,14 +3,18 @@ import { Avatar, Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import TollIcon from '@mui/icons-material/Toll';
 import { delAllCookies, getCookies } from '../../utils';
+import { useDispatch } from 'react-redux';
+import { resetAll } from '../../store/reducers/user';
 
 const LoginDrawer = ({toggleDrawer}) => {
 
     const navigate= useNavigate();
     const user =getCookies('user')
+    const dispatch = useDispatch();
 
     const logout = () => {
         delAllCookies()
+        dispatch(resetAll())
         navigate('/')
     }
   return (

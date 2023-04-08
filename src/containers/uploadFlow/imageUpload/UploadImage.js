@@ -14,7 +14,7 @@ import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, imageUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
-import {  setPricingModalOpen } from '../../../store/reducers/user';
+import {  setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
 
 
 
@@ -30,9 +30,7 @@ const UploadImage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = getCookies('user')
-  
+  const navigate = useNavigate();  
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
     // data for submit
@@ -75,10 +73,13 @@ const UploadImage = () => {
   }, [inputImage, baseImage])
 
   const createDocument = async () => {
-    setApiCalled(1)
-    const userForId = getCookies('user')
-    console.log(userForId?._id, user?._id, 'ids of user')
-    const res= await dispatch(createDoc({uid:userForId?._id, credits:0.5})) 
+    const user = getCookies('user')
+    const creds = getCookies('credits')
+    const credits = 0.5
+    if (creds?.credits >= credits){
+      setApiCalled(1)
+    console.log(user?._id, user?._id, 'ids of user')
+    const res= await dispatch(createDoc({uid:user?._id, credits})) 
     if (!res?.success) {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       setApiCalled(0)
@@ -88,11 +89,18 @@ const UploadImage = () => {
     const {result} = await dispatch(getImage(res?.data))
     setResult(result)
     setApiCalled(2)
+    } else {
+      enqueueSnackbar('Insufficient credits', { variant: 'error', autoHideDuration: 3000 });
+      dispatch(setPricingModalOpen())
+    }
+    
     
   }
 
   const saveImage = async() => {
+    const user = getCookies('user');
     const data = {url:result, uid:user?._id, type:'image'}
+    if (user?.lockerSubscription === true){
     const save = await dispatch(saveContent(data))
     if (save?.status === 201) {
       enqueueSnackbar("Image saved successfully", { variant: 'success', autoHideDuration: 3000 })
@@ -102,6 +110,10 @@ const UploadImage = () => {
      else {
       enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
     }
+    } else {
+      dispatch(setLockerPricingModalOpen())
+    }
+    
   }
 
   const downloadContent= (event) => {

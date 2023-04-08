@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookies } from "../../utils";
+import { setCookies, updateCookie } from "../../utils";
 import {  setRegisterUserEmail } from "../reducers/register";
 import { setUserData } from "../reducers/user";
 
@@ -74,13 +74,6 @@ export const sendOTPEmail = (info) => async (dispatch) => {
     console.log(email, 'api called')
     const response = await axios.post(`${basePath}/auth/verifyEmailForPass`, data)
     console.log(response?.data)
-    // if (response?.data?.status === 200) {
-    // setCookies('user',response?.data?.data, {
-    //   path:'/'
-    // })  
-      
-    // dispatch(setRegisterUserEmail(response?.data?.data)); 
-    // }
     return response?.data
     
   } catch (err) {
@@ -126,6 +119,34 @@ export const updatePassword = (info) => async (dispatch) => {
     console.log(data, 'api called')
     const response = await axios.post(`${basePath}/auth/updatePassword`, data)
     console.log(response?.data)
+    return response?.data
+    
+  } catch (err) {
+    return {
+      error: err,
+    };
+  }
+};
+
+
+export const changeStatus = (uid, token) => async (dispatch) => {
+  try {
+    const data = {
+      uid,
+      token
+    }
+    const response = await axios.post(`${basePath}/auth/changeStatus`, data)
+    console.log(response, 'res of change Status')
+    if (response?.data?.status === 200) {
+      const saveObj = {
+        ...response?.data?.data?.data,token:response?.data?.data?.token
+      }
+      delete saveObj.hash
+      delete saveObj.__v
+    updateCookie('user',saveObj, {
+      path:'/'
+    })  
+    }
     return response?.data
     
   } catch (err) {

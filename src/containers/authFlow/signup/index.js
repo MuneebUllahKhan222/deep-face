@@ -7,6 +7,8 @@ import Header from '../../../components/general/Header';
 import SignupForm from '../../../components/Login-signup/SignUpForm';
 import { register } from '../../../store/services/register';
 import {useSnackbar } from 'notistack';
+import { getCookies } from '../../../utils';
+import { setLockerAdModalOpen } from '../../../store/reducers/user';
 
 
 const Signup = () => {
@@ -18,8 +20,12 @@ const Signup = () => {
     const res =  await dispatch(register(data))
     console.log(res,' res of signup')
     if (res?.status === 200) {
-      navigate('/signin')
+      navigate('/')
       enqueueSnackbar('Sign up successful', { variant: 'success', autoHideDuration:3000 })
+      const user = getCookies('user')
+      if (user?.firstTimeLogin === true) {
+        dispatch(setLockerAdModalOpen())
+      }
     } else {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration:3000 })
     }

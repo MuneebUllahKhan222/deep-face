@@ -6,6 +6,7 @@ import ImageSwap from "./ImageSwap page/ImageSwap";
 import LandingPage from "./Landing page/LandingPage";
 import TermsAndCondition from "./Terms page/TermsAndCondition";
 import VideoSwap from "./VideoSwap page/VideoSwap";
+import RequireSubscription from "../../components/ProtectedRoutes/RequireSubscription";
 
 
 
@@ -20,7 +21,7 @@ export default function MainFlow() {
         <Route path="/videoSwap" element={<VideoSwap />} />
         <Route path="/gifSwap" element={<GifSwap />} />
         <Route path="/termsAndCondition" element={<TermsAndCondition />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery" element={<RequireSubscription><Gallery /></RequireSubscription>} />
       </Routes>
       </>
   );

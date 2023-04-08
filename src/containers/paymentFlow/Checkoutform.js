@@ -4,8 +4,8 @@ import { useSnackbar } from 'notistack';
 import React, { useState }  from 'react';
 import ModalAuth from '../../components/modal/ModalAuth';
 import { useDispatch, useSelector } from 'react-redux';
-import { setModalOpen, setPricingModalClose, setStripeModalClose } from '../../store/reducers/user';
-import { purchaseCredits } from '../../store/services/user';
+import { resetFlows, setLockerAdModalOpen, setLockerPricingModalClose, setModalOpen, setPricingModalClose, setStripeModalClose } from '../../store/reducers/user';
+import { purchaseCredits, purchaseSubscription } from '../../store/services/user';
 import { getCookies } from '../../utils';
 
 
@@ -19,23 +19,42 @@ function Checkoutform({total}) {
     const dispatch= useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const [buttonDisable, setbuttonDisable] = useState(false);
-    const {purchaseAmount, purchaseCredits:credits} = useSelector(state => state?.user)
+    const {purchaseAmount, purchaseCredits:credits, subscriptionFlow, purchaseSubscriptionAmount, purchaseSubscriptionMonth} = useSelector(state => state?.user)
+
+
+    const handleAfterPurchaseCreds = async() => {
+        const user = getCookies('user')
+
+            console.log(purchaseAmount, credits, ' creds', subscriptionFlow);
+            const res = await dispatch(purchaseCredits({uid:user?._id, amount: purchaseAmount, credits:credits}));
+            console.log(res, 'res of pucrhase');
+            dispatch(setStripeModalClose());
+            enqueueSnackbar('Payment successful', { variant: 'success' });
+            dispatch(resetFlows());
+            if (user?.lockerSubscription === false || user?.firstTimeLogin === true)
+            setTimeout(() => {
+                dispatch(setLockerAdModalOpen())
+
+            },700)
+    }
+
+    const handleAfterPurchaseSubscribtion = async() => {
+        const user = getCookies('user')
+            dispatch(setLockerPricingModalClose())
+            const res = await dispatch(purchaseSubscription({uid:user?._id, amount: purchaseSubscriptionAmount, month:purchaseSubscriptionMonth}))
+            console.log(res, 'res of pucrhase')
+            dispatch(setStripeModalClose())
+            dispatch(resetFlows())
+            enqueueSnackbar('Payment successful', { variant: 'success' })
+    }
 
     const handleSubmit = async (e) => {
-        // setLoading(true)
         setbuttonDisable(true)
-        console.log('clicked');
         const host = window?.location?.origin;
-        // event.preventDefault();
-
-        
 
         if (!stripe || !elements) {
             return;
         }
-        // console.log(elements, host, 'form');
-        // handleCreateContest()
-        // createDoc()
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
@@ -45,19 +64,16 @@ function Checkoutform({total}) {
         });
 
         if (!error) {
-            const user = getCookies('user')
-            console.log(purchaseAmount, credits, ' creds')
-            const res = await dispatch(purchaseCredits({uid:user?._id, amount: purchaseAmount, credits:credits}))
-            console.log(res, 'res of pucrhase')
-            dispatch(setStripeModalClose())
-            enqueueSnackbar('Payment successful', { variant: 'success' })
+            if(!subscriptionFlow){
+                handleAfterPurchaseCreds()
+            } else {
+                handleAfterPurchaseSubscribtion()
+            }
         }
         if (error) {
         enqueueSnackbar('Payment unsuccessful', { variant: 'error' })
         setbuttonDisable(false)
         }
-        // setLoading(false)
-
     };
 
     const handleClick =() => {
@@ -66,12 +82,12 @@ function Checkoutform({total}) {
             dispatch(setModalOpen())
             dispatch(setPricingModalClose())
         } else {
+            dispatch(setPricingModalClose())
             handleSubmit()
         }
     }
     return (
         <Box style={{ display: 'flex', flexDirection: 'column' }} >
-            {/* <CardElement /> */}
             <PaymentElement />
 
             <ModalAuth  authModalOpen={modalState} pay={handleSubmit} elements={elements} />

@@ -39,6 +39,39 @@ export const setCookies = (key, value, options) => {
 
 }
 
+// export const updateCookie = (key, value, options) => {
+//     const cookie = cookies.get(key);
+//     const expiryDate= cookie?.expiryDate;
+
+//     console.log({ ...value})
+//     const updatedCookieValue = {
+//         ...value,
+//       };
+//     cookies.set(key, {...updatedCookieValue, expiryDate}, {
+//         ...options,
+//         path: '/',
+        
+//         expires: new Date(cookie?.expiryDate)
+//     });
+// }
+
+export const updateCookie = (key, value, options) => {
+    const cookie = cookies.get(key);
+    const expiryDate= cookie?.expiryDate;
+
+    console.log({ ...cookie,...value})
+    const updatedCookieValue = {
+        ...cookie,
+        ...value,
+      };
+    cookies.set(key, {...updatedCookieValue, expiryDate}, {
+        ...options,
+        path: '/',
+        
+        expires: new Date(cookie?.expiryDate)
+    });
+}
+
 export const setCredits = (credits) => {
     setCookies('credits',{credits}, {
         path:'/'

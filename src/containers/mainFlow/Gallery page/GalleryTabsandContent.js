@@ -6,6 +6,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 const GalleryTabsandContent = ({ images, gifs, videos }) => {
     const [value, setValue] = useState(0)
     const imgRef = useRef()
+    const gifRef = useRef()
+    const videoRef = useRef()
 
     // const [images, setimages] = useState([]);
     // const [gif, setgif] = useState([]);
@@ -31,16 +33,32 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
     const matches1200w = useMediaQuery('(min-width: 700px) and (max-width: 1200px)')
     const matches800w = useMediaQuery('(min-width: 500px) and (max-width: 700px)')
     const matches500w = useMediaQuery('(max-width:500px)')
-    
-    const downloadContent= (event) => {
-        event.preventDefault();
-        console.log(event, imgRef.current)
-        // const link = document.createElement('a');
-        // link.href = result;
-        // link.download = 'result.jpg';
-        // document.body.appendChild(link);
-        // link.click();
-        // document.body.removeChild(link);
+
+    const downloadContent = (type) => {
+        console.log(type)
+        if (type === 'image') {
+            const link = document.createElement('a');
+            link.href = imgRef.current.src;
+            link.download = 'result.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else if (type === 'gif') {
+            const link = document.createElement('a');
+            link.href = gifRef.current.src;
+            link.download = 'result.gif';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            console.log(videoRef.current)
+            const link = document.createElement('a');
+            link.href = videoRef.current.src;
+            link.download = 'result.mp4';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     }
 
     return (
@@ -64,13 +82,13 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
                             ?
                             <Box p={4} pt={8} pb={8} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-                                <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)':{width:'100%'} }} cols={matches1200w?3:matches800w?2:matches500w?2:5} rowHeight={300} variant='masonary'>
+                                <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' } }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
                                     {
                                         images?.map(img => (
                                             <ImageListItem key={img?._id}>
                                                 {/* <Box component={'img'} src={img?.url} /> */}
                                                 <img
-                                                ref={imgRef}
+                                                    ref={imgRef}
                                                     // src={`${img?.url}?w=164&h=164&fit=crop&auto=format`}
                                                     // srcSet={`${img?.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                                                     // src={`${img?.url}?w=248&fit=crop&auto=format`}
@@ -85,8 +103,8 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
                                                     actionIcon={
                                                         <IconButton
                                                             sx={{ color: 'white' }}
-                                                            onClick={(e) => downloadContent(e)}
-                                                           
+                                                            onClick={() => downloadContent('image')}
+
                                                         >
                                                             <DownloadIcon />
                                                         </IconButton>
@@ -114,13 +132,14 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
                         :
                         value === 1 && gifs?.length !== 0
                             ?
-                            <Box p={4} pt={8} pb={8}  sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <Box p={4} pt={8} pb={8} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-                            <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)':{width:'100%'} }} cols={matches1200w?3:matches800w?2:matches500w?2:5} rowHeight={300} variant='masonary'>
+                                <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' } }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
                                     {
                                         gifs?.map(gif => (
                                             <ImageListItem key={gif?._id}>
                                                 <img
+                                                    ref={gifRef}
                                                     src={gif?.url}
                                                     alt={'saved gif'}
                                                     loading="lazy"
@@ -131,7 +150,8 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
                                                     actionIcon={
                                                         <IconButton
                                                             sx={{ color: 'white' }}
-                                                           
+                                                            onClick={() => downloadContent('gif')}
+
                                                         >
                                                             <DownloadIcon />
                                                         </IconButton>
@@ -159,7 +179,36 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
                         value === 2 && videos?.length !== 0
                             ?
                             <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' } }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
+                                    {
+                                        videos?.map(video => (
+                                            <ImageListItem key={video?._id}>
+                                            <video
+                                            width="100%"
+                                            autoPlay={true}
+                                            loop={true}
+                                            // controls={true}
+                                            >
+                                            <source src={video?.url} ref={videoRef} type="video/mp4" />
+                                            </video>
 
+                                                <ImageListItemBar
+                                                    position='top'
+                                                    actionIcon={
+                                                        <IconButton
+                                                            sx={{ color: 'white' }}
+                                                            onClick={() => downloadContent('video')}
+
+                                                        >
+                                                            <DownloadIcon />
+                                                        </IconButton>
+                                                    }
+                                                    actionPosition="left"
+                                                />
+                                            </ImageListItem>
+                                        ))
+                                    }
+                                </ImageList>
 
                             </Box>
                             :
