@@ -17,7 +17,6 @@ import { useSnackbar } from 'notistack';
 import {  setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
 
 
-
 const UploadImage = () => {
   // const [images, setImages] = useState([]);
   const [inputImage, setInputImage] = useState([]);
@@ -25,6 +24,7 @@ const UploadImage = () => {
   const [apiCalled, setApiCalled] = useState(0);
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
+  // const [downloaded, setDownloaded] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
   const [result, setResult] = useState();
   const { enqueueSnackbar } = useSnackbar();
@@ -88,6 +88,7 @@ const UploadImage = () => {
     await dispatch(imageUploader(blobInput, blobBase, res?.data))
     const {result} = await dispatch(getImage(res?.data))
     setResult(result)
+    // setDownloaded(true)
     setApiCalled(2)
     } else {
       enqueueSnackbar('Insufficient credits', { variant: 'error', autoHideDuration: 3000 });
@@ -99,6 +100,7 @@ const UploadImage = () => {
 
   const saveImage = async() => {
     const user = getCookies('user');
+    // setDownloaded(false);
     const data = {url:result, uid:user?._id, type:'image'}
     if (user?.lockerSubscription === true){
     const save = await dispatch(saveContent(data))
@@ -118,6 +120,7 @@ const UploadImage = () => {
 
   const downloadContent= (event) => {
     event.preventDefault();
+    // setDownloaded(false);
     const link = document.createElement('a');
     link.href = result;
     link.download = 'result.jpg';
@@ -125,8 +128,37 @@ const UploadImage = () => {
     link.click();
     document.body.removeChild(link);
 }
+
+// useEffect(() => {
+//   const handleBeforeUnload = (event) => {
+//     // event.preventDefault();
+//     window.prompt('abc')
+//     // console.log('inside func')
+//     // event.returnValue = "Are you sure you want to leave without downloading?"
+//   };
+//   // if (!dowloaded) {
+
+//     // window.addEventListener("beforeunload", handleBeforeUnload);
+//   // }
+  
+//   window.addEventListener("beforeunload", handleBeforeUnload);
+//   // window.addEventListener("popstate", handleBeforeUnload);
+//   return () => {
+//       // window.addEventListener("popstate", confirmation());
+//       if (dowloaded) {
+
+//         // handleBeforeUnload()
+//       }
+//       // window.removeEventListener("popstate", handleBeforeUnload);
+//       window.removeEventListener("beforeunload", handleBeforeUnload);
+//   }
+//   }, []);
+
+
+
 const matches900pxw = useMediaQuery('(max-width:900px)')
   return (
+    <>
     <Box sx={{ height: 'fit-content', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
       <Box sx={{ width: '100%' }}>
         <Header colorScheme={'light'} />
@@ -330,6 +362,11 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
       </Box>
 
     </Box>
+    {/* <Prompt
+        when={dowloaded}
+        message="Are you sure you want to leave without saving?"
+      /> */}
+    </>
   )
 }
 

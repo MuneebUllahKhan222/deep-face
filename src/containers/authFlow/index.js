@@ -16,11 +16,11 @@ export default function AuthFlow() {
   return (
     <> 
         <Routes>
-          <Route path="/signin" element={<RequireNoAuth><div className="background-signin"><Signin/></div></RequireNoAuth>} />
-          <Route path="/signup" element={<RequireNoAuth><div className="background-signin"><Signup /></div></RequireNoAuth>} />
-          <Route path="/forgetPassword" element={<div className="background-signin"><ForgetPassword/></div>} />
-          <Route path="/otp" element={<div className="background-signin"><OTP/></div>} />
-          <Route path="/newPassword" element={<div className="background-signin"><NewPassword/></div>} />
+          <Route path="/signin" exact element={<RequireNoAuth><div className="background-signin"><Signin/></div></RequireNoAuth>} />
+          <Route path="/signup" exact element={<RequireNoAuth><div className="background-signin"><Signup /></div></RequireNoAuth>} />
+          <Route path="/forgetPassword" exact element={<RequireNoAuth><div className="background-signin"><ForgetPassword/></div></RequireNoAuth>} />
+          <Route path="/otp" exact element={<RequireNoAuth><div className="background-signin"><OTP/></div></RequireNoAuth>} />
+          <Route path="/newPassword" exact element={<RequireNoAuth><div className="background-signin"><NewPassword/></div></RequireNoAuth>} />
         </Routes>
     </>
   );

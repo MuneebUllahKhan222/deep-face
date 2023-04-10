@@ -13,15 +13,15 @@ const Section1 = () => {
     <Header />
 
     </Box>
-        <Box sx={{display:'flex', height:'90%',flexDirection:'column', alignItems:'center',  padding:'0px 40px 60px 40px'}}>
-        <Box mr={{lg:35, xs:0}} sx={{height:'100%', display:'flex', justifyContent:'flex-start', alignItems:'center','@media(max-width:800px)':{flexDirection:'column'}}}>
+        <Box sx={{display:'flex', height:'90%',flexDirection:'column', alignItems:'center',  padding:'0px 40px 60px 40px', '@media(max-width:800px)':{padding:'0 40px 60px 40px'}}}>
+        <Box mr={{lg:75, xs:0}} sx={{height:'100%', display:'flex', justifyContent:'flex-start', alignItems:'center','@media(max-width:800px)':{flexDirection:'column'}}}>
 
             <Box sx={{ display:'flex', flexDirection:'column', width:'100%','@media(max-width:1000px)':{width:'100%'},'@media(max-width:800px)':{width:'80%', marginTop:'40px', alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
                 <Box sx={{ display:'flex', alignItems:'center'}}>
-                    <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>GIF Face Swap</Typography>
+                    <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'},fontFamily:'Raleway'}}>GIF Face Swap</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
-                <Typography fontSize={14} fontWeight={500} sx={{color:'white','@media(max-width:800px)':{textAlign:'cemter'}}}>Swap a face on your favorite GIFS today and be the hero of your text threads!</Typography>
+                <Typography fontSize={14} fontWeight={500} sx={{color:'white','@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}}>Swap a face on your favorite GIFS today and be the hero of your text threads!</Typography>
                 <CustomButton  navigateTo={'/gifSwap/upload'} text='Try Swap it' style={{width:'fit-content', marginTop:'25px'}} />
             </Box>
 

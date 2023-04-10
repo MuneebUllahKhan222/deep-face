@@ -12,10 +12,10 @@ const Section2 = () => {
 
             <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%',alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
                 <Box sx={{ display:'flex', alignItems:'center'}}>
-                    <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}}}>Image Swap</Typography>
+                    <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}, fontFamily:'Raleway'}}>Image Swap</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
-                <Typography fontSize={16} fontWeight={500}>With Deep Duck, swapping faces on any image is as simple as an upload and a click.</Typography>
+                <Typography fontSize={16} fontWeight={500} sx={{fontFamily:'Raleway'}}>With Deep Duck, swapping faces on any image is as simple as an upload and a click.</Typography>
                 <Button variant='contained' disableElevation onClick={() =>navigate('/imageSwap')} sx={{backgroundColor:'#FFD600', fontWeight:600,height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Image Swap</Button>           
             </Box>
 

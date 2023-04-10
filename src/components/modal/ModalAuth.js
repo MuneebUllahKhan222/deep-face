@@ -4,11 +4,14 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidationSchema, validationSchema } from '../Login-signup/Validation';
-import { setModalClose } from '../../store/reducers/user';
+import { resetAllModals,  setModalClose } from '../../store/reducers/user';
 import { useDispatch } from 'react-redux';
 import { login, register } from '../../store/services/register';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const ModalAuth = ({ authModalOpen, pay, elements}) => {
 
@@ -17,6 +20,8 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar} = useSnackbar()
   const navigate = useNavigate();
+  const [showPassword, setshowPassword] = useState(false);
+  const [showPasswordSignup, setshowPasswordSignup] = useState(false);
   
   const { handleSubmit, formState: { errors }, control, reset} = useForm({
     resolver: yupResolver(loginRegister? validationSchema:loginValidationSchema ),
@@ -35,7 +40,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
       if (res.status === 200) {
         handleClose()
         pay();
-        enqueueSnackbar('Login successful', { variant: 'success', autoHideDuration: 3000 })
+        enqueueSnackbar('Login successful', { variant: 'success', autoHideDuration: 2000 })
       } else {
         enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       }
@@ -44,7 +49,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
       const res = await dispatch(login(data))
     if (res.status === 200) {
       handleClose()
-      enqueueSnackbar('Login successful', { variant: 'success', autoHideDuration: 3000 })
+      enqueueSnackbar('Login successful', { variant: 'success', autoHideDuration: 2000 })
     } else {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
     }
@@ -79,7 +84,15 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
         email:'',
         emailSignup:''
       })
-    setloginRegister(!loginRegister)
+      setshowPassword(false);
+      setshowPasswordSignup(false);
+      setloginRegister(!loginRegister)
+  }
+
+
+  const handleTermsNaviagtion = () => {
+    dispatch(resetAllModals())
+    navigate('/termsAndCondition')
   }
 
 
@@ -95,6 +108,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
         },
       }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '100%', width: '100%' }}>
+      <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white', width:'100%'}}><CloseIcon /></Box>
         <Typography fontWeight={600} fontSize={25} sx={{ color: 'white', marginBottom:'5px' }}>{loginRegister? 'Sign Up' :'Log in'}</Typography>
 
         {
@@ -142,6 +156,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
               inputMode='password'
               variant='standard'
               value={value}
+              type={showPasswordSignup ?'text' : 'password'}
               error={errors?.passwordSignup ? true : false}
               // helperText={errors.email ? errors.email.message : ''}
               onChange={onChange}
@@ -149,6 +164,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
               placeholder='Password'
               InputProps={{
                 startAdornment: <InputAdornment position="start" ><PersonIcon sx={{ color: 'white', marginLeft: '20px' }} /></InputAdornment>,
+                endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showPasswordSignup ? <VisibilityIcon onClick={() => setshowPasswordSignup(prev => !prev)} sx={{ color: 'white', marginRight:'10px' }} />: <VisibilityOffIcon onClick={() => setshowPasswordSignup(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
                 disableUnderline: true,
               }}
             />
@@ -203,6 +219,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
               inputMode='password'
               variant='standard'
               value={value}
+              type={showPassword ?'text' : 'password'}
               error={errors.password ? true : false}
               // helperText={errors.email ? errors.email.message : ''}
               onChange={onChange}
@@ -210,6 +227,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
               placeholder='Password'
               InputProps={{
                 startAdornment: <InputAdornment position="start" ><PersonIcon sx={{ color: 'white', marginLeft: '20px' }} /></InputAdornment>,
+                endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showPassword ? <VisibilityIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginRight:'10px' }} />: <VisibilityOffIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
                 disableUnderline: true,
               }}
             />
@@ -250,7 +268,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
               // label={"I agree to Terms of service and Privacy Policy"}
 
             />
-            <Box>I agree to <Typography component={'span'} onClick={() => navigate('/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Terms of service</Typography> and <Typography component={'span'}  onClick={() => navigate('/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Privacy Policy</Typography></Box>
+            <Box>I agree to <Typography component={'span'} onClick={() => handleTermsNaviagtion()} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Terms of service</Typography> & <Typography component={'span'}  onClick={() => handleTermsNaviagtion()} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Privacy Policy</Typography></Box>
             </Box>
           <Box sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
           {errors.terms ? errors.terms.message : ''}

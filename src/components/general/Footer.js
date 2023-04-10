@@ -4,9 +4,11 @@ import EmailIcon from '@mui/icons-material/Email';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = ({ colorScheme }) => {
-    const matches600w = useMediaQuery('(max-width:600px)')
+    const matches600w = useMediaQuery('(max-width:600px)');
+    const navigate = useNavigate();
     
     return (
         <Box pt={3} sx={{ height: 'fit-content', backgroundColor: 'transparent', display: 'flex', justifyContent: 'space-between', width:'100%','@media(max-width:700px)': { flexWrap: 'wrap', justifyContent:'center', rowGap:'40px', columnGap:'20px' } }}>
@@ -17,7 +19,7 @@ const Footer = ({ colorScheme }) => {
                 <>
    
                 <Box mr={1} sx={{ display: 'flex', flexDirection: 'column', width:'180px','@media(max-width:700px)': { marginBottom: '20px' }, '@media(max-width:570px)': { marginLeft:'25px'  } }}>
-                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8', }}>Contact us</Typography>
+                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8',fontFamily:'Raleway', marginBottom:'13px', }}>Contact us</Typography>
                 <Box sx={{ display: 'flex' }}>
                     {
                         colorScheme === 'light'
@@ -52,7 +54,7 @@ const Footer = ({ colorScheme }) => {
             </Box>
 
             <Box mr={1} sx={{ display: 'flex', flexDirection: 'column', width:'180px', '@media(max-width:700px)': { marginBottom: '20px' },  '@media(max-width:570px)': { marginLeft:'25px'  }  }}>
-                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8' }}>Social media</Typography>
+                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Social media</Typography>
                 <Box sx={{ display: 'flex' }}>
                 {
                         colorScheme === 'light'
@@ -86,25 +88,25 @@ const Footer = ({ colorScheme }) => {
             </Box>
 
             <Box mr={1} sx={{ display: 'flex', flexDirection: 'column', width:'180px', '@media(max-width:700px)': { marginBottom: '20px' },  '@media(max-width:570px)': { marginLeft:'25px'  }  }}>
-                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8' }}>Legal</Typography>
+                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Legal</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F' }:{ color: '#DDDDDD' }}>Terms and service</Typography>
-                    <Typography fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F' }:{ color: '#DDDDDD' }}>Privacy policy</Typography>
-                    <Typography fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F' }:{ color: '#DDDDDD' }}>Refund policy</Typography>
+                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway', cursor:'pointer' }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer' }}>Terms and service</Typography>
+                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer' }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer' }}>Privacy policy</Typography>
+                    <Typography fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>Refund policy</Typography>
                 </Box>
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', width:'180px', '@media(max-width:700px)': { marginBottom: '20px' }, '@media(max-width:570px)': { marginLeft:'25px'  }  }}>
-                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8', }}>Support</Typography>
+                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Support</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography fontSize={15} sx={colorScheme === 'light' ?{ color: '#1F1F1F' }:{ color: '#DDDDDD' }}>FAQ</Typography>
+                    <Typography fontSize={15} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>FAQ</Typography>
                 </Box>
             </Box>
             </>
             :
             <Box sx={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between', rowGap:'70px'}}>
                 <Box sx={{display:'flex', justifyConten:'center', flexDirection:'column', alignItems:'center'}}>
-                    <Typography sx={{ color: '#B8B8B8', fontWeight:500, fontSize:'18px' }}>Contact us</Typography>
+                    <Typography sx={{ color: '#B8B8B8', fontWeight:500, fontSize:'18px',fontFamily:'Raleway'}}>Contact us</Typography>
                     {
                         colorScheme === 'light'
                             ?
@@ -169,13 +171,13 @@ const Footer = ({ colorScheme }) => {
                 </Box>
 
                 <Box sx={{display:'flex', justifyContent:'space-between', width:'100%',  }} >
-                <Typography fontSize={15} sx={colorScheme === 'light' ?{ color: '#1F1F1F' }:{ color: '#DDDDDD' }}>FAQ</Typography>
-                <Typography fontSize={15} letterSpacing={1.2} sx={colorScheme === 'light' ?{ color: '#1F1F1F', }:{ color: '#DDDDDD' }}>Terms and services</Typography>
-                <Typography fontSize={15} sx={colorScheme === 'light' ?{ color: '#1F1F1F' }:{ color: '#DDDDDD' }}>Privacy policy</Typography>
+                <Typography fontSize={15}  sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>FAQ</Typography>
+                <Typography fontSize={15} onClick={() => navigate('/termsAndCondition')} letterSpacing={1.2} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>Terms and services</Typography>
+                <Typography fontSize={15} onClick={() => navigate('/termsAndCondition')} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer' }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer' }}>Privacy policy</Typography>
                 </Box>
 
                 <Box sx={{display:'flex', justifyContent:'center', width:'100%',  }} >
-                <Typography fontSize={15} letterSpacing={1.3} sx={colorScheme === 'light' ?{ color: '#1F1F1F' }:{ color: '#DDDDDD' }}>Refund policy</Typography>
+                <Typography fontSize={15} letterSpacing={1.3} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>Refund policy</Typography>
                 </Box>
             </Box>
             }

@@ -11,6 +11,7 @@ import model2 from '../../../assets/images/section1-model2.png'
 import smile from '../../../assets/images/section1-smile.png'
 import './LandingPage.css'
 import { useNavigate } from 'react-router-dom';
+import '../../../App.css';
 
 const Section1 = () => {
     const navigate = useNavigate();
@@ -22,12 +23,12 @@ const Section1 = () => {
         <Box className='section-1'  sx={{display:'flex', height:'90%',flexDirection:'column', alignItems:'center',  justifyContent:'center', '@media(max-width:800px)':{padding:'20px 30px 0px 30px'}}}>
         <Box sx={{height:'fit-content', display:'flex', justifyContent:'space-between', '@media(max-width:1200px)':{width:'80%'},alignItems:'center','@media(max-width:800px)':{flexDirection:'column', width:'100%'}}}>
 
-            <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%', alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
+            <Box sx={{ display:'flex', flexDirection:'column', width:'40%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%', alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
                 <Box sx={{ display:'flex', alignItems:'center', '@media(max-width:800px)':{justifyContent:'center', marginTop:'30px'}}}>
-                    <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px',}}}>Swap It!</Typography>
+                    <Typography fontWeight={600} sx={{color:'white',fontSize:'40px', fontFamily:'Raleway','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px',}}}>Swap It!</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
-                <Typography fontSize={15} fontWeight={500} sx={{color:'white'}}>Swapping a face out on an Image, Video or GIF is easy peasy!  Use our swapper below to get started.</Typography>
+                <Typography fontSize={15} fontWeight={500} sx={{color:'white', fontFamily:'Raleway'}}>Face swapping on an Image, Video or GIF is as easy as 1-2-3! Start your AI journey today!</Typography>
                 <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', fontWeight:600,'&:hover':{backgroundColor:'#FFD600'}}}>Try Swap it</Button>           
             </Box>
 
@@ -43,27 +44,27 @@ const Section1 = () => {
         <Box mt={4} sx={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', color:'white', width:'90%', rowGap:'20px', columnGap:'10px', '@media(max-width:600px)':{width:'100%'}}}>
             <Box p={1} sx={{height:'137px', width:'167px', borderRadius:'15px', backgroundColor:'#25282C', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between'}}>
                 <img src={expression} alt='expression' width={'100%'} />
-                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px'}}>Swap expression</Typography>
+                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px', fontFamily:'Raleway'}}>Swap expression</Typography>
             </Box>
             <Box p={1} sx={{height:'137px', width:'167px', borderRadius:'15px', backgroundColor:'#25282C', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between'}}>
                 <img src={smile} alt='expression' width={'100%'} />
-                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px'}}>Swap expression</Typography>
+                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px', fontFamily:'Raleway'}}>Swap expression</Typography>
             </Box>
             <Box p={1} sx={{height:'137px', width:'167px', borderRadius:'15px', backgroundColor:'#25282C', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between'}}>
                 <img src={funny} alt='expression' width={'100%'} />
-                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px'}}>Swap expression</Typography>
+                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px', fontFamily:'Raleway'}}>Swap expression</Typography>
             </Box>
             <Box p={1} sx={{height:'137px', width:'167px', borderRadius:'15px', backgroundColor:'#25282C', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between'}}>
                 <img src={model1} alt='expression' width={'100%'} />
-                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px'}}>Swap expression</Typography>
+                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px', fontFamily:'Raleway'}}>Swap expression</Typography>
             </Box>
             <Box p={1} sx={{height:'137px', width:'167px', borderRadius:'15px', backgroundColor:'#25282C', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between'}}>
                 <img src={model2} alt='expression' width={'100%'} />
-                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px'}}>Swap expression</Typography>
+                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px', fontFamily:'Raleway'}}>Swap expression</Typography>
             </Box>
             <Box p={1} sx={{height:'137px', width:'167px', borderRadius:'15px', backgroundColor:'#25282C', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between'}}>
                 <img src={kid} alt='expression' width={'100%'} />
-                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px'}}>Swap expression</Typography>
+                <Typography sx={{margin:'0 auto 0 auto', fontSize:'12px', fontFamily:'Raleway'}}>Swap expression</Typography>
             </Box>  
         </Box>
         </Box>

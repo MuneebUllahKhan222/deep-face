@@ -80,11 +80,18 @@ export const userSlice = createSlice({
       state.purchaseSubscriptionMonth=null;
       state.subscriptionFlow=false;
     },
+    resetAllModals: (state) => {
+      state.stripeModalState =false;
+      state.modalState = false;
+      state.pricingModalState = false;
+      state.lockerAdModalState = false;
+      state.lockerPricingModalState = false;
+    },
     resetAll: () => initialState
   }
 })
 
 // Action creators are generated for each case reducer function
-export const {setUserData, setModalClose, setModalOpen, setPricingModalClose, setPricingModalOpen, setStripeModalClose, setStripeModalOpen, setPurchaseAmount, setPurchaseCredit, setLockerAdModalClose, setLockerAdModalOpen, setPurchaseSubAmount, setPurchaseSubMonth, resetFlows, setSubcriptionFlow, setLockerPricingModalClose, setLockerPricingModalOpen, resetAll } = userSlice.actions
+export const {setUserData, setModalClose, setModalOpen, setPricingModalClose, setPricingModalOpen, setStripeModalClose, setStripeModalOpen, setPurchaseAmount, setPurchaseCredit, setLockerAdModalClose, setLockerAdModalOpen, setPurchaseSubAmount, setPurchaseSubMonth, resetFlows, setSubcriptionFlow, setLockerPricingModalClose, setLockerPricingModalOpen, resetAll, resetAllModals } = userSlice.actions
 
 export default userSlice.reducer

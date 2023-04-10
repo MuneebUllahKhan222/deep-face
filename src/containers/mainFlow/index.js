@@ -16,12 +16,12 @@ export default function MainFlow() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/imageSwap" element={<ImageSwap />} />
-        <Route path="/videoSwap" element={<VideoSwap />} />
-        <Route path="/gifSwap" element={<GifSwap />} />
-        <Route path="/termsAndCondition" element={<TermsAndCondition />} />
-        <Route path="/gallery" element={<RequireSubscription><Gallery /></RequireSubscription>} />
+        <Route path="/" exact element={<LandingPage />} />
+        <Route path="/imageSwap" exact element={<ImageSwap />} />
+        <Route path="/videoSwap" exact element={<VideoSwap />} />
+        <Route path="/gifSwap" exact element={<GifSwap />} />
+        <Route path="/termsAndCondition" exact element={<TermsAndCondition />} />
+        <Route path="/gallery" exact element={<RequireSubscription><Gallery /></RequireSubscription>} />
       </Routes>
       </>
   );

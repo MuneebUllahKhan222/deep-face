@@ -31,7 +31,7 @@ const ConfirmPasswordForm = ({onSubmit}) => {
 
   return (
     <Box pl={4} pr={4} pt={2} pb={3} sx={{ height: 'fit-content', width: '400px', backdropFilter: 'blur(7.5px)', background: 'rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center', '@media(max-width:600px)':{width:'350px'},'@media(max-width:500px)':{width:'275px', height:'fit-content'} }} >
-      <Box sx={{ ...rowFlex, fontSize: '30px', fontWeight: 600, color: 'white', height: '10%' }}>
+      <Box fontFamily={'Raleway'} sx={{ ...rowFlex, fontSize: '30px', fontWeight: 600, color: 'white', height: '10%', textAlign:'center' }}>
         Enter New Password
       </Box>
       <form style={{ height: 'fit-content' }}>
@@ -50,7 +50,7 @@ const ConfirmPasswordForm = ({onSubmit}) => {
                 value={value}
                 error={errors.newPassword ? true : false}
                 onChange={onChange}
-                placeholder='New Password'
+                placeholder='New password'
                 InputProps={{
                   startAdornment: <InputAdornment position="start" ><LockIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
                   endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showPassword ? <VisibilityIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginRight:'10px' }} />: <VisibilityOffIcon onClick={() => setshowPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,
@@ -77,7 +77,7 @@ const ConfirmPasswordForm = ({onSubmit}) => {
                 value={value}
                 error={errors.confirmPassword ? true : false}
                 onChange={onChange}
-                placeholder='confirm Password'
+                placeholder='Confirm password'
                 InputProps={{
                   startAdornment: <InputAdornment position="start" ><LockIcon sx={{ color: 'white', marginLeft:'20px' }} /></InputAdornment>,
                   endAdornment: <InputAdornment position="start" sx={{cursor:'pointer'}} >{!showconfirmPassword ? <VisibilityIcon onClick={() => setshowConfirmPassword(prev => !prev)} sx={{ color: 'white', marginRight:'10px' }} />: <VisibilityOffIcon onClick={() => setshowConfirmPassword(prev => !prev)} sx={{ color: 'white', marginLeft:'20px' }} />}</InputAdornment>,

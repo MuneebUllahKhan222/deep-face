@@ -18,7 +18,7 @@ function Checkoutform({total}) {
     const {modalState,} = useSelector(state => state?.user)
     const dispatch= useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const [buttonDisable, setbuttonDisable] = useState(false);
+    const [buttonDisable, setbuttonDisable] = useState(true);
     const {purchaseAmount, purchaseCredits:credits, subscriptionFlow, purchaseSubscriptionAmount, purchaseSubscriptionMonth} = useSelector(state => state?.user)
 
 
@@ -78,17 +78,25 @@ function Checkoutform({total}) {
 
     const handleClick =() => {
         const user = getCookies('user')
+        // Check if any required fields are empty
         if (!user) {
-            dispatch(setModalOpen())
-            dispatch(setPricingModalClose())
+                dispatch(setModalOpen())
+                dispatch(setPricingModalClose())
+                  
         } else {
             dispatch(setPricingModalClose())
             handleSubmit()
         }
     }
+
+    const handlePaymentChange = (event) => {
+        setbuttonDisable(!event.complete);
+      };
+
+     
     return (
         <Box style={{ display: 'flex', flexDirection: 'column' }} >
-            <PaymentElement />
+            <PaymentElement onChange={handlePaymentChange}/>
 
             <ModalAuth  authModalOpen={modalState} pay={handleSubmit} elements={elements} />
             <Box mt={5} sx={{ width: "100%", display: 'flex', justifyContent: "space-between" }}>

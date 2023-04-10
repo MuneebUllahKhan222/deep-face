@@ -37,7 +37,7 @@ const ModalLocker = ({open}) => {
                 },
             }}>
             <Box p={{sm:5, xs:2}} pt={3} pr={{sm:4, xs:2}} className='locker-background' sx={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }} >
-                <Box onClick={handleClose} sx={{ display: 'flex', justifyContent: 'flex-end', color: 'white', height:'7%' }}><CloseIcon /></Box>
+                <Box onClick={handleClose} sx={{display: 'flex', justifyContent: 'flex-end', color: 'white', height:'7%' }}><CloseIcon sx={{cursor:'pointer'}} /></Box>
 
                 <Box  ml={2} sx={{display:'flex', flexDirection:'column', color:'white', height:'93%', justifyContent:'center', '@media(max-width:600px)':{alignItems:'center'}}}>
                     <Typography fontSize={{md:32, sm:26, xs:19}} fontWeight={500}>Upgrade to Premium</Typography> 

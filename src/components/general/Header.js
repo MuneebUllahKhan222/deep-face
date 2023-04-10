@@ -112,14 +112,14 @@ const Header = ({ colorScheme }) => {
                                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                     >
-                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                            Image Swap
+                                        <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'}}>
+                                            Video Swap
                                         </MenuItem>
                                         <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                             GIF Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
-                                            Video Swap
+                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px'}}>
+                                            Image Swap
                                         </MenuItem>
                                     </Menu>
                                 </Box>
@@ -155,14 +155,14 @@ const Header = ({ colorScheme }) => {
                                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                     >
-                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                            Image Swap
+                                        <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                                            Video Swap
                                         </MenuItem>
                                         <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                             GIF Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
-                                            Video Swap
+                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                                            Image Swap
                                         </MenuItem>
                                     </Menu>
                                 </Box>

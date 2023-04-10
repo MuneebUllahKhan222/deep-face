@@ -13,9 +13,9 @@ export default function UploadFlow() {
   return (
     <>
       <Routes>
-        <Route path="/imageSwap/upload" element={<UploadImage />} />
-        <Route path="/gifSwap/upload" element={<UploadGif />} />
-        <Route path="/videoSwap/upload" element={<UploadVideo />} />
+        <Route exact  path="/imageSwap/upload" element={<UploadImage />} />
+        <Route exact path="/gifSwap/upload" element={<UploadGif />} />
+        <Route exact path="/videoSwap/upload" element={<UploadVideo />} />
       </Routes>
       </>
   );

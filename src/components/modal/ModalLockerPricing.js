@@ -51,7 +51,7 @@ const ModalLockerPricing = ({open}) => {
             }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%' }}>
                 <Box pt={4} sx={{ display: 'flex', flexDirection: 'column', }}>
-                <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
+                <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon sx={{cursor:'pointer'}} /></Box>
                     <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600' }}>Buy Locker Storage</Typography>
                     <Typography textAlign={'center'} fontSize={{sm:22, xs:19}} fontWeight={400} sx={{ color: '#A2A2A2' }}>Unlimited Locker Storage</Typography>
                 </Box>

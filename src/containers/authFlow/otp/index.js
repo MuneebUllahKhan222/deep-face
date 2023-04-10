@@ -22,14 +22,10 @@ function OTP() {
     const [pin, setPin] = useState();
 
     useEffect(() => {
-        console.log(pin);
     }, [pin])
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const {state} = useLocation();
-    // const {email} = state;
-    // console.log(email)
     const {email} = getCookies('forgotPass')
     const { enqueueSnackbar } = useSnackbar();
   
@@ -47,10 +43,10 @@ function OTP() {
         <Box sx={{ height: '10%', width: '100vw' }}>
           <Header />
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content','@media(max-width:662px)':{marginTop:'150px'} }}>
   
         <Box pl={4} pr={4} pt={2} pb={3} sx={{ height: 'fit-content', width: '400px', backdropFilter: 'blur(7.5px)', background: 'rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center', '@media(max-width:600px)':{width:'350px'},'@media(max-width:500px)':{width:'275px', height:'fit-content'} }} >
-      <Box sx={{ ...rowFlex, fontSize: '30px', fontWeight: 600, color: 'white', height: '10%' }}>
+      <Box fontFamily={'Raleway'} sx={{ ...rowFlex, fontSize: '30px', fontWeight: 600, color: 'white', height: '10%' }}>
         Enter OTP
       </Box>
       <form style={{ height: 'fit-content' }}>
@@ -58,13 +54,13 @@ function OTP() {
         <PinInput
                 length={6}
                   initialValue=""
-                  secret={true} //if set to false all characters will be visible
+                  secret={false} //if set to false all characters will be visible
                   onChange={(value) => {setPin(value)}}
                   onComplete={(val) => onSubmit(val)} //function that run when field are completely filled here "i" is the index of box
                   type="numeric"
                   inputMode="number"
                   style={{ margin: "20px 0" }} //To apply styles behind boxes of pin input
-                  inputStyle={{ borderRadius:'5px', height:'60px', borderColor:'#CDCED1', width:'47px', backgroundColor:'#F5F6F7', margin:'0 4px' }} //to change style of boxes
+                  inputStyle={{ borderRadius:'5px', height:'60px', width:'47px', backgroundColor:'#F5F6F7', margin:'4px 4px', '@media(max-width:600px)':{backgroundColor:'red'} }} //to change style of boxes
                   inputFocusStyle={{ borderColor: "blue" }} //styles applied on being focused
                   autoSelect={true}
                   regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
@@ -83,7 +79,7 @@ function OTP() {
     </Box>
   
         </Box>
-        <Box mb={{ xs: 5, sm: 10 }} pl={5} pr={5} sx={{ width: '60%', height: 'fit-content', '@media(max-width:500px)': { width: '80%' } }}>
+        <Box mb={{ xs: 5, sm: 10 }} pl={5} pr={5} sx={{ width: '60%', height: 'fit-content', '@media(max-width:500px)': { width: '80%' },  '@media(max-width:662px)':{marginTop:'50px'} }}>
           <Footer />
         </Box>
       </Box>

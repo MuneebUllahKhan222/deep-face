@@ -11,10 +11,10 @@ const Section3 = () => {
             <Box sx={{ height: '100%', display: 'flex', justifyContent: 'space-around',alignItems: 'center', '@media(max-width:800px)': { flexDirection: 'column' } }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', '@media(max-width:1000px)': { width: '40%' }, '@media(max-width:800px)': { width: '60%', alignItems:'center'}, '@media(max-width:600px)': { width: '90%' }, '@media(max-width:450px)': { width: '100%' } }}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography fontWeight={600} sx={{ fontSize: '40px', '@media(max-width:900px)': { fontSize: '35px' }, '@media(max-width:800px)': { fontSize: '30px' }, '@media(max-width:450px)': { fontSize: '25px' } }}>Swap Face From GIF</Typography>
+                        <Typography fontWeight={600} sx={{ fontSize: '40px', '@media(max-width:900px)': { fontSize: '35px' }, '@media(max-width:800px)': { fontSize: '30px' }, '@media(max-width:450px)': { fontSize: '25px' }, fontFamily:'Raleway' }}>Swap Face From GIF</Typography>
                         <img src={stick} alt='stick' />
                     </Box>
-                    <Typography sx={{'@media(max-width:800px)': {textAlign:'center'}}} fontSize={14} fontWeight={500}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed purus rutrum, malesuada risus vel, gravida orci. Sed lacinia aliquam dolor, non sodales est faucibus vel. Praesent arcu tortor, porta quis lorem et, dapibus dapibus neque.</Typography>
+                    <Typography sx={{'@media(max-width:800px)': {textAlign:'center'},fontFamily:'Raleway'}} fontSize={14} fontWeight={500}>Have we mentioned that you need to use HIGH QUALITY images? This is the secret sauce to all face swap success stories. </Typography>
                     <CustomButton  navigateTo={'/gifSwap/upload'} text='Try Swap it' style={{width:'fit-content', marginTop:'25px'}} />
                 </Box>
                 <Box sx={{ width: '27%','@media(max-width:800px)': { width: '40%', marginTop:'30px' }, '@media(max-width:600px)': { width: '50%' }, '@media(max-width:450px)': { width: '70%' } }}>

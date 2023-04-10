@@ -13,10 +13,10 @@ const Section6 = () => {
 
             <Box sx={{ display:'flex', flexDirection:'column', width:'35%','@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%', alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
                 <Box sx={{ display:'flex', alignItems:'center'}}>
-                    <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}, '@media(max-width:600px)':{fontSize:'23px'}}}>Your data is safe.</Typography>
+                    <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}, '@media(max-width:600px)':{fontSize:'23px'},fontFamily:'Raleway'}}>Your data is safe.</Typography>
                     <img src={lock} height={'100px'} alt='lock' />
                 </Box>
-                <Typography fontSize={16} fontWeight={500} textAlign={'center'}>With our one-of-a-kind private Creation Locker, your data remains safe and in your own personal, for your eyes only cloud.</Typography>  
+                <Typography fontSize={16} fontWeight={500} sx={{fontFamily:'Raleway', '@media(max-width:800px)':{textAlign:'center'}}}>With our one-of-a-kind private Creation Locker, your data remains safe and in your own personal, for your eyes only cloud.</Typography>  
             </Box>
 
 

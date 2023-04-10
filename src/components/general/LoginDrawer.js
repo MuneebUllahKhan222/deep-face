@@ -5,11 +5,13 @@ import TollIcon from '@mui/icons-material/Toll';
 import { delAllCookies, getCookies } from '../../utils';
 import { useDispatch } from 'react-redux';
 import { resetAll } from '../../store/reducers/user';
+import CloseIcon from '@mui/icons-material/Close';
 
 const LoginDrawer = ({toggleDrawer}) => {
 
     const navigate= useNavigate();
-    const user =getCookies('user')
+    const user =getCookies('user');
+    const credits = getCookies('credits')
     const dispatch = useDispatch();
 
     const logout = () => {
@@ -23,9 +25,9 @@ const LoginDrawer = ({toggleDrawer}) => {
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                 <Box sx={{display:'flex', alignItems:'center'}}>
                 <Avatar sx={{ width: '32px', fontSize:'10px',height: '32px', marginRight: '9px', backgroundColor: '#323235', color: '#707070' }} />
-                <Typography fontSize={13}>{user?.email?.substring(0,15)}... <Typography fontSize={13} component={'span'} sx={{color:'#737373', marginLeft:'5px'}}>{'>'}</Typography></Typography>
+                <Typography fontSize={13} fontFamily={'Raleway'}>{user?.email?.substring(0,15)}... <Typography fontSize={13} component={'span'} sx={{color:'#737373', marginLeft:'5px'}}>{'>'}</Typography></Typography>
                 </Box>
-                    <Typography onClick={() => toggleDrawer(false)}>&#x1F5D9;</Typography>
+                    <Typography sx={{cursor:'pointer'}}  onClick={() => toggleDrawer(false)}><CloseIcon /></Typography>
                 </Box>
 
 
@@ -33,7 +35,7 @@ const LoginDrawer = ({toggleDrawer}) => {
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', width:'100%'}}>
                     <Box sx={{display:'flex', alignItems:'center'}}>
                         <TollIcon sx={{ color: '#737373' }} fontSize="small" />
-                        <Typography ml={1} fontSize={14} fontWeight={400}>Credits: 20</Typography>
+                        <Typography ml={1} fontSize={14} fontWeight={400} fontFamily={'Raleway'}>Credits: {credits?.credits}</Typography>
                     </Box>
                         
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
@@ -41,40 +43,42 @@ const LoginDrawer = ({toggleDrawer}) => {
                 </Box>
 
 
-                <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center',width: '95%', height: '10px', backgroundColor: '#1E1E1E', borderRadius: '10px' }}>
+                { user?.lockerSubscription === true
+                    &&
+                    <Box  p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center',width: '95%', height: '10px', backgroundColor: '#1E1E1E', borderRadius: '10px', cursor:'pointer' }}>
                     <Box onClick={() => navigate('/gallery')} sx={{ display: 'flex', justifyContent: 'space-between', width:'100%'}}>
-                        <Typography ml={1} fontSize={15} fontWeight={400}>Gallery</Typography>
+                        <Typography ml={1} fontSize={15} fontWeight={400} fontFamily={'Raleway'}>Gallery</Typography>
                         
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                     </Box>
-                </Box>
+                </Box>}
 
                 <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '95%', height: '80px', backgroundColor: '#1E1E1E', borderRadius: '10px' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography ml={1} fontSize={14} fontWeight={400}>Features</Typography>
+                        <Typography ml={1} fontSize={14} fontWeight={400} sx={{cursor:'pointer'}} fontFamily={'Raleway'} >Features</Typography>
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                     </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography ml={1} fontSize={14} fontWeight={400}>Pricing</Typography>
+                        <Typography ml={1} fontSize={14} fontWeight={400} sx={{cursor:'pointer'}} fontFamily={'Raleway'}>Pricing</Typography>
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                     </Box>
                 </Box>
 
                 <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center',width: '95%', height: '10px', backgroundColor: '#1E1E1E', borderRadius: '10px' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', width:'100%'}}>
-                        <Typography ml={1} fontSize={14} fontWeight={400}>Contact us</Typography>
+                        <Typography ml={1} fontSize={14} fontWeight={400} sx={{cursor:'pointer'}} fontFamily={'Raleway'}>Contact us</Typography>
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                     </Box>
                 </Box>
 
                <Box sx={{display:'flex', flexGrow:1}}></Box>
-                <Button  disableFocusRipple onClick={() => logout()} sx={{marginTop:'10px',height:'50px',borderRadius:'10px',backgroundColor:'#1E1E1E', '&:hover':{backgroundColor:'#FFD600'}}} variant='contained' fullWidth>Log out</Button>
+                <Button  disableFocusRipple onClick={() => logout()} sx={{cursor:'pointer',marginTop:'10px',height:'50px',borderRadius:'10px',backgroundColor:'#1E1E1E', '&:hover':{backgroundColor:'#FFD600'}}} variant='contained' fullWidth>Log out</Button>
 
                 <Box mt={2} sx={{display:'flex', justifyContent:'space-between', width:'80%', alignItems:'center'}}>
-                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={12} sx={{color:'#5E5E5E'}}>Terms of service</Typography>
+                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={12} sx={{color:'#5E5E5E', cursor:'pointer', '&:hover':{color:'white'}}} fontFamily={'Raleway'}>Terms of service</Typography>
                     <Typography>|</Typography>
-                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={12} sx={{color:'#5E5E5E'}}>Privacy policy</Typography>
+                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={12} sx={{color:'#5E5E5E', cursor:'pointer', '&:hover':{color:'white'}}} fontFamily={'Raleway'}>Privacy policy</Typography>
                 </Box>
             </Box>
         </Box>
