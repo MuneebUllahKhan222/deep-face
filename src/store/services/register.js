@@ -43,7 +43,6 @@ export const login = (info) => async (dispatch) => {
       password
     }
     const response = await axios.post(`${basePath}/auth/login`, data)
-    console.log(response, 'res of login')
     if (response?.data?.status === 200) {
     setCookies('user',response?.data?.data, {
       path:'/'
@@ -71,9 +70,7 @@ export const sendOTPEmail = (info) => async (dispatch) => {
     const data = {
       email,
     }
-    console.log(email, 'api called')
     const response = await axios.post(`${basePath}/auth/verifyEmailForPass`, data)
-    console.log(response?.data)
     return response?.data
     
   } catch (err) {
@@ -86,16 +83,13 @@ export const sendOTPEmail = (info) => async (dispatch) => {
 
 export const verifyOTP = (info) => async (dispatch) => {
   try {
-    console.log(info, 'verify')
     const {email, val:OTPcode }= info
     // dispatch(setOTPEmail(email)) 
     const data = {
       email,
       OTPcode
     }
-    console.log(data, 'api called')
     const response = await axios.post(`${basePath}/auth/verifyOTP`, data)
-    console.log(response?.data)
     return response?.data
     
   } catch (err) {
@@ -108,7 +102,6 @@ export const verifyOTP = (info) => async (dispatch) => {
 
 export const updatePassword = (info) => async (dispatch) => {
   try {
-    console.log(info, 'verify')
     const {newPassword:password, confirmPassword:newPassword, email }= info
     // dispatch(setOTPEmail(email)) 
     const data = {
@@ -116,9 +109,7 @@ export const updatePassword = (info) => async (dispatch) => {
       password,
       email
     }
-    console.log(data, 'api called')
     const response = await axios.post(`${basePath}/auth/updatePassword`, data)
-    console.log(response?.data)
     return response?.data
     
   } catch (err) {
@@ -136,7 +127,6 @@ export const changeStatus = (uid, token) => async (dispatch) => {
       token
     }
     const response = await axios.post(`${basePath}/auth/changeStatus`, data)
-    console.log(response, 'res of change Status')
     if (response?.data?.status === 200) {
       const saveObj = {
         ...response?.data?.data?.data,token:response?.data?.data?.token

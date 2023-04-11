@@ -35,7 +35,6 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
   const onLogin = async (data) => {
     
     if (elements !==null || undefined) {
-      console.log('if entered')
       const res = await dispatch(login(data))
       if (res.status === 200) {
         handleClose()
@@ -45,7 +44,6 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
         enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       }
     } else {
-      console.log('else entered')
       const res = await dispatch(login(data))
     if (res.status === 200) {
       handleClose()

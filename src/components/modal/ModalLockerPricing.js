@@ -17,7 +17,6 @@ const ModalLockerPricing = ({open}) => {
     }
 
     const handleChange =async (amount, months) => {
-        console.log(months, 'month')
         await dispatch(setPurchaseSubAmount(amount))
         await dispatch(setPurchaseSubMonth(months))
         await dispatch(setSubcriptionFlow())

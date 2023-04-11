@@ -40,7 +40,6 @@ const UploadVideo = () => {
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
     setInputImage(imageList);
     fetch(imageList[0]['data_url'])
       .then(async (res) => {
@@ -96,7 +95,6 @@ const UploadVideo = () => {
 
   const downloadContent = (event) => {
     event.preventDefault();
-    console.log('clicked')
     const link = document.createElement('a');
     link.href = result;
     link.download = 'result.mp4';

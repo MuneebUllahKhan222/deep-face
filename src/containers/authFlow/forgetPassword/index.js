@@ -17,7 +17,6 @@ const ForgetPassword = () => {
 
   const onSubmit = async (data) => {
     const res = await dispatch(sendOTPEmail(data))
-    console.log(res)
     if (res?.status === 200) {
       setCookies('forgotPass', {email:res?.data?.email},{path:'/'})
       navigate('/otp', {state:{email:res?.data?.email}})

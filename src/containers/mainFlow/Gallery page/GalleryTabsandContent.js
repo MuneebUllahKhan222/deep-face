@@ -35,7 +35,6 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
     const matches500w = useMediaQuery('(max-width:500px)')
 
     const downloadContent = (type) => {
-        console.log(type)
         if (type === 'image') {
             const link = document.createElement('a');
             link.href = imgRef.current.src;
@@ -51,7 +50,6 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
             link.click();
             document.body.removeChild(link);
         } else {
-            console.log(videoRef.current)
             const link = document.createElement('a');
             link.href = videoRef.current.src;
             link.download = 'result.mp4';

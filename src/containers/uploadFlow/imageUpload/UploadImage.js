@@ -46,7 +46,6 @@ const UploadImage = () => {
 
   const onChangeBaseImage = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
 
     setbaseImage(imageList);
     fetch(imageList[0]['data_url'])
@@ -169,10 +168,9 @@ const UploadImage = () => {
 //   });
 // }, [])
 
-useBeforeunload((event) => {
-  console.log(event)
-    event.preventDefault();
-});
+// useBeforeunload((event) => {
+//     event.preventDefault();
+// });
 
 
 

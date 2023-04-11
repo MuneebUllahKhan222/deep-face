@@ -19,7 +19,6 @@ export const registerSlice = createSlice({
     },
     setOTPEmail: (state, action) => {
       const { payload } = action;
-      console.log('in reducer', action)
       if (payload) {
         state.email = payload.email;
       }

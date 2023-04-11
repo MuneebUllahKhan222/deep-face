@@ -37,7 +37,6 @@ const UploadGif = () => {
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
     setInputImage(imageList);
     fetch(imageList[0]['data_url'])
 .then(async(res )=> {
@@ -47,7 +46,6 @@ const UploadGif = () => {
 
   const onChangeBaseImage = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
     setbaseImage(imageList);
     fetch(imageList[0]['data_url'])
       .then(async (res) => {

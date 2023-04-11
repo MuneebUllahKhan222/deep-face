@@ -25,9 +25,8 @@ function Checkoutform({total}) {
     const handleAfterPurchaseCreds = async() => {
         const user = getCookies('user')
 
-            console.log(purchaseAmount, credits, ' creds', subscriptionFlow);
-            const res = await dispatch(purchaseCredits({uid:user?._id, amount: purchaseAmount, credits:credits}));
-            console.log(res, 'res of pucrhase');
+            await dispatch(purchaseCredits({uid:user?._id, amount: purchaseAmount, credits:credits}));
+            
             dispatch(setStripeModalClose());
             enqueueSnackbar('Payment successful', { variant: 'success' });
             dispatch(resetFlows());
@@ -41,8 +40,7 @@ function Checkoutform({total}) {
     const handleAfterPurchaseSubscribtion = async() => {
         const user = getCookies('user')
             dispatch(setLockerPricingModalClose())
-            const res = await dispatch(purchaseSubscription({uid:user?._id, amount: purchaseSubscriptionAmount, month:purchaseSubscriptionMonth}))
-            console.log(res, 'res of pucrhase')
+            await dispatch(purchaseSubscription({uid:user?._id, amount: purchaseSubscriptionAmount, month:purchaseSubscriptionMonth}))
             dispatch(setStripeModalClose())
             dispatch(resetFlows())
             enqueueSnackbar('Payment successful', { variant: 'success' })

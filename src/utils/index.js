@@ -59,7 +59,6 @@ export const updateCookie = (key, value, options) => {
     const cookie = cookies.get(key);
     const expiryDate= cookie?.expiryDate;
 
-    console.log({ ...cookie,...value})
     const updatedCookieValue = {
         ...cookie,
         ...value,

@@ -20,7 +20,6 @@ const NewPassword = () => {
     const { enqueueSnackbar } = useSnackbar();
     const {email} =getCookies('forgotPass')
     const onSubmit = async (data) => {
-        console.log(data)
         const res = await dispatch(updatePassword({...data, email}))
       if (res.status === 200) {
         navigate('/signin')

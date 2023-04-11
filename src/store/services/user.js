@@ -21,7 +21,6 @@ export const imageUploader = (source, target, token) => async (dispatch) => {
         // data.append("_id", _id);
 
         const response = await axios.post(`${baseAiPath}/Generate_Image`, data, { headers: {"Authorization" : token}})
-        console.log(await response, 'response of image uploader, servicessss')
         return response
     } catch (error) {
         
@@ -37,11 +36,7 @@ export const gifUploader = (source, target, token) => async (dispatch) => {
       data.append("target", target); // base img
       // data.append("id", id);
       // data.append("_id", _id);
-      for (var pair of data.entries()) {
-          console.log(pair[0]+ ', ' + pair[1]); 
-      }
       const response = await axios.post(`${baseAiPath}/Generate_Gif`, data, { headers: {"Authorization" : token}})
-      console.log(await response, 'response of gif uploader, servicessss')
       return response
   } catch (error) {
       
@@ -57,11 +52,7 @@ export const videoUploader = (source, target, token) => async (dispatch) => {
       data.append("target", target); // base img
       // data.append("id", id);
       // data.append("_id", _id);
-      for (var pair of data.entries()) {
-          console.log(pair[0]+ ', ' + pair[1]); 
-      }
       const response = await axios.post(`${baseAiPath}/Generate_Video`, data, { headers: {"Authorization" : token}})
-      console.log(await response, 'response of gif uploader, servicessss')
       return response
   } catch (error) {
       
@@ -75,7 +66,6 @@ export const createDoc = (data) => async (dispatch) => {
 
 
       const response = await axios.post(`${basePath}/video/create`, data, { headers: {"Authorization" : token} })
-      console.log( response, 'response of create doc, servicessss')
         setCredits(response?.data?.credits || 0)
         return response?.data
   } catch (error) {
@@ -89,7 +79,6 @@ export const getImage = (docToken) => async (dispatch) => {
 
 
       const response = await axios.get(`${basePath}/video/image/${docToken}`,  { headers: {"Authorization" : token}})
-      console.log( response, 'response of image get, servicessss')
       if (response?.data?.success) {
         return response?.data?.data
       }
@@ -101,10 +90,8 @@ export const getImage = (docToken) => async (dispatch) => {
 
 export const saveContent = (data) => async (dispatch) => {
   try {
-    console.log(data)
 
       const response = await axios.post(`${basePath}/save/content`, data)
-      console.log( response, 'response of save image, servicessss')
 
         return response?.data
 
@@ -117,7 +104,6 @@ export const createIntent = (data) => async (dispatch) => {
   try {
 
       const response = await axios.post(`${basePath}/payment/createIntent`, data)
-      console.log( response, 'response of payment intent, servicessss')
 
         return response?.data
 
@@ -131,7 +117,6 @@ export const fetchContent = (data) => async (dispatch) => {
     const {uid, type} = data
 
       const response = await axios.get(`${basePath}/save/getContent/${uid}/${type}`)
-      console.log( response, 'response of save image, servicessss')
 
         return response?.data
 
@@ -143,7 +128,6 @@ export const fetchContent = (data) => async (dispatch) => {
 export const purchaseCredits = (data) => async (dispatch) => {
   try {
       const response = await axios.post(`${basePath}/payment/purchaseCredits`, data)
-      console.log( response, 'response of purchase image, servicessss')
       if (response?.data?.status === 200) {
         setCookies('credits',{credits:response?.data?.data.credits}, {
           path:'/'
@@ -160,7 +144,6 @@ export const purchaseCredits = (data) => async (dispatch) => {
 export const purchaseSubscription = (data) => async (dispatch) => {
   try {
       const response = await axios.post(`${basePath}/payment/subscribe`, data)
-      console.log( response, 'response of purchase subcription, servicessss')
       if (response?.data?.success === true) {
         const saveObj = {
           ...response?.data?.data
@@ -185,7 +168,6 @@ export const purchaseSubscription = (data) => async (dispatch) => {
   
   
         const response = await axios.get(`${basePath}/video/status/${docToken}`,  { headers: {"Authorization" : token}})
-        console.log( response, 'response of image get, servicessss')
         if (response?.data?.success) {
           return response?.data?.data
         }

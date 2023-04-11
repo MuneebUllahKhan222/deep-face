@@ -18,7 +18,6 @@ const Gallery = () => {
             type:'all'
         }
         const data = await disaptch(fetchContent(info))
-        console.log(data,'data of fetcher ')
         // setContent(data)
         const imageUrls = data?.data.filter(d => d.type === 'image' && d.url)
         const gifUrls = data?.data.filter(d => d.type === 'gif')

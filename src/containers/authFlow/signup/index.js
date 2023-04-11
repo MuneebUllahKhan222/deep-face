@@ -16,9 +16,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar} = useSnackbar();
   const onSubmit = async(data) => {
-    console.log(data,'dataof signup')
     const res =  await dispatch(register(data))
-    console.log(res,' res of signup')
     if (res?.status === 200) {
       navigate('/')
       enqueueSnackbar('Sign up successful', { variant: 'success', autoHideDuration:3000 })
@@ -29,7 +27,6 @@ const Signup = () => {
     } else {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration:3000 })
     }
-    console.log( res, 'res of signup');
   };
   return (
     <Box sx={{display:'flex', flexDirection:'column', height:'100%',alignItems:'center', justifyContent:'space-between'}}>
