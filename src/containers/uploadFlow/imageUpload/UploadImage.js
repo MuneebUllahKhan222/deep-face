@@ -179,9 +179,9 @@ const resetAllStates = () => {
 //   });
 // }, [])
 
-useBeforeunload((event) => {
-    event.preventDefault();
-});
+// useBeforeunload((event) => {
+//     event.preventDefault();
+// });
 
 
 
