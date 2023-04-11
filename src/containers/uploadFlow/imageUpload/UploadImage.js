@@ -26,7 +26,7 @@ const UploadImage = () => {
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
   // const [downloaded, setDownloaded] = useState(false);
-  const [progress, setProgress] = useState();
+  const [progress, setProgress] = useState(0);
   const [disableButton, setDisableButton] = useState(true);
   const [result, setResult] = useState();
   const { enqueueSnackbar } = useSnackbar();
@@ -92,10 +92,14 @@ const UploadImage = () => {
     setProgress(50)
   
     const {result} = await dispatch(getImage(res?.data))
-    setResult(result)
-    setProgress(100)
-    // setDownloaded(true)
-    setApiCalled(2)
+    if (result) {
+      setProgress(100)
+      setResult(result)
+      setApiCalled(2)
+    } else {
+      resetAllStates()
+      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 });
+    }
     } else {
       enqueueSnackbar('Insufficient credits', { variant: 'error', autoHideDuration: 3000 });
       dispatch(setPricingModalOpen())
@@ -135,6 +139,13 @@ const UploadImage = () => {
     document.body.removeChild(link);
 }
 
+const resetAllStates = () => {
+  setApiCalled(0)
+  setInputImage([])
+  setbaseImage([])
+  setDisableButton(true)
+}
+
 // useEffect(() => {
 //   const handleBeforeUnload = (event) => {
 //     // event.preventDefault();
@@ -168,9 +179,9 @@ const UploadImage = () => {
 //   });
 // }, [])
 
-// useBeforeunload((event) => {
-//     event.preventDefault();
-// });
+useBeforeunload((event) => {
+    event.preventDefault();
+});
 
 
 
@@ -257,7 +268,7 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
                         <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between',width:'75%' }}>
                           <Box sx={{display:'flex', justifyContent:'space-between'}}>
                           <Typography fontSize={15} fontWeight={600}>Base Image <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
-                          <CloseIcon sx={{marginRight:'20px'}} onClick={() => setbaseImage([])} />
+                          {(apiCalled === 0) && <CloseIcon sx={{marginRight:'20px'}} onClick={() => setbaseImage([])} />}
                           </Box>
                           <Box sx={{ width: '100px', height: '38px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white' }}>
                             Step 1
@@ -320,7 +331,7 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
                         <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between', width:'75%' }}>
                         <Box sx={{display:'flex', justifyContent:'space-between'}}>
                           <Typography fontSize={15} fontWeight={600}>Input Image <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
-                          <CloseIcon sx={{marginRight:'20px'}} onClick={() => setInputImage([])} />
+                          {(apiCalled === 0) && <CloseIcon sx={{marginRight:'20px'}} onClick={() => setInputImage([])} />}
                           </Box>
                           <Box sx={{ width: '100px', height: '38px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white' }}>
                             Step 2
@@ -375,6 +386,7 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
           apiCalled === 2
           &&
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'flex-end', columnGap: '20px', '@media(max-width:500px)': { flexDirection: 'column', justifyContent: 'space-between', rowGap: '20px', alignItems: 'center' } }}>
+          <Button variant='contained' onClick={() => resetAllStates()} disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#FFD600' } }}>Swap Again</Button>
             <Button variant='contained' onClick={() => saveImage()} disableElevation disableFocusRipple sx={{ backgroundColor: '#B8B8B8', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#B8B8B8' } }}>Save</Button>
             <Button variant='contained' onClick={(e) => downloadContent(e)} startIcon={<DownloadForOffline />} disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', width: '150px', height: '55px', fontWeight: 600, fontSize: '15px', '&:hover': { backgroundColor: '#FFD600' } }}>Download</Button>
           </Box>
