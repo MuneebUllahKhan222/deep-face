@@ -1,7 +1,8 @@
-import { Avatar, Box, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip, Typography, useMediaQuery } from '@mui/material'
+import { Avatar, Box, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip, useMediaQuery } from '@mui/material'
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/images/logo.png'
+import logoLight from '../../assets/images/logo-light.png'
+import logoDark from '../../assets/images/logo-dark.png'
 import MenuDrawer from './Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Logout } from '@mui/icons-material';
@@ -75,8 +76,15 @@ const Header = ({ colorScheme }) => {
             <Box sx={{ width: '90%', display: 'flex', alignItems: 'center', '@media(max-width:800px)': { width: '95%' } }} >
 
                 <Box onClick={() => navigate('/')} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-                    <img src={logo} alt='logo' />
-                    <Typography fontWeight={550} sx={colorScheme === 'light' ? { color: '#363636' } : { color: 'white' }}>Deep duck</Typography>
+                {
+                    colorScheme === 'light'
+                    ?
+                    <img src={logoLight} width={80} height={80} alt='logo' />
+                    :
+                    <img src={logoDark} width={80} height={80} alt='logo' />
+                }
+                    {/* <img src={logo} alt='logo' />
+                    <Typography fontWeight={550} sx={colorScheme === 'light' ? { color: '#363636' } : { color: 'white' }}>Deep duck</Typography> */}
                 </Box>
 
                 <Box sx={{ flexGrow: 1 }}></Box>
@@ -115,11 +123,11 @@ const Header = ({ colorScheme }) => {
                                         <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'}}>
                                             Video Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                            GIF Swap
-                                        </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px'}}>
+                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                             Image Swap
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px'}}>
+                                            GIF Swap
                                         </MenuItem>
                                     </Menu>
                                 </Box>
@@ -158,11 +166,11 @@ const Header = ({ colorScheme }) => {
                                         <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                             Video Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                            GIF Swap
-                                        </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                                        <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'  }}>
                                             Image Swap
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                                            GIF Swap
                                         </MenuItem>
                                     </Menu>
                                 </Box>

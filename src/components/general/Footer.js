@@ -19,7 +19,7 @@ const Footer = ({ colorScheme }) => {
                 <>
    
                 <Box mr={1} sx={{ display: 'flex', flexDirection: 'column', width:'180px','@media(max-width:700px)': { marginBottom: '20px' }, '@media(max-width:570px)': { marginLeft:'25px'  } }}>
-                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8',fontFamily:'Raleway', marginBottom:'13px', }}>Contact us</Typography>
+                <Typography fontSize={17} fontWeight={550}  sx={colorScheme === 'light' ? {color: 'black',fontFamily:'Raleway',marginBottom:'13px'}: { color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Contact us</Typography>
                 <Box sx={{ display: 'flex' }}>
                     {
                         colorScheme === 'light'
@@ -54,7 +54,7 @@ const Footer = ({ colorScheme }) => {
             </Box>
 
             <Box mr={1} sx={{ display: 'flex', flexDirection: 'column', width:'180px', '@media(max-width:700px)': { marginBottom: '20px' },  '@media(max-width:570px)': { marginLeft:'25px'  }  }}>
-                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Social media</Typography>
+                <Typography fontSize={17} fontWeight={550}  sx={colorScheme === 'light' ? {color: 'black',fontFamily:'Raleway',marginBottom:'13px'}: { color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Social media</Typography>
                 <Box sx={{ display: 'flex' }}>
                 {
                         colorScheme === 'light'
@@ -88,7 +88,7 @@ const Footer = ({ colorScheme }) => {
             </Box>
 
             <Box mr={1} sx={{ display: 'flex', flexDirection: 'column', width:'180px', '@media(max-width:700px)': { marginBottom: '20px' },  '@media(max-width:570px)': { marginLeft:'25px'  }  }}>
-                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Legal</Typography>
+                <Typography fontSize={17} fontWeight={550}  sx={colorScheme === 'light' ? {color: 'black',fontFamily:'Raleway',marginBottom:'13px'}: { color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Legal</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography onClick={() => navigate('/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway', cursor:'pointer' }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer' }}>Terms and service</Typography>
                     <Typography onClick={() => navigate('/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer' }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer' }}>Privacy policy</Typography>
@@ -97,7 +97,7 @@ const Footer = ({ colorScheme }) => {
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', width:'180px', '@media(max-width:700px)': { marginBottom: '20px' }, '@media(max-width:570px)': { marginLeft:'25px'  }  }}>
-                <Typography fontSize={17} fontWeight={550}  sx={{ color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Support</Typography>
+                <Typography fontSize={17} fontWeight={550}  sx={colorScheme === 'light' ? {color: 'black',fontFamily:'Raleway',marginBottom:'13px'}: { color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Support</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography fontSize={15} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>FAQ</Typography>
                 </Box>
@@ -106,7 +106,7 @@ const Footer = ({ colorScheme }) => {
             :
             <Box sx={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-between', rowGap:'70px'}}>
                 <Box sx={{display:'flex', justifyConten:'center', flexDirection:'column', alignItems:'center'}}>
-                    <Typography sx={{ color: '#B8B8B8', fontWeight:500, fontSize:'18px',fontFamily:'Raleway'}}>Contact us</Typography>
+                    <Typography sx={colorScheme === 'light' ? {color: 'black',fontFamily:'Raleway',marginBottom:'13px'}: { color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Contact us</Typography>
                     {
                         colorScheme === 'light'
                             ?
@@ -139,7 +139,7 @@ const Footer = ({ colorScheme }) => {
 
 
                 <Box sx={{display:'flex', justifyConten:'center', flexDirection:'column', alignItems:'center'}}>
-                    <Typography sx={{ color: '#B8B8B8', fontWeight:500, fontSize:'18px' }}>Social media</Typography>
+                    <Typography sx={colorScheme === 'light' ? {color: 'black',fontFamily:'Raleway',marginBottom:'13px'}: { color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Social media</Typography>
                     {
                         colorScheme === 'light'
                             ?

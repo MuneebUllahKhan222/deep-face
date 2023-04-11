@@ -12,9 +12,11 @@ import { DownloadForOffline } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
-import { createDoc, getImage, gifUploader, saveContent } from '../../../store/services/user';
+import { createDoc, getImage, getStatus, gifUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
-import {  setPricingModalOpen } from '../../../store/reducers/user';
+import {  setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 
 
@@ -29,6 +31,7 @@ const UploadGif = () => {
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
   const [disableButton, setDisableButton] = useState(true);
+  const [progress, setProgress] = useState(0)
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -63,7 +66,17 @@ const UploadGif = () => {
         setApiCalled(0)
         return
       } 
-      console.log(res?.data, 'token')
+      // setTimeout(async() => {
+      //   const status = await dispatch(getStatus(res?.data))
+      //   console.log(status, 'status of time')
+      // }, 10000)
+      const statusCheck = setInterval(async() => {
+        const status = await dispatch(getStatus(res?.data))
+        if (status?.time) {
+          progressBar(status?.time)
+          clearInterval(statusCheck)
+        }
+      }, 10000);
       await dispatch(gifUploader(blobInput, blobBase, res?.data))
       const {result} = await dispatch(getImage(res?.data))
       setResult(result)
@@ -102,18 +115,36 @@ const downloadContent= (event) => {
 }
 
 const saveImage = async() => {
-  const data = {url:result, uid:user?._id, type:'gif'}
-  const save = await dispatch(saveContent(data))
-  console.log(save, 'res of save')
-  if (save?.status === 201) {
-    enqueueSnackbar("GIF saved sucessfully", { variant: 'success', autoHideDuration: 3000 })
-  }else if (save?.status === 300) {
-    enqueueSnackbar('GIF already saved', { variant: 'warning', autoHideDuration: 3000 })
-  }
-   else {
-    enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
-  }
+  const user = getCookies('user');
+    // setDownloaded(false);
+    const data = {url:result, uid:user?._id, type:'gif'}
+    if (user?.lockerSubscription === true){
+    const save = await dispatch(saveContent(data))
+    if (save?.status === 201) {
+      enqueueSnackbar("Image saved successfully", { variant: 'success', autoHideDuration: 3000 })
+    }else if (save?.status === 300) {
+      enqueueSnackbar("Image already saved", { variant: 'warning', autoHideDuration: 3000 })
+    }
+     else {
+      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 })
+    }
+    } else {
+      dispatch(setLockerPricingModalOpen())
+    }
 
+}
+
+const progressBar = (Progress) => {
+  const interval = 10;
+  const increment = 100 / (Progress * 1000 / interval);
+  const prog = setInterval(() => {
+    setProgress(prev => prev+= increment)
+    if (progress >= 100) {
+      setProgress(100)
+      clearInterval(prog)
+    }
+    
+  }, interval);
 }
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
@@ -194,9 +225,12 @@ const saveImage = async() => {
 
                       :
                       <Box pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
-                      <Box ml={3} component={'img'} src={baseImage[0]['data_url']} sx={{height:'95%', width:'35%', border:'2px solid #FFD600'}} />
-                        <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between' }}>
+                      <Box ml={3} component={'img'} src={baseImage[0]['data_url']} sx={{height:'95%', width:'25%', border:'2px solid #FFD600'}} />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between', width:'75%' }}>
+                        <Box sx={{display:'flex', justifyContent:'space-between'}}>
                           <Typography fontSize={15} fontWeight={600}>Base GIF <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
+                          <CloseIcon sx={{marginRight:'20px'}} onClick={() => setbaseImage([])} />
+                          </Box>
                           <Box sx={{ width: '100px', height: '38px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white' }}>
                             Step 1
                             <CheckCircleIcon sx={{ color: '#FFD600' }} />
@@ -254,9 +288,12 @@ const saveImage = async() => {
                       :
                       <Box pt={2} pb={2}  sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
                         {/* <img src={inputImage[0]['data_url']} alt='test' height='95%' width='25%' /> */}
-                        <Box ml={3} component={'img'} src={inputImage[0]['data_url']} sx={{height:'95%', width:'35%', border:'2px solid #FFD600'}} />
-                        <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between' }}>
-                          <Typography fontSize={15} fontWeight={600}>Input Image <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
+                        <Box ml={3} component={'img'} src={inputImage[0]['data_url']} sx={{height:'95%', width:'25%', border:'2px solid #FFD600'}} />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between',width:'75%' }}>
+                        <Box sx={{display:'flex', justifyContent:'space-between'}}>
+                          <Typography fontSize={15} fontWeight={600}>Base Image <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
+                          <CloseIcon sx={{marginRight:'20px'}} onClick={() => setInputImage([])} />
+                          </Box>
                           <Box sx={{ width: '100px', height: '38px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white' }}>
                             Step 2
                             <CheckCircleIcon sx={{ color: '#FFD600' }} />
@@ -280,7 +317,7 @@ const saveImage = async() => {
                   apiCalled === 1
                   ?
                   <>
-                    <LinearProgress variant="determinate" value={90} sx={{ width: '75%', height: '18px', borderRadius: '100px', backgroundColor: '#FFD600', opacity: '1', "& .MuiLinearProgress-barColorPrimary": { backgroundColor: 'orange', borderRadius: '100px', opacity: '' } }} />
+                    <LinearProgress variant="determinate" value={progress} sx={{ width: '75%', height: '18px', borderRadius: '100px', backgroundColor: '#FFD600', opacity: '1', "& .MuiLinearProgress-barColorPrimary": { backgroundColor: 'orange', borderRadius: '100px', opacity: '' } }} />
                     <Typography fontSize={20} fontWeight={600} sx={{ color: '#FFD600' }}>Processing ...</Typography>
                   </>
                   :

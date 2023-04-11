@@ -5,16 +5,17 @@ import Header from '../../../components/general/Header'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import '../uploadFlow.css';
 import ImageUploading from 'react-images-uploading';
-// import test from '../../../assets/images/imageUpload-test.png'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import { DownloadForOffline } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
+import { DownloadForOffline} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
 import { useDispatch } from 'react-redux';
 import { createDoc, getImage, imageUploader, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
 import {  setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
+import { useBeforeunload } from 'react-beforeunload';
 
 
 const UploadImage = () => {
@@ -25,6 +26,7 @@ const UploadImage = () => {
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
   // const [downloaded, setDownloaded] = useState(false);
+  const [progress, setProgress] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [result, setResult] = useState();
   const { enqueueSnackbar } = useSnackbar();
@@ -34,7 +36,6 @@ const UploadImage = () => {
 
   const onChangeInputImage = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
     setInputImage(imageList);
     fetch(imageList[0]['data_url'])
       .then(async (res) => {
@@ -79,15 +80,21 @@ const UploadImage = () => {
     if (creds?.credits >= credits){
       setApiCalled(1)
     console.log(user?._id, user?._id, 'ids of user')
+    setProgress(10)
     const res= await dispatch(createDoc({uid:user?._id, credits})) 
+    setProgress(40)
     if (!res?.success) {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       setApiCalled(0)
+      setProgress(0)
       return
     } 
     await dispatch(imageUploader(blobInput, blobBase, res?.data))
+    setProgress(50)
+  
     const {result} = await dispatch(getImage(res?.data))
     setResult(result)
+    setProgress(100)
     // setDownloaded(true)
     setApiCalled(2)
     } else {
@@ -153,6 +160,19 @@ const UploadImage = () => {
 //       window.removeEventListener("beforeunload", handleBeforeUnload);
 //   }
 //   }, []);
+
+// useEffect(() => {
+//   // window?.history?.pushState(null, document?.title, window?.location?.href);
+//   window?.addEventListener('popstate', function (event) {
+//     window.confirm('abc')
+//       // window?.history?.pushState(null, document?.title, window?.location?.href);
+//   });
+// }, [])
+
+useBeforeunload((event) => {
+  console.log(event)
+    event.preventDefault();
+});
 
 
 
@@ -235,9 +255,12 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
 
                       :
                       <Box pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
-                        <Box ml={3} component={'img'} src={baseImage[0]['data_url']} sx={{ height: '95%', width: '35%' }} />
-                        <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between' }}>
+                        <Box ml={3} component={'img'} src={baseImage[0]['data_url']} sx={{ height: '95%', width: '25%' }} />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between',width:'75%' }}>
+                          <Box sx={{display:'flex', justifyContent:'space-between'}}>
                           <Typography fontSize={15} fontWeight={600}>Base Image <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
+                          <CloseIcon sx={{marginRight:'20px'}} onClick={() => setbaseImage([])} />
+                          </Box>
                           <Box sx={{ width: '100px', height: '38px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white' }}>
                             Step 1
                             <CheckCircleIcon sx={{ color: '#FFD600' }} />
@@ -295,9 +318,12 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
                       :
                       <Box pt={2} pb={2} sx={{ height: '200px', width: '100%', backgroundColor: '#F2F2F2', borderRadius: '15px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', columnGap: '20px' }}>
                         {/* <img src={inputImage[0]['data_url']} alt='test' height='95%' width='25%' /> */}
-                        <Box ml={3} component={'img'} src={inputImage[0]['data_url']} sx={{ height: '95%', width: '35%' }} />
-                        <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between' }}>
+                        <Box ml={3} component={'img'} src={inputImage[0]['data_url']} sx={{ height: '95%', width: '25%' }} />
+                        <Box sx={{ display: 'flex', flexDirection: 'column', height: '60%', justifyContent: 'space-between', width:'75%' }}>
+                        <Box sx={{display:'flex', justifyContent:'space-between'}}>
                           <Typography fontSize={15} fontWeight={600}>Input Image <Typography component='span' fontSize={15} fontWeight={800} sx={{ color: '#FFD600' }}>UPLOADED</Typography> </Typography>
+                          <CloseIcon sx={{marginRight:'20px'}} onClick={() => setInputImage([])} />
+                          </Box>
                           <Box sx={{ width: '100px', height: '38px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white' }}>
                             Step 2
                             <CheckCircleIcon sx={{ color: '#FFD600' }} />
@@ -321,7 +347,7 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
                   apiCalled === 1
                     ?
                     <>
-                      <LinearProgress variant="determinate" value={90} sx={{ width: '75%', height: '18px', borderRadius: '100px', backgroundColor: '#FFD600', opacity: '1', "& .MuiLinearProgress-barColorPrimary": { backgroundColor: 'orange', borderRadius: '100px', opacity: '' } }} />
+                      <LinearProgress variant="determinate" value={progress} sx={{ width: '75%', height: '18px', borderRadius: '100px', backgroundColor: '#FFD600', opacity: '1', "& .MuiLinearProgress-barColorPrimary": { backgroundColor: 'orange', borderRadius: '100px', opacity: '' } }} />
                       <Typography fontSize={20} fontWeight={600} sx={{ color: '#FFD600' }}>Processing ...</Typography>
                     </>
                     :

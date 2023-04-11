@@ -25,7 +25,7 @@ function StripeForm() {
         const info = {
             amount: (Math.floor(total * 100)).toString(),
         }
-        const stripePromise = await loadStripe("pk_test_51Lj1VASGZP3p3zAFtVcaROPwiUqDuCIEVwh3cFK8320PfdnsZtbY6gqIcfiixLNaSEYaklsIpdBoM6RREobVrw9B0014tcuE1j");
+        const stripePromise = await loadStripe("pk_live_51Mk7w0A5OVE42MIUZ1yrBiwYe5GxEnRKz4Cu3Dflh7QmhSUVTvgCMHV6MwdDBecdGkPmQWWW1X8PUkpXtSMMyema00fmu67Drq");
         setStripe(stripePromise)
         const data = await dispatch(createIntent(info))
         setClientSecret(data?.data?.client_secret)

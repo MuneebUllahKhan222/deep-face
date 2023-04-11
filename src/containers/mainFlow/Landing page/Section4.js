@@ -12,7 +12,7 @@ const Section4 = () => {
 
             <Box sx={{ display:'flex', flexDirection:'column', width:'35%', '@media(max-width:1000px)':{width:'40%'},'@media(max-width:800px)':{width:'60%', alignItems:'center'}, '@media(max-width:600px)':{width:'90%'}, '@media(max-width:450px)':{width:'100%'}}}>
                 <Box sx={{ display:'flex', alignItems:'center'}}>
-                    <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'},fontFamily:'Raleway'}}>Gif Face Swap</Typography>
+                    <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'},fontFamily:'Raleway'}}>GIF Face Swap</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
                 <Typography fontSize={16} fontWeight={500} sx={{'@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}}>Have a favorite GIF? Put your face on it and text it to your friends.</Typography>

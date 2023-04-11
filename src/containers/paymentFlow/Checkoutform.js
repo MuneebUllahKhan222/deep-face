@@ -71,7 +71,7 @@ function Checkoutform({total}) {
             }
         }
         if (error) {
-        enqueueSnackbar('Payment unsuccessful', { variant: 'error' })
+        enqueueSnackbar(`Payment unsuccessful: ${error?.code}`, { variant: 'error' })
         setbuttonDisable(false)
         }
     };

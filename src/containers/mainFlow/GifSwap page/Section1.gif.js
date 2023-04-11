@@ -21,7 +21,7 @@ const Section1 = () => {
                     <Typography fontWeight={600} sx={{color:'white',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'},fontFamily:'Raleway'}}>GIF Face Swap</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
-                <Typography fontSize={14} fontWeight={500} sx={{color:'white','@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}}>Swap a face on your favorite GIFS today and be the hero of your text threads!</Typography>
+                <Typography fontSize={14} fontWeight={500} sx={{color:'white','@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}}>Swap a face on your favorite GIFs today and be the hero of your text threads!</Typography>
                 <CustomButton  navigateTo={'/gifSwap/upload'} text='Try Swap it' style={{width:'fit-content', marginTop:'25px'}} />
             </Box>
 

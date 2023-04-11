@@ -4,10 +4,10 @@ import { getCookies, setCookies, setCredits, updateCookie } from "../../utils";
 // const baseAiPath = "http://192.168.100.14:5000"; // transworld
 // const baseAiPath = "http://192.168.18.30:5000"; // storm
 // const baseAiPath = "http://164.90.160.58:5000";
-// const basePath = "http://localhost:3002"
+const basePath = "http://localhost:3002"
 // const basePath = 'http://164.90.160.58:3002'
 const baseAiPath = "https://deepduck.ai/backend"
-const basePath = 'https://deepduck.ai/web-backend'
+// const basePath = 'https://deepduck.ai/web-backend'
 
 
 
@@ -177,5 +177,24 @@ export const purchaseSubscription = (data) => async (dispatch) => {
       return error
   }
 }
+
+
+  export const getStatus = (docToken) => async (dispatch) => {
+    try {
+      const {token} = await getCookies('user')
+  
+  
+        const response = await axios.get(`${basePath}/video/status/${docToken}`,  { headers: {"Authorization" : token}})
+        console.log( response, 'response of image get, servicessss')
+        if (response?.data?.success) {
+          return response?.data?.data
+        }
+    } catch (error) {
+        return error
+    }
+  }
+
+
+
 
 
