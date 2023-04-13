@@ -32,6 +32,7 @@ const UploadGif = () => {
   const [blobInput, setBlobInput] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [progress, setProgress] = useState(0)
+  const [progressMessage, setProgressMessage] = useState("")
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -54,16 +55,20 @@ const UploadGif = () => {
   };
 
   const createDocument = async () => {
+    setProgressMessage('Initiating Swap')
     dispatch(setInProgress(true))
     const creds = getCookies('credits')
     const credits = 1
     if (creds?.credits >= credits){
       setApiCalled(1)
       const res= await dispatch(createDoc({uid:user?._id, credits})) 
+      setProgress(10)
+      setProgressMessage('Swapping Face')
       if (!res?.success) {
         enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
         setApiCalled(0)
         dispatch(setInProgress(false))
+        setProgressMessage("")
         return
       } 
       // setTimeout(async() => {
@@ -78,10 +83,12 @@ const UploadGif = () => {
         }
       }, 10000);
       const {status}=await dispatch(gifUploader(blobInput, blobBase, res?.data))
+      setProgressMessage('Almost Done')
       if (status === 444) {
         dispatch(returnCredits({uid: user?._id,credits}))
         resetAllStates()
         dispatch(setInProgress(false))
+        setProgressMessage("")
         enqueueSnackbar('Something went wrong, credits replenished', { variant: 'error', autoHideDuration: 3000 });
       } else {
         const {result} = await dispatch(getImage(res?.data))
@@ -145,14 +152,17 @@ const saveImage = async() => {
 }
 
 const progressBar = (Progress) => {
-  const interval = 10;
-  const increment = 100 / (Progress * 1000 / interval);
+  const interval = 50;
+  const increment = 200 / (Progress * 1000 / interval);
+  console.log(increment)
   const prog = setInterval(() => {
+    console.log(progress, 'progress')
     setProgress(prev => prev+= increment)
     if (progress >= 100) {
       setProgress(100)
       clearInterval(prog)
-    }
+    } 
+
     
   }, interval);
 }
@@ -163,6 +173,7 @@ const resetAllStates = () => {
   setbaseImage([])
   setDisableButton(true)
   dispatch(setInProgress(false))
+  setProgressMessage("")
 }
 
 const handleNavigationWhileProcessing = (route) => {
@@ -360,7 +371,7 @@ useEffect(() => {
                   ?
                   <>
                     <LinearProgress variant="determinate" value={progress} sx={{ width: '75%', height: '18px', borderRadius: '100px', backgroundColor: '#FFD600', opacity: '1', "& .MuiLinearProgress-barColorPrimary": { backgroundColor: 'orange', borderRadius: '100px', opacity: '' } }} />
-                    <Typography fontSize={20} fontWeight={600} sx={{ color: '#FFD600' }}>Processing ...</Typography>
+                    <Typography fontSize={20} fontWeight={600} sx={{ color: '#FFD600' }}>{progressMessage}</Typography>
                   </>
                   :
                   <>

@@ -33,7 +33,8 @@ const UploadVideo = () => {
   const dispatch = useDispatch();
   const [disableButton, setDisableButton] = useState(true);
   const [videoDuration, setVideoDuration] = useState();
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(10)
+  const [progressMessage, setProgressMessage] = useState("")
   const user = getCookies('user')
   const { enqueueSnackbar } = useSnackbar();
   const matches900pxw = useMediaQuery('(max-width:900px)')
@@ -63,6 +64,7 @@ const UploadVideo = () => {
     }
   }
   const createDocument = async () => {
+    setProgressMessage('Initiating Swap')
     dispatch(setInProgress(true))
     const creds = getCookies('credits')
     const credits = (Math.ceil(videoDuration / 10) * 10) / 10;
@@ -73,8 +75,11 @@ const UploadVideo = () => {
         enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
         setApiCalled(0)
         dispatch(setInProgress(false))
+        setProgressMessage("")
         return
       }
+      setProgress(20)
+      setProgressMessage("Swapping Face")
       const statusCheck = setInterval(async() => {
         const status = await dispatch(getStatus(res?.data))
         if (status?.time) {
@@ -83,7 +88,8 @@ const UploadVideo = () => {
         }
       }, 10000);
       const {status} = await dispatch(videoUploader(blobInput, blobBase, res?.data))
-
+      setProgressMessage("Almost Done")
+      setProgress(90)
       if (status === 444) {
         dispatch(returnCredits({uid: user?._id,credits}))
         resetAllStates()
@@ -382,7 +388,7 @@ const UploadVideo = () => {
                     ?
                     <>
                       <LinearProgress variant="determinate" value={progress} sx={{ width: '75%', height: '18px', borderRadius: '100px', backgroundColor: '#FFD600', opacity: '1', "& .MuiLinearProgress-barColorPrimary": { backgroundColor: 'orange', borderRadius: '100px', opacity: '' } }} />
-                      <Typography fontSize={20} fontWeight={600} sx={{ color: '#FFD600' }}>Processing ...</Typography>
+                      <Typography fontSize={20} fontWeight={600} sx={{ color: '#FFD600' }}>{progressMessage}</Typography>
                     </>
                     :
                     <>
