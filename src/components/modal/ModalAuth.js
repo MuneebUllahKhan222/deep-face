@@ -33,8 +33,8 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
   }
 
   const onLogin = async (data) => {
-    
-    if (elements !==null || undefined) {
+    console.log(elements, typeof elements !== 'undefined' || elements !== null)
+    if (typeof elements !== 'undefined') {
       const res = await dispatch(login(data))
       if (res.status === 200) {
         handleClose()
@@ -90,7 +90,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
 
   const handleTermsNaviagtion = () => {
     dispatch(resetAllModals())
-    navigate('/termsAndCondition')
+    navigate('/main/termsAndCondition')
   }
 
 

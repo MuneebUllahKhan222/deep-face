@@ -1,5 +1,5 @@
 import { Box, Button, Grid, LinearProgress, Paper, Typography, useMediaQuery } from '@mui/material'
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../../../components/general/Footer'
 import Header from '../../../components/general/Header'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -9,23 +9,24 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import { DownloadForOffline} from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
-import { useDispatch } from 'react-redux';
-import { createDoc, getImage, imageUploader, saveContent } from '../../../store/services/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { createDoc, getImage, imageUploader, returnCredits, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
-import {  setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
-import { useBeforeunload } from 'react-beforeunload';
-
+import {  setInProgress, setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
+// import { useBeforeunload } from 'react-beforeunload';
 
 const UploadImage = () => {
-  // const [images, setImages] = useState([]);
+
+  const { inProgress } = useSelector(state => state?.user)
+
   const [inputImage, setInputImage] = useState([]);
   const [baseImage, setbaseImage] = useState([]);
   const [apiCalled, setApiCalled] = useState(0);
   const [blobBase, setBlobBase] = useState();
   const [blobInput, setBlobInput] = useState();
-  // const [downloaded, setDownloaded] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
   const [progress, setProgress] = useState(0);
   const [disableButton, setDisableButton] = useState(true);
   const [result, setResult] = useState();
@@ -73,32 +74,44 @@ const UploadImage = () => {
   }, [inputImage, baseImage])
 
   const createDocument = async () => {
+    dispatch(setInProgress(true))
     const user = getCookies('user')
     const creds = getCookies('credits')
     const credits = 0.5
     if (creds?.credits >= credits){
       setApiCalled(1)
-    console.log(user?._id, user?._id, 'ids of user')
+      setStatusMessage('Initiating Swap')
     setProgress(10)
     const res= await dispatch(createDoc({uid:user?._id, credits})) 
+    setStatusMessage('Swapping Face')
     setProgress(40)
+
     if (!res?.success) {
       enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       setApiCalled(0)
+      setStatusMessage('')
       setProgress(0)
+      dispatch(setInProgress(false))
       return
     } 
-    await dispatch(imageUploader(blobInput, blobBase, res?.data))
-    setProgress(50)
-  
-    const {result} = await dispatch(getImage(res?.data))
-    if (result) {
+    const {status} =await dispatch(imageUploader(blobInput, blobBase, res?.data))
+    setProgress(90)
+    setStatusMessage('Almost done')
+    if (status === 444) {
+      const res =  dispatch(returnCredits({uid: user?._id,credits}))
+      resetAllStates()
+      dispatch(setInProgress(false))
+      if (res.status === 200) {
+        enqueueSnackbar('Something went wrong, credits replenished', { variant: 'error', autoHideDuration: 3000 });
+      } else {
+        enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 });
+      }
+    } else {
+      const {result} = await dispatch(getImage(res?.data))
+      setStatusMessage('Generating results')
       setProgress(100)
       setResult(result)
       setApiCalled(2)
-    } else {
-      resetAllStates()
-      enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 });
     }
     } else {
       enqueueSnackbar('Insufficient credits', { variant: 'error', autoHideDuration: 3000 });
@@ -116,6 +129,7 @@ const UploadImage = () => {
     const save = await dispatch(saveContent(data))
     if (save?.status === 201) {
       enqueueSnackbar("Image saved successfully", { variant: 'success', autoHideDuration: 3000 })
+      dispatch(setInProgress(false))
     }else if (save?.status === 300) {
       enqueueSnackbar("Image already saved", { variant: 'warning', autoHideDuration: 3000 })
     }
@@ -131,6 +145,7 @@ const UploadImage = () => {
   const downloadContent= (event) => {
     event.preventDefault();
     // setDownloaded(false);
+    dispatch(setInProgress(false))
     const link = document.createElement('a');
     link.href = result;
     link.download = 'result.jpg';
@@ -144,6 +159,18 @@ const resetAllStates = () => {
   setInputImage([])
   setbaseImage([])
   setDisableButton(true)
+}
+
+const handleNavigationWhileProcessing = (route) => {
+  if (inProgress){
+      const alertUser = window.confirm("Are you sure you want to leave this page without saving its contents?");
+      if (alertUser){
+          dispatch(setInProgress(false))
+          navigate(route)
+      } 
+  } else {
+      navigate(route)
+  }
 }
 
 // useEffect(() => {
@@ -183,6 +210,38 @@ const resetAllStates = () => {
 //     event.preventDefault();
 // });
 
+useEffect(() => {
+  if (inProgress) {
+    window.onbeforeunload = function() {
+      return true;
+  };
+  }
+  return () => {
+      window.onbeforeunload = null;
+  };
+}, [inProgress]);
+
+// useEffect(() => {
+//   if (inProgress) {
+//     window.addEventListener('popstate', (event) => {
+//       const alert = window.confirm('Are you sure you want to leave this page without saving its contents?')
+//       if (alert) {
+//         navigate(-1)
+//       }
+//     });
+    
+//   } else {
+//     navigate(-1)
+//   }
+//   // return () => {
+//   //     window.removeEventListener('popstate')
+//   // };
+// }, [inProgress, navigate]);
+
+
+
+
+
 
 
 const matches900pxw = useMediaQuery('(max-width:900px)')
@@ -204,10 +263,10 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px', width: 'fit-content' }}>
               <Typography sx={{ fontSize: '20px', fontWeight: '700', background: 'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)', '-webkit-background-clip': 'text', ' -webkit-text-fill-color': 'transparent', }}>Try these</Typography>
-              <Box onClick={() => navigate('/videoSwap/upload')} sx={{ cursor: 'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+              <Box onClick={() => handleNavigationWhileProcessing('/swap/videoSwap/upload')} sx={{ cursor: 'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
                 <PlayArrowIcon sx={{ fontSize: '30px' }} />
               </Box>
-              <Box onClick={() => navigate('/gifSwap/upload')} sx={{ cursor: 'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '20px', fontWeight: '600' }}>
+              <Box onClick={() => handleNavigationWhileProcessing('/swap/gifSwap/upload')} sx={{ cursor: 'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '20px', fontWeight: '600' }}>
                 GIF
               </Box>
             </Box>
@@ -357,7 +416,7 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
                     ?
                     <>
                       <LinearProgress variant="determinate" value={progress} sx={{ width: '75%', height: '18px', borderRadius: '100px', backgroundColor: '#FFD600', opacity: '1', "& .MuiLinearProgress-barColorPrimary": { backgroundColor: 'orange', borderRadius: '100px', opacity: '' } }} />
-                      <Typography fontSize={20} fontWeight={600} sx={{ color: '#FFD600' }}>Processing ...</Typography>
+                      <Typography fontSize={20} fontWeight={600} sx={{ color: '#FFD600' }}>{statusMessage}</Typography>
                     </>
                     :
                     <>

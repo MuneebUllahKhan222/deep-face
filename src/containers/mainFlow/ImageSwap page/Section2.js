@@ -16,7 +16,7 @@ const Section2 = () => {
                 </Box>
                 <Typography fontSize={14} fontWeight={500} sx={{'@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}}> Use a clear, high quality image for both your hero image and the face you want to apply. Once you have done so, you will see some smashing results! This image here is an example of when a person rushes the process. Be patient! </Typography>
                 {/* <Button onClick={() => navigate('./upload')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Image Swap</Button>    */}
-                <CustomButton navigateTo={'./upload'} style={{marginTop:'25px', width:'fit-content'}} text={'Try Swap it'}/>        
+                <CustomButton navigateTo={'/swap/imageSwap/upload'} style={{marginTop:'25px', width:'fit-content'}} text={'Try Swap it'}/>        
             </Box>
 
 

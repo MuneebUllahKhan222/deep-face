@@ -18,7 +18,7 @@ const Signup = () => {
   const onSubmit = async(data) => {
     const res =  await dispatch(register(data))
     if (res?.status === 200) {
-      navigate('/')
+      navigate('/main')
       enqueueSnackbar('Sign up successful', { variant: 'success', autoHideDuration:3000 })
       const user = getCookies('user')
       if (user?.firstTimeLogin === true) {

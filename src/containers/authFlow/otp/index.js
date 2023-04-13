@@ -32,7 +32,7 @@ function OTP() {
     const onSubmit = async (val) => {
       const res = await dispatch(verifyOTP({email,val}))
       if (res?.status === 200) {
-        navigate('/newPassword')
+        navigate('/auth/newPassword')
       } else {
         enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
       }

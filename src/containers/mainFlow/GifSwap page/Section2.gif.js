@@ -14,7 +14,7 @@ const Section2 = () => {
                         <img src={stick} alt='stick' />
                     </Box>
                     <Typography fontSize={14} fontWeight={500} sx={{'@media(max-width:800px)': {textAlign:'center'},fontFamily:'Raleway'}}>By using a high quality image, upload your gif, swap the face and enjoy!</Typography>
-                     <CustomButton  navigateTo={'/gifSwap/upload'} text='Try Swap it' style={{width:'fit-content', marginTop:'25px'}} />
+                     <CustomButton  navigateTo={'/swap/gifSwap/upload'} text='Try Swap it' style={{width:'fit-content', marginTop:'25px'}} />
                 </Box>
                 <Box sx={{ width: '27%', height:'80%','@media(max-width:800px)': { width: '40%', marginTop:'30px' }, '@media(max-width:600px)': { width: '50%' }, '@media(max-width:450px)': { width: '70%' } }}>
                     <img src={kholiBabar} alt={'section2'} width={'100%'} height={'100%'} />

@@ -11,17 +11,17 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { DownloadForOffline } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getCookies } from '../../../utils';
-import { useDispatch } from 'react-redux';
-import { createDoc, getImage, getStatus, gifUploader, saveContent } from '../../../store/services/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { createDoc, getImage, getStatus, gifUploader, returnCredits, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
-import {  setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
+import {  setInProgress, setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
 import CloseIcon from '@mui/icons-material/Close';
 
 
 
 
 const UploadGif = () => {
-  // const [images, setImages] = useState([]);
+  const {  inProgress } = useSelector(state => state?.user)
   const [inputImage, setInputImage] = useState([]);
   const [baseImage, setbaseImage] = useState([]);
   const [apiCalled, setApiCalled] = useState(0);
@@ -54,6 +54,7 @@ const UploadGif = () => {
   };
 
   const createDocument = async () => {
+    dispatch(setInProgress(true))
     const creds = getCookies('credits')
     const credits = 1
     if (creds?.credits >= credits){
@@ -62,6 +63,7 @@ const UploadGif = () => {
       if (!res?.success) {
         enqueueSnackbar(res?.message, { variant: 'error', autoHideDuration: 3000 })
         setApiCalled(0)
+        dispatch(setInProgress(false))
         return
       } 
       // setTimeout(async() => {
@@ -75,14 +77,17 @@ const UploadGif = () => {
           clearInterval(statusCheck)
         }
       }, 10000);
-      await dispatch(gifUploader(blobInput, blobBase, res?.data))
-      const {result} = await dispatch(getImage(res?.data))
-      if (result) {
+      const {status}=await dispatch(gifUploader(blobInput, blobBase, res?.data))
+      if (status === 444) {
+        dispatch(returnCredits({uid: user?._id,credits}))
+        resetAllStates()
+        dispatch(setInProgress(false))
+        enqueueSnackbar('Something went wrong, credits replenished', { variant: 'error', autoHideDuration: 3000 });
+      } else {
+        const {result} = await dispatch(getImage(res?.data))
+        setProgress(100)
         setResult(result)
         setApiCalled(2)
-      } else {
-        resetAllStates()
-        enqueueSnackbar('Something went wrong', { variant: 'error', autoHideDuration: 3000 });
       }
     } else {
       enqueueSnackbar('Insufficient credits', { variant: 'error', autoHideDuration: 3000 });
@@ -109,6 +114,7 @@ useEffect(() => {
 
 const downloadContent= (event) => {
   event.preventDefault();
+  dispatch(setInProgress(false))
   const link = document.createElement('a');
   link.href = result;
   link.download = 'result.gif';
@@ -125,6 +131,7 @@ const saveImage = async() => {
     const save = await dispatch(saveContent(data))
     if (save?.status === 201) {
       enqueueSnackbar("GIF saved successfully", { variant: 'success', autoHideDuration: 3000 })
+      dispatch(setInProgress(false))
     }else if (save?.status === 300) {
       enqueueSnackbar("GIF already saved", { variant: 'warning', autoHideDuration: 3000 })
     }
@@ -155,7 +162,32 @@ const resetAllStates = () => {
   setInputImage([])
   setbaseImage([])
   setDisableButton(true)
+  dispatch(setInProgress(false))
 }
+
+const handleNavigationWhileProcessing = (route) => {
+  if (inProgress){
+      const alertUser = window.confirm("Are you sure you want to leave this page without saving its contents?");
+      if (alertUser){
+          dispatch(setInProgress(false))
+          navigate(route)
+      } 
+  } else {
+      navigate(route)
+  }
+}
+
+useEffect(() => {
+  if (inProgress) {
+    window.onbeforeunload = function() {
+      return true;
+  };
+  }
+  return () => {
+      window.onbeforeunload = null;
+  };
+}, [inProgress]);
+
 
   const matches900pxw = useMediaQuery('(max-width:900px)')
   return (
@@ -175,10 +207,10 @@ const resetAllStates = () => {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px', width: 'fit-content' }}>
               <Typography sx={{ fontSize: '20px', fontWeight: '700', background: 'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)', '-webkit-background-clip': 'text', ' -webkit-text-fill-color': 'transparent', }}>Try these</Typography>
-              <Box onClick={() => navigate('/videoSwap/upload')} sx={{ cursor:'pointer',borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+              <Box onClick={() => handleNavigationWhileProcessing('/swap/videoSwap/upload')} sx={{ cursor:'pointer',borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
                 <PlayArrowIcon sx={{ fontSize: '30px' }} />
               </Box>
-              <Box onClick={() => navigate('/imageSwap/upload')} sx={{cursor:'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '20px', fontWeight: '600' }}>
+              <Box onClick={() => handleNavigationWhileProcessing('/swap/imageSwap/upload')} sx={{cursor:'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '20px', fontWeight: '600' }}>
                 IMG
               </Box>
             </Box>

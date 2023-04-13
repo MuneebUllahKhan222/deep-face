@@ -3,8 +3,8 @@ import { Box, Button, Menu, MenuItem, Typography, Avatar } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import TollIcon from '@mui/icons-material/Toll';
 import { delAllCookies, getCookies } from '../../utils';
-import { useDispatch } from 'react-redux';
-import { resetAll } from '../../store/reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetAll, setInProgress } from '../../store/reducers/user';
 import CloseIcon from '@mui/icons-material/Close';
 
 const LoginDrawer = ({ toggleDrawer }) => {
@@ -15,11 +15,13 @@ const LoginDrawer = ({ toggleDrawer }) => {
     const dispatch = useDispatch();
     const [anchorElFeature, setAnchorElFeature] = useState(null);
     const [showFeatureMenu, setShowFeatureMenu] = useState(false);
+    const { inProgress } = useSelector(state => state?.user)
+
 
     const logout = () => {
         delAllCookies()
         dispatch(resetAll())
-        navigate('/')
+        navigate('/main')
     }
 
     const handleNavigation = (route) => {
@@ -30,14 +32,35 @@ const LoginDrawer = ({ toggleDrawer }) => {
         setShowFeatureMenu(false)
     }
 
-    const handleClickFeature = (event) => {
-        if (window.location.href.includes('upload')) {
-            navigate('/')
+    const handleClickFeature = (event, route) => {
+        if (!inProgress) {
+            if (window.location.href.includes('upload')) {
+                navigate('/main')
+            } else {
+                setAnchorElFeature(event.currentTarget);
+                setShowFeatureMenu(true)
+            }
         } else {
-            setAnchorElFeature(event.currentTarget);
-            setShowFeatureMenu(true)
+            const alertUser = window.confirm("Are you sure you want to leave this page without saving its contents?");
+            if (alertUser){
+                dispatch(setInProgress(false))
+                navigate(route)
+            } 
         }
+       
     };
+
+    const handleNavigationWhileProcessing = (route) => {
+        if (inProgress){
+            const alertUser = window.confirm("Are you sure you want to leave this page without saving its contents?");
+            if (alertUser){
+                dispatch(setInProgress(false))
+                navigate(route)
+            } 
+        } else {
+            navigate(route)
+        }
+      }
     return (
         <Box pt={4} pb={2} pl={3} pr={3} sx={{ height: '90vh' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%' }}>
@@ -65,7 +88,7 @@ const LoginDrawer = ({ toggleDrawer }) => {
                 {user?.lockerSubscription === true
                     &&
                     <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '95%', height: '10px', backgroundColor: '#1E1E1E', borderRadius: '10px', cursor: 'pointer' }}>
-                        <Box onClick={() => navigate('/gallery')} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <Box onClick={() => handleNavigationWhileProcessing('/main/gallery')} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                             <Typography ml={1} fontSize={15} fontWeight={400} fontFamily={'Raleway'}>Gallery</Typography>
 
                             <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
@@ -73,7 +96,7 @@ const LoginDrawer = ({ toggleDrawer }) => {
                     </Box>}
 
                 <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '95%', height: '80px', backgroundColor: '#1E1E1E', borderRadius: '10px' }}>
-                    <Box onClick={handleClickFeature} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box onClick={(e) => handleClickFeature(e, '/main')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography ml={1} fontSize={14} fontWeight={400} sx={{ cursor: 'pointer' }} fontFamily={'Raleway'} >Features</Typography>
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                         <Menu
@@ -95,19 +118,19 @@ const LoginDrawer = ({ toggleDrawer }) => {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                            <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                            <MenuItem onClick={() => handleNavigation('/main/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                 Video Swap
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                            <MenuItem onClick={() => handleNavigation('/main/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                 Image Swap
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                            <MenuItem onClick={() => handleNavigation('/main/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
                                 GIF Swap
                             </MenuItem>
                         </Menu>
                     </Box>
 
-                    <Box onClick={() => navigate('/pay')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box onClick={() => handleNavigationWhileProcessing('/buy/pay')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography ml={1} fontSize={14} fontWeight={400} sx={{ cursor: 'pointer' }} fontFamily={'Raleway'}>Pricing</Typography>
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                     </Box>
@@ -124,9 +147,9 @@ const LoginDrawer = ({ toggleDrawer }) => {
                 <Button disableFocusRipple onClick={() => logout()} sx={{ cursor: 'pointer', marginTop: '10px', height: '50px', borderRadius: '10px', backgroundColor: '#1E1E1E', '&:hover': { backgroundColor: '#FFD600' } }} variant='contained' fullWidth>Log out</Button>
 
                 <Box mt={2} sx={{ display: 'flex', justifyContent: 'space-between', width: '80%', alignItems: 'center' }}>
-                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={12} sx={{ color: '#5E5E5E', cursor: 'pointer', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Terms of service</Typography>
+                    <Typography onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} fontSize={12} sx={{ color: '#5E5E5E', cursor: 'pointer', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Terms of service</Typography>
                     <Typography>|</Typography>
-                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={12} sx={{ color: '#5E5E5E', cursor: 'pointer', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Privacy policy</Typography>
+                    <Typography onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} fontSize={12} sx={{ color: '#5E5E5E', cursor: 'pointer', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Privacy policy</Typography>
                 </Box>
             </Box>
         </Box>

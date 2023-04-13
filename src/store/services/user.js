@@ -4,10 +4,10 @@ import { getCookies, setCookies, setCredits, updateCookie } from "../../utils";
 // const baseAiPath = "http://192.168.100.14:5000"; // transworld
 // const baseAiPath = "http://192.168.18.30:5000"; // storm
 // const baseAiPath = "http://164.90.160.58:5000";
-// const basePath = "http://localhost:3002"
+const basePath = "http://localhost:3002"
 // const basePath = 'http://164.90.160.58:3002'
 const baseAiPath = "https://deepduck.ai/backend"
-const basePath = 'https://deepduck.ai/web-backend'
+// const basePath = 'https://deepduck.ai/web-backend'
 
 
 
@@ -21,7 +21,7 @@ export const imageUploader = (source, target, token) => async (dispatch) => {
         // data.append("_id", _id);
 
         const response = await axios.post(`${baseAiPath}/Generate_Image`, data, { headers: {"Authorization" : token}})
-        return response
+        return response?.data
     } catch (error) {
         
     }
@@ -37,7 +37,7 @@ export const gifUploader = (source, target, token) => async (dispatch) => {
       // data.append("id", id);
       // data.append("_id", _id);
       const response = await axios.post(`${baseAiPath}/Generate_Gif`, data, { headers: {"Authorization" : token}})
-      return response
+      return response?.data
   } catch (error) {
       
   }
@@ -53,7 +53,7 @@ export const videoUploader = (source, target, token) => async (dispatch) => {
       // data.append("id", id);
       // data.append("_id", _id);
       const response = await axios.post(`${baseAiPath}/Generate_Video`, data, { headers: {"Authorization" : token}})
-      return response
+      return response?.data
   } catch (error) {
       
   }
@@ -176,6 +176,21 @@ export const purchaseSubscription = (data) => async (dispatch) => {
     }
   }
 
+
+  export const returnCredits = (data) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${basePath}/payment/returnCred`, data)
+        if (response?.data?.status === 200) {
+          setCookies('credits',{credits:response?.data?.data?.credits}, {
+            path:'/'
+          })
+        }
+          return response?.data
+  
+    } catch (error) {
+        return error
+    }
+  }
 
 
 

@@ -19,7 +19,7 @@ const ForgetPassword = () => {
     const res = await dispatch(sendOTPEmail(data))
     if (res?.status === 200) {
       setCookies('forgotPass', {email:res?.data?.email},{path:'/'})
-      navigate('/otp', {state:{email:res?.data?.email}})
+      navigate('/auth/otp', {state:{email:res?.data?.email}})
       enqueueSnackbar(res?.message, { variant: 'info', autoHideDuration: 3000 })
     } 
     else {

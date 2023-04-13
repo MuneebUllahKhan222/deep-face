@@ -22,7 +22,7 @@ const NewPassword = () => {
     const onSubmit = async (data) => {
         const res = await dispatch(updatePassword({...data, email}))
       if (res.status === 200) {
-        navigate('/signin')
+        navigate('/auth/signin')
         enqueueSnackbar(res?.message, { variant: 'success', autoHideDuration: 3000 })
       } else {
         enqueueSnackbar((res?.message || 'Something went wrong'), { variant: 'error', autoHideDuration: 3000 })

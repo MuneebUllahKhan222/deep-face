@@ -14,7 +14,7 @@ const Section2 = () => {
                         <img src={stick} alt='stick' />
                     </Box>
                     <Typography fontSize={14} fontWeight={500} sx={{'@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}}>Using high quality video, upload your base footage, and with our face swap tool, upload a high quality image of the face you’d like to swap. That’s it!</Typography>
-                    <CustomButton navigateTo={'/videoSwap/upload'}  style={{marginTop:'25px', width:'fit-content'}} text={'Try Video Swap'}/>
+                    <CustomButton navigateTo={'/swap/videoSwap/upload'}  style={{marginTop:'25px', width:'fit-content'}} text={'Try Video Swap'}/>
                 </Box>
                 <Box sx={{ width: '27%', '@media(max-width:800px)': { width: '40%', marginTop:'30px' }, '@media(max-width:600px)': { width: '50%' }, '@media(max-width:450px)': { width: '80%' } }}>
                     <img src={ronaldo} alt={'ronaldo'} width={'100%'} />

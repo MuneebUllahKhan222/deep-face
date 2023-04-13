@@ -26,7 +26,7 @@ const LoginForm = ({ onSubmit }) => {
   });
   const navigate = useNavigate();
   const handleSignupClick = () => {
-    navigate('/signup')
+    navigate('/auth/signup')
   }
   const [showPassword, setshowPassword] = useState(false)
 
@@ -105,7 +105,7 @@ const LoginForm = ({ onSubmit }) => {
 
         <Box mt={2} sx={{ display: 'flex', justifyContent: 'space-between', color: 'white' }}>
           <Box onClick={handleSignupClick} fontSize={14} sx={{ '&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Signup</Box>
-          <Box fontSize={14} onClick={() => navigate('/forgetPassword')} sx={{ '&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Forgot Password?</Box>
+          <Box fontSize={14} onClick={() => navigate('/auth/forgetPassword')} sx={{ '&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Forgot Password?</Box>
         </Box>
       
 

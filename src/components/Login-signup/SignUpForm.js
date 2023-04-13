@@ -120,7 +120,7 @@ const SignupForm = ({onSubmit }) => {
               // label={"I agree to Terms of service and Privacy Policy"}
 
             />
-            <Box>I agree to <Typography component={'span'} onClick={() => navigate('/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Terms of service</Typography> & <Typography component={'span'}  onClick={() => navigate('/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Privacy Policy</Typography></Box>
+            <Box>I agree to <Typography component={'span'} onClick={() => navigate('/main/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Terms of service</Typography> & <Typography component={'span'}  onClick={() => navigate('/main/termsAndCondition')} sx={{'&:hover':{ textDecoration:'underline', color:'#FFD600', cursor:'pointer' }}}>Privacy Policy</Typography></Box>
             </Box>
           <Box sx={{display:'flex', alignItems:'center', width:'100%', color:'red'}}>
           {errors.terms ? errors.terms.message : ''}
@@ -134,7 +134,7 @@ const SignupForm = ({onSubmit }) => {
 
 
         </Box>
-        <Box fontSize={14} onClick={() => navigate('/signin')} sx={{ color:'white',marginTop:'5px','&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Login</Box>
+        <Box fontSize={14} onClick={() => navigate('/auth/signin')} sx={{ color:'white',marginTop:'5px','&:hover': { color: '#FFD600', textDecoration: 'underline', cursor: 'pointer' } }}>Login</Box>
       </form>
       
 

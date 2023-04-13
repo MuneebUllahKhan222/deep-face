@@ -19,7 +19,7 @@ const Section1 = () => {
               <Typography fontWeight={600} sx={{ margin: '0 auto 0 auto', color: 'white', textAlign: 'center', fontSize: '40px', '@media(max-width:900px)': { fontSize: '35px' }, '@media(max-width:800px)': { fontSize: '30px' },fontFamily:'Raleway' }}>Video Face Swap</Typography>
             </Box>
             <Typography fontSize={14} fontWeight={500} sx={{ margin: '0 auto 0 auto', color: 'white', textAlign: 'center',fontFamily:'Raleway' }}>Think you got what it takes? Test your AI skills with Video Face Swap now!</Typography>
-            <CustomButton navigateTo={'/videoSwap/upload'} text='Try Swap it' style={{width:'fit-content',margin: '35px auto 0 auto',}} />
+            <CustomButton navigateTo={'/swap/videoSwap/upload'} text='Try Swap it' style={{width:'fit-content',margin: '35px auto 0 auto',}} />
           </Box>
         </Box>
 

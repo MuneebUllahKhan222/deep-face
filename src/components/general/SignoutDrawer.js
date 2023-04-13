@@ -18,7 +18,7 @@ const SignoutDrawer = ({ toggleDrawer }) => {
 
     const handleClickFeature = (event) => {
         if (window.location.href.includes('upload')) {
-            navigate('/')
+            navigate('/main')
         } else {
             setAnchorElFeature(event.currentTarget);
             setShowFeatureMenu(true)
@@ -58,19 +58,19 @@ const SignoutDrawer = ({ toggleDrawer }) => {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                            <MenuItem onClick={() => handleNavigation('/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                            <MenuItem onClick={() => handleNavigation('/main/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                 Video Swap
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation('/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                            <MenuItem onClick={() => handleNavigation('/main/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                 Image Swap
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation('/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                            <MenuItem onClick={() => handleNavigation('/main/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
                                 GIF Swap
                             </MenuItem>
                         </Menu>
                     </Box>
 
-                    <Box onClick={() => navigate('/pay')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box onClick={() => navigate('/buy/pay')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography ml={1} fontSize={14} fontWeight={400} fontFamily={'Raleway'}>Pricing</Typography>
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                     </Box>
@@ -83,13 +83,13 @@ const SignoutDrawer = ({ toggleDrawer }) => {
                     </Box>
                 </Box>
 
-                <Button disableFocusRipple onClick={() => navigate('/signup')} sx={{ marginTop: '30px', height: '50px', borderRadius: '10px', backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} variant='contained' fullWidth>Sign Up</Button>
-                <Button disableFocusRipple onClick={() => navigate('/signin')} sx={{ marginTop: '10px', height: '50px', borderRadius: '10px', backgroundColor: '#1E1E1E', '&:hover': { backgroundColor: '#FFD600' } }} variant='contained' fullWidth>Login</Button>
+                <Button disableFocusRipple onClick={() => navigate('/auth/signup')} sx={{ marginTop: '30px', height: '50px', borderRadius: '10px', backgroundColor: '#FFD600', '&:hover': { backgroundColor: '#FFD600' } }} variant='contained' fullWidth>Sign Up</Button>
+                <Button disableFocusRipple onClick={() => navigate('/auth/signin')} sx={{ marginTop: '10px', height: '50px', borderRadius: '10px', backgroundColor: '#1E1E1E', '&:hover': { backgroundColor: '#FFD600' } }} variant='contained' fullWidth>Login</Button>
 
                 <Box mt={2} sx={{ display: 'flex', justifyContent: 'space-between', width: '80%', alignItems: 'center' }}>
-                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={12} sx={{ cursor: 'pointer', color: '#5E5E5E', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Terms of service</Typography>
+                    <Typography onClick={() => navigate('/main/termsAndCondition')} fontSize={12} sx={{ cursor: 'pointer', color: '#5E5E5E', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Terms of service</Typography>
                     <Typography>|</Typography>
-                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={12} sx={{ cursor: 'pointer', color: '#5E5E5E', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Privacy policy</Typography>
+                    <Typography onClick={() => navigate('/main/termsAndCondition')} fontSize={12} sx={{ cursor: 'pointer', color: '#5E5E5E', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Privacy policy</Typography>
                 </Box>
             </Box>
         </Box>

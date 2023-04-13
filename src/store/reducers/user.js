@@ -13,6 +13,7 @@ const initialState = {
   purchaseSubscriptionAmount:null,
   purchaseSubscriptionMonth:null,
   subscriptionFlow:false,
+  inProgress:false,
 }
 
 export const userSlice = createSlice({
@@ -54,6 +55,10 @@ export const userSlice = createSlice({
     setLockerPricingModalOpen: (state) => {   
       state.lockerPricingModalState = true;
     },
+    setInProgress: (state,action) => {   
+      const {payload} = action 
+      state.inProgress = payload;
+    },
     setPurchaseAmount: (state,action) => {  
       const {payload} = action 
       state.purchaseAmount = payload;
@@ -92,6 +97,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {setUserData, setModalClose, setModalOpen, setPricingModalClose, setPricingModalOpen, setStripeModalClose, setStripeModalOpen, setPurchaseAmount, setPurchaseCredit, setLockerAdModalClose, setLockerAdModalOpen, setPurchaseSubAmount, setPurchaseSubMonth, resetFlows, setSubcriptionFlow, setLockerPricingModalClose, setLockerPricingModalOpen, resetAll, resetAllModals } = userSlice.actions
+export const {setUserData, setModalClose, setModalOpen, setPricingModalClose, setPricingModalOpen, setStripeModalClose, setStripeModalOpen, setPurchaseAmount, setPurchaseCredit, setLockerAdModalClose, setLockerAdModalOpen, setPurchaseSubAmount, setPurchaseSubMonth, resetFlows, setSubcriptionFlow, setLockerPricingModalClose, setLockerPricingModalOpen, resetAll, resetAllModals, setInProgress } = userSlice.actions
 
 export default userSlice.reducer

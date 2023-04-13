@@ -16,7 +16,7 @@ const PricingPage = () => {
          if (user) {
             dispatch(setPricingModalOpen())
          } else {
-            navigate('/signin')
+            navigate('/auth/signin')
          }
     
     }
@@ -26,7 +26,7 @@ const PricingPage = () => {
          if (user) {
              dispatch(setLockerPricingModalOpen())
          } else {
-            navigate('/signin')
+            navigate('/auth/signin')
          }
     }
 

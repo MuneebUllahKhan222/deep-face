@@ -29,7 +29,7 @@ const Section1 = () => {
                     <img src={stick}  alt='stick' />
                 </Box>
                 <Typography fontSize={15} fontWeight={500} sx={{color:'white', fontFamily:'Raleway'}}>Face swapping on an Image, Video or GIF is as easy as 1-2-3! Start your AI journey today!</Typography>
-                <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', fontWeight:600,'&:hover':{backgroundColor:'#FFD600'}}}>Try Swap it</Button>           
+                <Button onClick={() => navigate('/swap/imageSwap/upload')} variant='contained' disableElevation sx={{backgroundColor:'#FFD600', height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', fontWeight:600,'&:hover':{backgroundColor:'#FFD600'}}}>Try Swap it</Button>           
             </Box>
 
 

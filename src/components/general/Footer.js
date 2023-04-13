@@ -5,10 +5,26 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setInProgress } from '../../store/reducers/user';
 
 const Footer = ({ colorScheme }) => {
     const matches600w = useMediaQuery('(max-width:600px)');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { inProgress } = useSelector(state => state?.user)
+
+    const handleNavigationWhileProcessing = (route) => {
+        if (inProgress){
+            const alertUser = window.confirm("Are you sure you want to leave this page without saving its contents?");
+            if (alertUser){
+                dispatch(setInProgress(false))
+                navigate(route)
+            } 
+        } else {
+            navigate(route)
+        }
+      }
     
     return (
         <Box pt={3} sx={{ height: 'fit-content', backgroundColor: 'transparent', display: 'flex', justifyContent: 'space-between', width:'100%','@media(max-width:700px)': { flexWrap: 'wrap', justifyContent:'center', rowGap:'40px', columnGap:'20px' } }}>
@@ -90,9 +106,9 @@ const Footer = ({ colorScheme }) => {
             <Box mr={1} sx={{ display: 'flex', flexDirection: 'column', width:'180px', '@media(max-width:700px)': { marginBottom: '20px' },  '@media(max-width:570px)': { marginLeft:'25px'  }  }}>
                 <Typography fontSize={17} fontWeight={550}  sx={colorScheme === 'light' ? {color: 'black',fontFamily:'Raleway',marginBottom:'13px'}: { color: '#B8B8B8',fontFamily:'Raleway',marginBottom:'13px' }}>Legal</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway', cursor:'pointer' }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer' }}>Terms and service</Typography>
-                    <Typography onClick={() => navigate('/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer' }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer' }}>Privacy policy</Typography>
-                    <Typography fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>Refund policy</Typography>
+                    <Typography onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway', cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Terms and Conditions</Typography>
+                    <Typography onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Privacy Policy</Typography>
+                    <Typography onClick={() => handleNavigationWhileProcessing('/main/refundPolicy')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Refund policy</Typography>
                 </Box>
             </Box>
 
@@ -172,12 +188,12 @@ const Footer = ({ colorScheme }) => {
 
                 <Box sx={{display:'flex', justifyContent:'space-between', width:'100%',  }} >
                 <Typography fontSize={15}  sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>FAQ</Typography>
-                <Typography fontSize={15} onClick={() => navigate('/termsAndCondition')} letterSpacing={1.2} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>Terms and services</Typography>
-                <Typography fontSize={15} onClick={() => navigate('/termsAndCondition')} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer' }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer' }}>Privacy policy</Typography>
+                <Typography fontSize={15} onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} letterSpacing={1.2} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Terms and Conditions</Typography>
+                <Typography fontSize={15} onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Privacy Policy</Typography>
                 </Box>
 
                 <Box sx={{display:'flex', justifyContent:'center', width:'100%',  }} >
-                <Typography fontSize={15} letterSpacing={1.3} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>Refund policy</Typography>
+                <Typography onClick={() => handleNavigationWhileProcessing('/main/refundPolicy')} fontSize={15} letterSpacing={1.3} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway', '&:hover':{cursor:'pointer', textDecoration:'underline'}}}>Refund policy</Typography>
                 </Box>
             </Box>
             }

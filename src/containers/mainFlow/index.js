@@ -7,6 +7,7 @@ import LandingPage from "./Landing page/LandingPage";
 import TermsAndCondition from "./Terms page/TermsAndCondition";
 import VideoSwap from "./VideoSwap page/VideoSwap";
 import RequireSubscription from "../../components/ProtectedRoutes/RequireSubscription";
+import RefundPolicy from "./Terms page/RefundPolicy";
 
 
 
@@ -21,6 +22,7 @@ export default function MainFlow() {
         <Route path="/videoSwap" exact element={<VideoSwap />} />
         <Route path="/gifSwap" exact element={<GifSwap />} />
         <Route path="/termsAndCondition" exact element={<TermsAndCondition />} />
+        <Route path="/refundPolicy" exact element={<RefundPolicy />} />
         <Route path="/gallery" exact element={<RequireSubscription><Gallery /></RequireSubscription>} />
       </Routes>
       </>
