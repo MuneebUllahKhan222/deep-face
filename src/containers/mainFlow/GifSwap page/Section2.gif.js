@@ -10,7 +10,7 @@ const Section2 = () => {
             <Box sx={{ height: '100%', display: 'flex', justifyContent: 'space-around', flexDirection:'row-reverse',alignItems: 'center', '@media(max-width:800px)': { flexDirection: 'column' } }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', '@media(max-width:1000px)': { width: '40%' }, '@media(max-width:800px)': { width: '60%', alignItems:'center' }, '@media(max-width:600px)': { width: '90%' }, '@media(max-width:450px)': { width: '100%' } }}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography fontWeight={600} sx={{ fontSize: '40px', '@media(max-width:900px)': { fontSize: '35px' }, '@media(max-width:800px)': { fontSize: '30px'},fontFamily:'Raleway' }}>GIF Face Swap</Typography>
+                        <Typography fontWeight={600} sx={{ fontSize: '40px', '@media(max-width:900px)': { fontSize: '35px' }, '@media(max-width:800px)': { fontSize: '30px'},'@media(max-width:430px)': { fontSize: '25px', textAlign:'center'},'@media(max-width:370px)': { fontSize: '20px'},fontFamily:'Raleway' }}>Swap Face From GIF</Typography>
                         <img src={stick} alt='stick' />
                     </Box>
                     <Typography fontSize={14} fontWeight={500} sx={{'@media(max-width:800px)': {textAlign:'center'},fontFamily:'Raleway'}}>By using a high quality image, upload your gif, swap the face and enjoy!</Typography>

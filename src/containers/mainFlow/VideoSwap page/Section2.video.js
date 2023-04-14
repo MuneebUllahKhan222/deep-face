@@ -10,7 +10,7 @@ const Section2 = () => {
             <Box sx={{ height: '100%', display: 'flex', justifyContent: 'space-around', alignItems: 'center', '@media(max-width:800px)': { flexDirection: 'column' } }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '35%', color: 'white', '@media(max-width:1000px)': { width: '40%' }, '@media(max-width:800px)': { width: '60%', alignItems:'center' }, '@media(max-width:600px)': { width: '90%' }, '@media(max-width:450px)': { width: '100%' } }}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography fontWeight={600} sx={{ fontSize: '40px', '@media(max-width:900px)': { fontSize: '35px' }, '@media(max-width:800px)': { fontSize: '30px' },fontFamily:'Raleway' }}>Video face Swap</Typography>
+                        <Typography fontWeight={600} sx={{ fontSize: '40px', '@media(max-width:900px)': { fontSize: '35px' }, '@media(max-width:800px)': { fontSize: '30px' },'@media(max-width:400px)': { fontSize: '24px', textAlign:'center' },fontFamily:'Raleway' }}>Video face Swap</Typography>
                         <img src={stick} alt='stick' />
                     </Box>
                     <Typography fontSize={14} fontWeight={500} sx={{'@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}}>Using high quality video, upload your base footage, and with our face swap tool, upload a high quality image of the face you’d like to swap. That’s it!</Typography>

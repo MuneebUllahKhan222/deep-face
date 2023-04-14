@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createDoc, getImage, imageUploader, returnCredits, saveContent } from '../../../store/services/user';
 import { useSnackbar } from 'notistack';
 import {  setInProgress, setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
+import { saveAs } from 'file-saver';
 // import { useBeforeunload } from 'react-beforeunload';
 
 const UploadImage = () => {
@@ -31,6 +32,7 @@ const UploadImage = () => {
   const [disableButton, setDisableButton] = useState(true);
   const [result, setResult] = useState();
   const { enqueueSnackbar } = useSnackbar();
+  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();  
@@ -142,16 +144,9 @@ const UploadImage = () => {
     
   }
 
-  const downloadContent= (event) => {
-    event.preventDefault();
-    // setDownloaded(false);
+  const downloadContent= async(event) => {
     dispatch(setInProgress(false))
-    const link = document.createElement('a');
-    link.href = result;
-    link.download = 'result.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    saveAs(result, 'imageSwap.jpg')
 }
 
 const resetAllStates = () => {
@@ -159,6 +154,7 @@ const resetAllStates = () => {
   setInputImage([])
   setbaseImage([])
   setDisableButton(true)
+  dispatch(setInProgress(false))
 }
 
 const handleNavigationWhileProcessing = (route) => {

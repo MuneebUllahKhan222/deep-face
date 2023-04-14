@@ -28,7 +28,7 @@ const Section1 = () => {
             
 
 
-            <Box sx={{width:'27%',display:'none','@media(max-width:800px)':{width:'60%', marginTop:'30px', display:'block', borderRadius:'30px'}, '@media(max-width:600px)':{width:'65%'}, '@media(max-width:450px)':{width:'85%'}}}>
+            <Box sx={{width:'27%',display:'none','@media(max-width:800px)':{width:'60%', marginTop:'30px', display:'block', borderRadius:'30px'}, '@media(max-width:600px)':{width:'65%'}, '@media(max-width:450px)':{width:'85%'}, '@media(max-width:400px)':{width:'98%'}}}>
             <img src={Section1Img} alt={'imageSwap'} width={'100%'} style={{borderRadius:'30px'}} />
             </Box>
 

@@ -9,13 +9,13 @@ const RefundPolicy = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'black', height: 'fit-content' }}>
             <Header />
-            <Box p={9} pl={14} pr={14} sx={{ color: 'white' }}>
+            <Box p={9} pl={{sm:10,md:14, xs:3}} pr={{sm:10,md:14, xs:3}} sx={{ color: 'white' }}>
                 <Typography fontFamily={'Raleway'} sx={{ fontSize: '28px', fontWeight: 600 }}>
                     Refund policy
                 </Typography>
                 <Box mt={2} sx={{ height: 'fit-content', width: '100%', backgroundColor: '#1F1F1F', borderRadius: '20px' }}>
 
-                    <Box p={4} pb={10} pl={8} pr={8} sx={{ color: 'white' }}>
+                    <Box p={4} pb={10} pl={{sm:8, xs:3}} pr={{sm:8, xs:3}} sx={{ color: 'white' }}>
                         {/* <TabsandContent /> */}
 
 
@@ -40,7 +40,7 @@ const RefundPolicy = () => {
 
 
                         <Typography fontFamily={'Raleway'} sx={{ fontSize: '15px', fontWeight: 500, marginTop: '20px' }}>
-                        For more information regarding our Terms and Conditions, please visit <Button variant='text' disableElevation disableRipple disableFocusRipple disableTouchRipple sx={{color:'white'}} onClick={() => navigate('/main/termsAndCondition')}>HERE</Button>
+                        For more information regarding our Terms and Conditions, please visit <Button variant='text' disableElevation disableRipple disableFocusRipple disableTouchRipple sx={{color:'#FFD600', textDecoration:'underline'}} onClick={() => navigate('/main/termsAndCondition')}>HERE</Button>
                         </Typography>
                     </Box>
                 </Box>

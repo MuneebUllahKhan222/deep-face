@@ -122,7 +122,7 @@ const Header = ({ colorScheme }) => {
                                     Swap it
                                 </Box>
                                 <Box>
-                                    <Box onClick={() => navigate('/main')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                    <Box onClick={(e) => handleClickFeature(e,'/main')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                         Features
                                     </Box>
                                     <Menu

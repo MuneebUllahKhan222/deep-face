@@ -25,14 +25,15 @@ const SignoutDrawer = ({ toggleDrawer }) => {
         }
     };
 
+    
 
 
 
     return (
-        <Box pt={4} pb={2} pl={3} pr={3} sx={{}}>
+        <Box pt={4} pb={2} pl={3} pr={3} sx={{}} >
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-                    <Typography onClick={() => toggleDrawer(false)} sx={{ cursor: 'pointer' }}><CloseIcon /></Typography>
+                    <Typography onClick={() => {toggleDrawer(false)}} sx={{ cursor: 'pointer' }}><CloseIcon /></Typography>
                 </Box>
 
                 <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', cursor: 'pointer', flexDirection: 'column', justifyContent: 'space-between', width: '95%', height: '80px', backgroundColor: '#1E1E1E', borderRadius: '10px' }}>

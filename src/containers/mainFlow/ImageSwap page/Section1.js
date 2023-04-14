@@ -6,7 +6,7 @@ import CustomButton from '../../../components/general/CustomButton';
 
 const Section1 = () => {
   return (
-    <Box sx={{height:'100vh', display:'flex', flexDirection:'column',padding:'0px 40px 0px 40px',justifyContent:'space-between',backgroundColor:'#b4ffe3','@media(max-width:800px)':{ height:'fit-content',padding:'0px 40px 60px 40px'}}}>
+    <Box sx={{height:'100vh', display:'flex', flexDirection:'column',padding:'0px 40px 0px 40px',justifyContent:'space-between',backgroundColor:'#b4ffe3','@media(max-width:800px)':{ height:'fit-content',padding:'0px 20px 60px 20px'}}}>
     <Box sx={{height:'10%'}}>
     <Header colorScheme={'light'} />
     </Box>

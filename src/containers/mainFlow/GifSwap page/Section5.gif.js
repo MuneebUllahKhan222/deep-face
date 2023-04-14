@@ -21,7 +21,7 @@ const Section5 = () => {
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30%', '@media(max-width:650px)':{width:'65%'} }}>
                             <img src={pic} alt='play' width={matches650px ?'100px': matches450px ? '100%' : '130px'} />
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, marginTop: '20px', textAlign:'center',fontFamily:'Raleway' }}>
-                                Swap Face on Image
+                                Swap Face on <Typography sx={{fontSize: '16px', fontWeight: '700', background: 'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)', '-webkit-background-clip': 'text', ' -webkit-text-fill-color': 'transparent',}} component={'span'}>Image</Typography>
                             </Typography>
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center',fontFamily:'Raleway' }}>
                             Using a high quality image, upload your base and hero image now.
@@ -33,7 +33,7 @@ const Section5 = () => {
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '30%',textAlign:'center', '@media(max-width:650px)':{width:'65%'} }}>
                             <img src={play} alt='play' width={matches650px ?'100px': '130px'} />
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, marginTop: '20px', textAlign:'center',fontFamily:'Raleway' }}>
-                                Swap Face on Video
+                                Swap Face on <Typography sx={{fontSize: '16px', fontWeight: '700', background: 'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)', '-webkit-background-clip': 'text', ' -webkit-text-fill-color': 'transparent',}} component={'span'}>Video</Typography>
                             </Typography>
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center',fontFamily:'Raleway' }}>
                             Use only high quality video and hero face and watch the magic unfold!

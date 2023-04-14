@@ -16,6 +16,7 @@ import { createDoc, getImage, getStatus, gifUploader, returnCredits, saveContent
 import { useSnackbar } from 'notistack';
 import {  setInProgress, setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
 import CloseIcon from '@mui/icons-material/Close';
+import { saveAs } from 'file-saver';
 
 
 
@@ -120,14 +121,15 @@ useEffect(() => {
 }, [inputImage, baseImage])
 
 const downloadContent= (event) => {
-  event.preventDefault();
   dispatch(setInProgress(false))
-  const link = document.createElement('a');
-  link.href = result;
-  link.download = 'result.gif';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  saveAs(result, 'gifSwap.gif')
+  // event.preventDefault();
+  // const link = document.createElement('a');
+  // link.href = result;
+  // link.download = 'result.gif';
+  // document.body.appendChild(link);
+  // link.click();
+  // document.body.removeChild(link);
 }
 
 const saveImage = async() => {
@@ -153,10 +155,9 @@ const saveImage = async() => {
 
 const progressBar = (Progress) => {
   const interval = 50;
-  const increment = 200 / (Progress * 1000 / interval);
+  const increment = 100 / (Progress * 1000 / interval);
   console.log(increment)
   const prog = setInterval(() => {
-    console.log(progress, 'progress')
     setProgress(prev => prev+= increment)
     if (progress >= 100) {
       setProgress(100)

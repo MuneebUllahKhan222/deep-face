@@ -108,7 +108,7 @@ const Footer = ({ colorScheme }) => {
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway', cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Terms and Conditions</Typography>
                     <Typography onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Privacy Policy</Typography>
-                    <Typography onClick={() => handleNavigationWhileProcessing('/main/refundPolicy')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Refund policy</Typography>
+                    <Typography onClick={() => handleNavigationWhileProcessing('/main/refundPolicy')} fontSize={14} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Refund Policy</Typography>
                 </Box>
             </Box>
 
@@ -186,14 +186,14 @@ const Footer = ({ colorScheme }) => {
                     }
                 </Box>
 
-                <Box sx={{display:'flex', justifyContent:'space-between', width:'100%',  }} >
+                <Box sx={{display:'flex', justifyContent:'space-between', width:'100%', columnGap:'5px', rowGap:'5px', '@media(max-width:420px)':{flexDirection:'column', alignItems:'center', rowGap:'12px'}  }} >
                 <Typography fontSize={15}  sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway' }:{ color: '#DDDDDD',fontFamily:'Raleway' }}>FAQ</Typography>
                 <Typography fontSize={15} onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} letterSpacing={1.2} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Terms and Conditions</Typography>
                 <Typography fontSize={15} onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway',cursor:'pointer','&:hover':{cursor:'pointer', textDecoration:'underline'} }}>Privacy Policy</Typography>
                 </Box>
 
                 <Box sx={{display:'flex', justifyContent:'center', width:'100%',  }} >
-                <Typography onClick={() => handleNavigationWhileProcessing('/main/refundPolicy')} fontSize={15} letterSpacing={1.3} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway', '&:hover':{cursor:'pointer', textDecoration:'underline'}}}>Refund policy</Typography>
+                <Typography onClick={() => handleNavigationWhileProcessing('/main/refundPolicy')} fontSize={15} letterSpacing={1.3} sx={colorScheme === 'light' ?{ color: '#1F1F1F',fontFamily:'Raleway','&:hover':{cursor:'pointer', textDecoration:'underline'} }:{ color: '#DDDDDD',fontFamily:'Raleway', '&:hover':{cursor:'pointer', textDecoration:'underline'}}}>Refund Policy</Typography>
                 </Box>
             </Box>
             }

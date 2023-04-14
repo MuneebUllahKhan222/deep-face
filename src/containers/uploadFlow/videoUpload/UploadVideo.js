@@ -16,6 +16,7 @@ import ImageUploading from 'react-images-uploading';
 import { useSnackbar } from 'notistack';
 import { setInProgress, setLockerPricingModalOpen, setPricingModalOpen } from '../../../store/reducers/user';
 import CloseIcon from '@mui/icons-material/Close';
+import { saveAs } from 'file-saver';
 
 
 
@@ -112,14 +113,15 @@ const UploadVideo = () => {
   }
 
   const downloadContent = (event) => {
-    event.preventDefault();
     dispatch(setInProgress(false))
-    const link = document.createElement('a');
-    link.href = result;
-    link.download = 'result.mp4';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    saveAs(result, 'videoSwap.mp4')
+    // event.preventDefault();
+    // const link = document.createElement('a');
+    // link.href = result;
+    // link.download = 'result.mp4';
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
   }
   const saveVideo = async () => {
     const user = getCookies('user');
