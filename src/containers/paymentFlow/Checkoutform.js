@@ -53,7 +53,7 @@ function Checkoutform({total}) {
         if (!stripe || !elements) {
             return;
         }
-        const { error } = await stripe.confirmPayment({
+        const error = await stripe.confirmPayment({
             elements,
             confirmParams: {
                 return_url: `${host}`,
@@ -61,15 +61,17 @@ function Checkoutform({total}) {
             redirect: 'if_required'
         });
         console.log(error, 'error')
-        if (!error) {
+        if (!error?.error && error?.paymentIntent?.status === 'succeeded') {
             if(!subscriptionFlow){
                 handleAfterPurchaseCreds()
             } else {
                 handleAfterPurchaseSubscribtion()
             }
+        } else if (error?.paymentIntent?.status === 'requires_action') {
+
         }
-        if (error) {
-        enqueueSnackbar(`Payment unsuccessful: ${error?.code}`, { variant: 'error' })
+         else {
+        enqueueSnackbar(`Payment unsuccessful: ${error?.error?.code}`, { variant: 'error' })
         setbuttonDisable(false)
         }
     };
