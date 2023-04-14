@@ -24,6 +24,11 @@ const ModalLockerPricing = ({open}) => {
     const packages = [
         {
             month:1,
+            amount:0.5,
+            offer:'test package',
+        },
+        {
+            month:1,
             amount:4.99,
             offer:'Unlimited storage for 1 month',
         },

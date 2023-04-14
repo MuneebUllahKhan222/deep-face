@@ -60,7 +60,7 @@ function Checkoutform({total}) {
             },
             redirect: 'if_required'
         });
-
+        console.log(error, 'error')
         if (!error) {
             if(!subscriptionFlow){
                 handleAfterPurchaseCreds()
