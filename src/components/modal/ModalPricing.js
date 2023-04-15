@@ -29,14 +29,6 @@ const ModalPricing = ({open}) => {
     }
     const packages = [
         {
-            credits:100,
-            amount:0.5,
-            perCredit:1,
-            vs:'test package',
-            gs:'test package',
-            is:'test package'
-        },
-        {
             credits:10,
             amount:10,
             perCredit:1,
