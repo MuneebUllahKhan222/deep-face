@@ -45,7 +45,7 @@ const Header = ({ colorScheme }) => {
     const handleClickFeature = (event, route) => {
         if (!inProgress) {
             if (window.location.href.includes('upload')) {
-                navigate('/main')
+                navigate('/home')
             } else {
                 setAnchorElFeature(event.currentTarget);
                 setShowFeatureMenu(true)
@@ -73,7 +73,7 @@ const Header = ({ colorScheme }) => {
                 .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
         handleClose()
-        navigate('/main')
+        navigate('/home')
     }
 
     const handleNavigation = (route) => {
@@ -99,7 +99,7 @@ const Header = ({ colorScheme }) => {
         <Box sx={{ height: '70px', display: 'flex', justifyContent: 'center', background: 'transparent' }}>
             <Box sx={{ width: '90%', display: 'flex', alignItems: 'center', '@media(max-width:800px)': { width: '95%' } }} >
 
-                <Box onClick={() => handleNavigationWhileProcessing('/main')} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                <Box onClick={() => handleNavigationWhileProcessing('/home')} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                 {
                     colorScheme === 'light'
                     ?
@@ -122,7 +122,7 @@ const Header = ({ colorScheme }) => {
                                     Swap it
                                 </Box>
                                 <Box>
-                                    <Box onClick={(e) => handleClickFeature(e,'/main')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                    <Box onClick={(e) => handleClickFeature(e,'/home')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                         Features
                                     </Box>
                                     <Menu
@@ -144,18 +144,18 @@ const Header = ({ colorScheme }) => {
                                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                     >
-                                        <MenuItem onClick={() => handleNavigation('/main/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'}}>
+                                        <MenuItem onClick={() => handleNavigation('/swap/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'}}>
                                             Video Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/main/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                                        <MenuItem onClick={() => handleNavigation('/swap/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                             Image Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/main/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px'}}>
+                                        <MenuItem onClick={() => handleNavigation('/swap/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px'}}>
                                             GIF Swap
                                         </MenuItem>
                                     </Menu>
                                 </Box>
-                                <Box onClick={() => handleNavigation('/buy/pay')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                <Box onClick={() => handleNavigation('/pricing')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Pricing
                                 </Box>
                             </Box>
@@ -165,7 +165,7 @@ const Header = ({ colorScheme }) => {
                                     Swap it
                                 </Box>
                                 <Box>
-                                    <Box onClick={(e) => handleClickFeature(e,'/main')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                    <Box onClick={(e) => handleClickFeature(e,'/home')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                         Features
                                     </Box>
                                     <Menu
@@ -187,24 +187,24 @@ const Header = ({ colorScheme }) => {
                                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                     >
-                                        <MenuItem onClick={() => handleNavigation('/main/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                                        <MenuItem onClick={() => handleNavigation('/swap/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                             Video Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/main/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'  }}>
+                                        <MenuItem onClick={() => handleNavigation('/swap/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'  }}>
                                             Image Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/main/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                                        <MenuItem onClick={() => handleNavigation('/swap/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
                                             GIF Swap
                                         </MenuItem>
                                     </Menu>
                                 </Box>
-                                <Box onClick={() => handleNavigationWhileProcessing('/buy/pay')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                <Box onClick={() => handleNavigationWhileProcessing('/pricing')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Pricing
                                 </Box>
                                 {
                                     user?.lockerSubscription === true
                                     &&
-                                    <Box onClick={() => handleNavigationWhileProcessing('/main/gallery')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                    <Box onClick={() => handleNavigationWhileProcessing('/gallery')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                         Gallery
                                     </Box>
                                 }

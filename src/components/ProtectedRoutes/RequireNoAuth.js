@@ -4,7 +4,7 @@ import { getCookies } from '../../utils';
 const RequireNoAuth = ({ children}) => {
     const isAuthenticated = getCookies('user');
     if (isAuthenticated) {
-        return <Navigate replace to={'/main'}/>
+        return <Navigate replace to={'/home'}/>
     }
   return children
 };

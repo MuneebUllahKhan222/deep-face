@@ -40,7 +40,7 @@ const RefundPolicy = () => {
 
 
                         <Typography fontFamily={'Raleway'} sx={{ fontSize: '15px', fontWeight: 500, marginTop: '20px' }}>
-                        For more information regarding our Terms and Conditions, please visit <Button variant='text' disableElevation disableRipple disableFocusRipple disableTouchRipple sx={{color:'#FFD600', textDecoration:'underline'}} onClick={() => navigate('/main/termsAndCondition')}>HERE</Button>
+                        For more information regarding our Terms and Conditions, please visit <Button variant='text' disableElevation disableRipple disableFocusRipple disableTouchRipple sx={{color:'#FFD600', textDecoration:'underline'}} onClick={() => navigate('/termsAndCondition')}>HERE</Button>
                         </Typography>
                     </Box>
                 </Box>

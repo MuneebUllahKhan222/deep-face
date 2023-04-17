@@ -1,15 +1,17 @@
-import { Box, Dialog, Radio, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material'
+import { Box, Button, Dialog,  Typography } from '@mui/material'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { resetFlows, setModalOpen, setPricingModalClose, setPurchaseAmount, setPurchaseCredit, setStripeModalOpen } from '../../store/reducers/user';
 import CloseIcon from '@mui/icons-material/Close';
 import { getCookies } from '../../utils';
-import { useSnackbar } from 'notistack';
+// import { useSnackbar } from 'notistack';
+import CircleIcon from '@mui/icons-material/Circle';
+import DoneIcon from '@mui/icons-material/Done';
 
 const ModalPricing = ({open}) => {
 
-    const {purchaseAmount} = useSelector(state => state?.user)
-    const {enqueueSnackbar} = useSnackbar();
+    // const {purchaseAmount} = useSelector(state => state?.user)
+    // const {enqueueSnackbar} = useSnackbar();
     const dispatch = useDispatch();
     const handleClose = () => {
         const user = getCookies('user')
@@ -27,48 +29,45 @@ const ModalPricing = ({open}) => {
         await dispatch(setPurchaseAmount(amount))
         await dispatch(setPurchaseCredit(credits))
     }
-    const packages = [
-        {
-            credits:10,
-            amount:10,
-            perCredit:1,
-            vs:'100 sec of video swap',
-            gs:'10 GIF swaps',
-            is:'20 image swaps'
-        },
-        {
-            credits:100,
-            amount:100,
-            perCredit:1,
-            vs:'1000 sec of video swap',
-            gs:'100 GIF swap',
-            is:'200 image swaps'
-        },
-        {
-            credits:500,
-            amount:500,
-            perCredit:1,
-            vs:'5000 sec of video swap',
-            gs:'500 GIF swap',
-            is:'1000 image swaps' 
-        },
-        {
-            credits:1000,
-            amount:975,
-            perCredit:0.975,
-            vs:'10000 sec of video swap',
-            gs:'1000 GIF swap',
-            is:'2000 image swaps'
-        },
-    ]
+    // const packages = [
+    //     {
+    //         credits:10,
+    //         amount:10,
+    //         perCredit:1,
+    //         vs:'100 sec of video swap',
+    //         gs:'10 GIF swaps',
+    //         is:'20 image swaps'
+    //     },
+    //     {
+    //         credits:100,
+    //         amount:100,
+    //         perCredit:1,
+    //         vs:'1000 sec of video swap',
+    //         gs:'100 GIF swap',
+    //         is:'200 image swaps'
+    //     },
+    //     {
+    //         credits:500,
+    //         amount:500,
+    //         perCredit:1,
+    //         vs:'5000 sec of video swap',
+    //         gs:'500 GIF swap',
+    //         is:'1000 image swaps' 
+    //     },
+    //     {
+    //         credits:1000,
+    //         amount:975,
+    //         perCredit:0.975,
+    //         vs:'10000 sec of video swap',
+    //         gs:'1000 GIF swap',
+    //         is:'2000 image swaps'
+    //     },
+    // ]
 
-    const handleClick = () => {
-        if(purchaseAmount) {
+    const handleClick = (amount, credits) => {
+            handleChange(amount, credits)
 
             dispatch(setStripeModalOpen())
-        } else {
-            enqueueSnackbar('Please select a package', {variant:'warning', autoHideDuration:3000})
-        }
     }
 
     return (
@@ -79,10 +78,170 @@ const ModalPricing = ({open}) => {
                     height: '80%',
                     width: '79%',
                     borderRadius: '10px',
+                    
 
                 },
             }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%' }}>
+            <Box p={2} pt={4} pb={4} sx={{ color:'white',display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%', boxSizing:'border-box', rowGap:'50px', 
+                
+             }}>
+            <Box  sx={{ display: 'flex', flexDirection: 'column', }}>
+                <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
+                    <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600' }}>Pay as you go</Typography>
+                </Box>
+            
+
+            <Box sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
+                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
+                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
+                    <Typography fontFamily={'Raleway'}>1 Credit/10 Sec video swap</Typography>
+                </Box>
+
+                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
+                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
+                    <Typography fontFamily={'Raleway'}>1 Credit/2 image swaps</Typography>
+                </Box>
+
+                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
+                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
+                    <Typography fontFamily={'Raleway'}>1 Credit/1 Gif swap</Typography>
+                </Box>
+
+            </Box>
+
+
+
+
+            <Box sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
+                <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
+                    {/* <Box sx={{display:'flex', justifyContent:'space-between', flexDirection:'column'}}> */}
+                    <Typography fontSize={28} fontFamily='Raleway'>
+                     10$   
+                    </Typography>
+
+                    <Box sx={{display:'flex', flexDirection:'column', rowGap:'10px'}}>
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>100 Sec Video Swap </Typography>
+                        </Box>
+
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>10 Gifs swap  </Typography>
+                        </Box>
+
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>20 Images swap </Typography>
+                        </Box>
+
+                    </Box>
+
+                    <Box sx={{display:'flex', justifyContent:'center'}}>
+                        <Button onClick={() => handleClick(10, 10)}  sx={{backgroundColor:'#FFD600', color:'white', fontWeight:'550', borderRadius:'40px', padding:'7px 20px 7px 20px'}}>Buy Credits</Button>
+                    </Box>
+                    </Box>
+
+
+                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
+                    <Typography fontSize={28} fontFamily='Raleway'>
+                     100$   
+                    </Typography>
+
+                    <Box sx={{display:'flex', flexDirection:'column', rowGap:'10px'}}>
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>1000 Sec Video Swap </Typography>
+                        </Box>
+
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>100 Gifs swap  </Typography>
+                        </Box>
+
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>200 Image swap </Typography>
+                        </Box>
+
+                    </Box>
+
+                    <Box sx={{display:'flex', justifyContent:'center'}}>
+                        <Button onClick={() => handleClick(100, 100)}  sx={{backgroundColor:'#FFD600', color:'white', fontWeight:'550', borderRadius:'40px', padding:'7px 20px 7px 20px'}}>Buy Credits</Button>
+                    </Box>
+                    </Box>
+
+                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
+                    {/* <Box sx={{display:'flex', justifyContent:'space-between', flexDirection:'column'}}> */}
+                    <Typography fontSize={28} fontFamily='Raleway'>
+                     500$   
+                    </Typography>
+
+                    <Box sx={{display:'flex', flexDirection:'column', rowGap:'10px'}}>
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>5000 Sec Video Swap </Typography>
+                        </Box>
+
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>1000 Gifs swap  </Typography>
+                        </Box>
+
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>2000 Images swap </Typography>
+                        </Box>
+
+                    </Box>
+
+                    <Box sx={{display:'flex', justifyContent:'center'}}>
+                        <Button onClick={() => handleClick(500, 500)}  sx={{backgroundColor:'#FFD600', color:'white', fontWeight:'550', borderRadius:'40px', padding:'7px 20px 7px 20px'}}>Buy Credits</Button>
+                    </Box>
+                    </Box>
+
+                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
+                    {/* <Box sx={{display:'flex', justifyContent:'space-between', flexDirection:'column'}}> */}
+                    <Typography fontSize={28} fontFamily='Raleway'>
+                     1000$   
+                    </Typography>
+
+                    <Box sx={{display:'flex', flexDirection:'column', rowGap:'10px'}}>
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>10000 Sec Video Swap </Typography>
+                        </Box>
+
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>1000 Gifs swap  </Typography>
+                        </Box>
+
+                        <Box sx={{display:'flex'}}>
+                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
+                            <Typography fontFamily={'Raleway'}>2000 Images swap </Typography>
+                        </Box>
+
+                    </Box>
+
+                    <Box sx={{display:'flex', justifyContent:'center'}}>
+                        <Button onClick={() => handleClick(1000, 1000)}  sx={{backgroundColor:'#FFD600', color:'white', fontWeight:'550', borderRadius:'40px', padding:'7px 20px 7px 20px'}}>Buy Credits</Button>
+                    </Box>
+                    </Box>
+
+
+
+
+
+
+
+                </Box>
+            
+
+
+            </Box>
+
+            {/* <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%' }}>
                 <Box pt={4} sx={{ display: 'flex', flexDirection: 'column', }}>
                 <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
                     <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600' }}>Pay as you go</Typography>
@@ -141,7 +300,7 @@ const ModalPricing = ({open}) => {
                         </Table>
                     </TableContainer>
                 </Box>
-            </Box>
+            </Box> */}
 
         </Dialog>
     )

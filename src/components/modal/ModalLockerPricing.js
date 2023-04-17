@@ -24,11 +24,6 @@ const ModalLockerPricing = ({open}) => {
     const packages = [
         {
             month:1,
-            amount:0.5,
-            offer:'test package',
-        },
-        {
-            month:1,
             amount:4.99,
             offer:'Unlimited storage for 1 month',
         },
@@ -56,8 +51,8 @@ const ModalLockerPricing = ({open}) => {
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%' }}>
                 <Box pt={4} sx={{ display: 'flex', flexDirection: 'column', }}>
                 <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon sx={{cursor:'pointer'}} /></Box>
-                    <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600' }}>Buy Locker Storage</Typography>
-                    <Typography textAlign={'center'} fontSize={{sm:22, xs:19}} fontWeight={400} sx={{ color: '#A2A2A2' }}>Unlimited Locker Storage</Typography>
+                    <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600', fontFamily:'Raleway' }}>Buy Locker Storage</Typography>
+                    <Typography textAlign={'center'} fontSize={{sm:22, xs:19}} fontWeight={400} sx={{ color: '#A2A2A2',fontFamily:'Raleway' }}>Unlimited Locker Storage</Typography>
                 </Box>
 
                 {/* <Typography textAlign={'center'} fontWeight={600} fontSize={32} sx={{ color: '#FFD600' }}>USD $1 <Typography component={'span'} fontSize={18}>/credit</Typography></Typography> */}
@@ -89,16 +84,16 @@ const ModalLockerPricing = ({open}) => {
                                         />
                                         {`${p?.month} month`}
                                     </TableCell>
-                                    <TableCell align='center' sx={{ color: '#E9E9E9', fontSize: '16px' }}>
+                                    <TableCell align='center' sx={{ color: '#E9E9E9', fontSize: '16px',fontFamily:'Raleway' }}>
                                         ${p?.amount}
                                     </TableCell>
-                                    <TableCell align='center' sx={{ color: 'white', fontSize: '14px' }}>
+                                    <TableCell align='center' sx={{ color: 'white', fontSize: '14px',fontFamily:'Raleway' }}>
                                          {p?.offer}
                                     </TableCell>
                                     <TableCell  align='center'  sx={{ height:'100%',color: 'white', fontSize: '18px', textAlign:'center' }}>
                                     <Box sx={{display:'flex',justifyContent:'center', alignItems:'center', height:'100%', width:'100%'}}>
-                                    <Box onClick={handleClick} sx={{padding:'0px 20px 0px 20px', width:'125px',cursor:'pointer',height:'45px', borderBottom:'none',backgroundColor:'#FFD600', borderRadius:'50px', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                                            Subcribe now
+                                    <Box onClick={handleClick} sx={{padding:'0px 20px 0px 20px', width:'145px',cursor:'pointer',height:'45px', borderBottom:'none',backgroundColor:'#FFD600', borderRadius:'50px', display:'flex', justifyContent:'center', alignItems:'center', fontSize:'15px'}}>
+                                    Subscribe $4.99/mo
                                         </Box>
                                     </Box>
                                         

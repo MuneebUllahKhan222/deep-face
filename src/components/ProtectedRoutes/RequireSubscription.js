@@ -4,7 +4,7 @@ import { getCookies } from '../../utils';
 const RequireSubscription = ({ children}) => {
     const isAuthenticated = getCookies('user');
     if (!isAuthenticated?.lockerSubscription) {
-        return <Navigate replace to={'/main'}/>
+        return <Navigate replace to={'/home'}/>
     }
   return children
 };

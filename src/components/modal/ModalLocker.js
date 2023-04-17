@@ -31,8 +31,8 @@ const ModalLocker = ({open}) => {
             PaperProps={{
                 style: {
                     backgroundColor: '#1F1F1F',
-                    height: matches900w?'55%':matches600w?'45%':'65%',
-                    width: matches900w?'85%':'79%',
+                    height: matches900w?'55%':matches600w?'45%':'60%',
+                    width: matches900w?'85%':'70%',
                     borderRadius: '10px',
                 },
             }}>
@@ -40,14 +40,17 @@ const ModalLocker = ({open}) => {
                 <Box onClick={handleClose} sx={{display: 'flex', justifyContent: 'flex-end', color: 'white', height:'7%' }}><CloseIcon sx={{cursor:'pointer'}} /></Box>
 
                 <Box  ml={2} sx={{display:'flex', flexDirection:'column', color:'white', height:'93%', justifyContent:'center', '@media(max-width:600px)':{alignItems:'center'}}}>
-                    <Typography fontSize={{md:32, sm:26, xs:19}} fontWeight={500}>Upgrade to Premium</Typography> 
-                    <Typography textAlign={{xs:'center',sm:'left'}} fontSize={{md:32, sm:26, xs:19}} fontWeight={500} sx={{color:"#FFD600"}}>Save Your Memories in Style!</Typography>
+                    <Typography fontSize={{md:32, sm:26, xs:19}} fontWeight={500}>Store your creations in the <br /> <Typography sx={{color:"#FFD600",}} textAlign={{xs:'center',sm:'left'}} fontSize={{md:32, sm:26, xs:19}} fontWeight={500}>private cloud locker</Typography></Typography> 
+                    {/* <Typography textAlign={{xs:'center',sm:'left'}} fontSize={{md:32, sm:26, xs:19}} fontWeight={500} sx={{color:"#FFD600"}}>Save Your Memories in Style!</Typography>
                     <Typography textAlign={{xs:'center',sm:'left'}} fontSize={{md:18, sm:15, xs:15}} fontWeight={400} sx={{marginTop:'10px',}}>That should take place right after they finish paying for credits. Like "Store all your creations in your private </Typography>
-                    <Typography fontSize={{md:18, sm:15, xs:15}} fontWeight={600} sx={{color:"#FFD600"}}>Creation Locker!"</Typography>
-
+                    <Typography fontSize={{md:18, sm:15, xs:15}} fontWeight={600} sx={{color:"#FFD600"}}>Creation Locker!"</Typography> */}
+                    <Box sx={{display:'flex', alignItems:'flex-end'}}>
                     <Button onClick={handleClick} variant='contained' disableFocusRipple disableTouchRipple  sx={{borderRadius:'50px', width:'fit-content', backgroundColor:'#FFD600', marginTop:'30px', fontWeight:'600', padding:'10px 20px 10px 20px'}}>
-                        Subscribe Now
+                        Subscribe
                     </Button>
+                    <Typography fontFamily={'Raleway'} sx={{marginLeft:'5px'}}>$4.99/mo</Typography>
+                    </Box>
+                    
                 </Box>
             </Box>
 

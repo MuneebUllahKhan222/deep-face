@@ -21,7 +21,7 @@ const LoginDrawer = ({ toggleDrawer }) => {
     const logout = () => {
         delAllCookies()
         dispatch(resetAll())
-        navigate('/main')
+        navigate('/home')
     }
 
     const handleNavigation = (route) => {
@@ -35,7 +35,7 @@ const LoginDrawer = ({ toggleDrawer }) => {
     const handleClickFeature = (event, route) => {
         if (!inProgress) {
             if (window.location.href.includes('upload')) {
-                navigate('/main')
+                navigate('/home')
             } else {
                 setAnchorElFeature(event.currentTarget);
                 setShowFeatureMenu(true)
@@ -88,7 +88,7 @@ const LoginDrawer = ({ toggleDrawer }) => {
                 {user?.lockerSubscription === true
                     &&
                     <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '95%', height: '10px', backgroundColor: '#1E1E1E', borderRadius: '10px', cursor: 'pointer' }}>
-                        <Box onClick={() => handleNavigationWhileProcessing('/main/gallery')} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <Box onClick={() => handleNavigationWhileProcessing('/gallery')} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                             <Typography ml={1} fontSize={15} fontWeight={400} fontFamily={'Raleway'}>Gallery</Typography>
 
                             <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
@@ -96,7 +96,7 @@ const LoginDrawer = ({ toggleDrawer }) => {
                     </Box>}
 
                 <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '95%', height: '80px', backgroundColor: '#1E1E1E', borderRadius: '10px' }}>
-                    <Box onClick={(e) => handleClickFeature(e, '/main')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box onClick={(e) => handleClickFeature(e, '/home')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography ml={1} fontSize={14} fontWeight={400} sx={{ cursor: 'pointer' }} fontFamily={'Raleway'} >Features</Typography>
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                         <Menu
@@ -118,19 +118,19 @@ const LoginDrawer = ({ toggleDrawer }) => {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                            <MenuItem onClick={() => handleNavigation('/main/videoSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                            <MenuItem onClick={() => handleNavigation('/swap/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                 Video Swap
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation('/main/imageSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                            <MenuItem onClick={() => handleNavigation('/swap/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                 Image Swap
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation('/main/gifSwap')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                            <MenuItem onClick={() => handleNavigation('/swap/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
                                 GIF Swap
                             </MenuItem>
                         </Menu>
                     </Box>
 
-                    <Box onClick={() => handleNavigationWhileProcessing('/buy/pay')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box onClick={() => handleNavigationWhileProcessing('/pricing')} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography ml={1} fontSize={14} fontWeight={400} sx={{ cursor: 'pointer' }} fontFamily={'Raleway'}>Pricing</Typography>
                         <Typography sx={{ color: '#737373' }}>{'>'}</Typography>
                     </Box>
@@ -147,9 +147,9 @@ const LoginDrawer = ({ toggleDrawer }) => {
                 <Button disableFocusRipple onClick={() => logout()} sx={{ cursor: 'pointer', marginTop: '10px', height: '50px', borderRadius: '10px', backgroundColor: '#1E1E1E', '&:hover': { backgroundColor: '#FFD600' } }} variant='contained' fullWidth>Log out</Button>
 
                 <Box mt={2} sx={{ display: 'flex', justifyContent: 'space-between', width: '80%', alignItems: 'center' }}>
-                    <Typography onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} fontSize={12} sx={{ color: '#5E5E5E', cursor: 'pointer', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Terms of service</Typography>
+                    <Typography onClick={() => handleNavigationWhileProcessing('/termsAndCondition')} fontSize={12} sx={{ color: '#5E5E5E', cursor: 'pointer', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Terms of service</Typography>
                     <Typography>|</Typography>
-                    <Typography onClick={() => handleNavigationWhileProcessing('/main/termsAndCondition')} fontSize={12} sx={{ color: '#5E5E5E', cursor: 'pointer', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Privacy policy</Typography>
+                    <Typography onClick={() => handleNavigationWhileProcessing('/termsAndCondition')} fontSize={12} sx={{ color: '#5E5E5E', cursor: 'pointer', '&:hover': { color: 'white' } }} fontFamily={'Raleway'}>Privacy policy</Typography>
                 </Box>
             </Box>
         </Box>

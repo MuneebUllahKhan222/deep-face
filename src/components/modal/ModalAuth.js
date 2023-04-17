@@ -90,7 +90,7 @@ const ModalAuth = ({ authModalOpen, pay, elements}) => {
 
   const handleTermsNaviagtion = () => {
     dispatch(resetAllModals())
-    navigate('/main/termsAndCondition')
+    navigate('/termsAndCondition')
   }
 
 

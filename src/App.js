@@ -3,29 +3,44 @@ import './App.css';
 import AuthFlow from './containers/authFlow';
 import MainFlow from './containers/mainFlow';
 import UploadFlow from './containers/uploadFlow';
-import PaymentFlow from './containers/paymentFlow';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import ImageSwap from './containers/mainFlow/ImageSwap page/ImageSwap';
+import VideoSwap from './containers/mainFlow/VideoSwap page/VideoSwap';
+import GifSwap from './containers/mainFlow/GifSwap page/GifSwap';
+import TermsAndCondition from './containers/mainFlow/Terms page/TermsAndCondition';
+import RefundPolicy from './containers/mainFlow/Terms page/RefundPolicy';
+import RequireSubscription from './components/ProtectedRoutes/RequireSubscription';
+import Gallery from './containers/mainFlow/Gallery page/Gallery';
+import PricingPage from './containers/paymentFlow/PricingPage';
 // import LandingPage from './containers/mainFlow/Landing page/LandingPage';
 
 function App() {
   return (
     <SnackbarProvider>
-    <div className="App">
-    <Routes>
-      <Route path="/" element={<Navigate replace to={'/main'}/>} />
-      <Route path='main/*' index element={<MainFlow />} />
-      <Route path='auth/*' element={<AuthFlow />} />
-      <Route path='swap/*' element={<UploadFlow />} />
-      <Route path='buy/*' element={<PaymentFlow />} />
-    </Routes>
-    {/* <Routes */}
-    {/* <MainFlow />
-    <AuthFlow /> */}
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Navigate replace to={'/home'} />} />
+          <Route path='home/*' index element={<MainFlow />} />
 
-      {/* <AuthFlow />
+          <Route path="/image-swap" exact element={<ImageSwap />} />
+          <Route path="/video-swap" exact element={<VideoSwap />} />
+          <Route path="/gif-swap" exact element={<GifSwap />} />
+          <Route path="/termsAndCondition" exact element={<TermsAndCondition />} />
+          <Route path="/refund" exact element={<RefundPolicy />} />
+          <Route path="/gallery" exact element={<RequireSubscription><Gallery /></RequireSubscription>} />
+
+
+          <Route path='auth/*' element={<AuthFlow />} />
+          <Route path='swap/*' element={<UploadFlow />} />
+          {/* <Route path='buy/*' element={<PaymentFlow />} /> */}
+          <Route path="/pricing" exact element={<PricingPage />} />
+        </Routes>
+
+
+        {/* <AuthFlow />
       <UploadFlow />
       <PaymentFlow /> */}
-    </div>
+      </div>
     </SnackbarProvider>
   );
 }
