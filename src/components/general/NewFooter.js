@@ -15,7 +15,7 @@ const NewFooter = ({colorScheme, bgCol}) => {
 
                     <Box sx={{ width: '30%', display: 'flex', justifyContent: 'space-around', alignItems: 'center', '@media(max-width:600px)': { width:'45%' }, }}>
                         {/* <img src={workArrow} alt={'work1'} height={'60px'} width={'150px'}/> */}
-                        <Button onClick={() => navigate('/swap/imageSwap/upload')} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', height: '45px', borderRadius: '12px', width: '150px','@media(max-width:600px)': { height:'55px', fontSize:'19px' },'&:hover': { backgroundColor: '#FFD600' }, }}>Swap It</Button>
+                        <Button onClick={() => navigate('/imageSwap/upload')} variant='contained' disableElevation sx={{fontWeight:600, backgroundColor: '#FFD600', height: '45px', borderRadius: '12px', width: '150px','@media(max-width:600px)': { height:'55px', fontSize:'19px' },'&:hover': { backgroundColor: '#FFD600' }, }}>Swap It</Button>
                     </Box>
                 </Box>
             </Box>

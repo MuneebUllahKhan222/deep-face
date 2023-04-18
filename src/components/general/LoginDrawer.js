@@ -118,13 +118,13 @@ const LoginDrawer = ({ toggleDrawer }) => {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                            <MenuItem onClick={() => handleNavigation('/swap/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                            <MenuItem onClick={() => handleNavigation('/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                 Video Swap
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation('/swap/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
+                            <MenuItem onClick={() => handleNavigation('/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
                                 Image Swap
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation('/swap/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
+                            <MenuItem onClick={() => handleNavigation('/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
                                 GIF Swap
                             </MenuItem>
                         </Menu>

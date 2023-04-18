@@ -24,7 +24,7 @@ const Section3 = () => {
                 <Typography sx={{ fontSize: '14px', fontWeight: 500, textAlign: 'center', marginBottom: '20px', marginTop:'10px',fontFamily:'Raleway' }}>Everyone is getting in on the AI craze. Test your abilities today with our one-of-a-kind swap tool, found only on Deep Duck.<br /> Nothing to be embarrassed about! Remember, all of your creations remain encrypted and for your eyes only.</Typography>
 
                 <img src={got} alt='game of thrones' width={matches1200px ?'97%':matches700px ? '90%' : '80%'} height={matches1050px ?'450px' :matches700px ? '350px' : '500px'} />
-                <Button onClick={() => navigate('/swap/imageSwap/upload')} variant='text' sx={{color:'#FFD600', marginTop:'30px', fontWeight:700}}>{'>> Try now'}</Button>
+                <Button onClick={() => navigate('/imageSwap/upload')} variant='text' sx={{color:'#FFD600', marginTop:'30px', fontWeight:700}}>{'>> Try now'}</Button>
                 <Box mt={{sm:10, xs:4}} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography sx={{ fontSize: '40px', fontWeight: 700, marginBottom: '40px', textAlign:'center','@media(max-width:650px)':{fontSize:'32px', marginTop:'30px'} }}>
                     Other Exciting Deep Duck Features
@@ -39,7 +39,7 @@ const Section3 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center',color:'#313131',fontFamily:'Raleway' }}>
                             Use only high quality video and hero face and watch the magic unfold!
                             </Typography>
-                            <Button onClick={() =>navigate('/swap/videoSwap/upload')}  variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() =>navigate('/videoSwap/upload')}  variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
 
@@ -51,7 +51,7 @@ const Section3 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center', color:'#313131',fontFamily:'Raleway' }}>
                             Have a favorite GIF? Slap your face on it and give your friends a laugh.    
                             </Typography>
-                            <Button onClick={() =>navigate('/swap/gifSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() =>navigate('/gifSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
                     </Box>

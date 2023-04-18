@@ -1,0 +1,6 @@
+.pricing-background{
+    background-image: url('../../assets/images/price-bg.png');
+    /* width:100vw; */
+    background-repeat: round;
+    background-size: 100% 100%;
+}

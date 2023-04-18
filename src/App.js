@@ -31,7 +31,7 @@ function App() {
 
 
           <Route path='auth/*' element={<AuthFlow />} />
-          <Route path='swap/*' element={<UploadFlow />} />
+          <Route path='/*' element={<UploadFlow />} />
           {/* <Route path='buy/*' element={<PaymentFlow />} /> */}
           <Route path="/pricing" exact element={<PricingPage />} />
         </Routes>

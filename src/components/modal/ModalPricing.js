@@ -1,4 +1,4 @@
-import { Box, Button, Dialog,  Typography } from '@mui/material'
+import { Box,  Dialog,  Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { resetFlows, setModalOpen, setPricingModalClose, setPurchaseAmount, setPurchaseCredit, setStripeModalOpen } from '../../store/reducers/user';
@@ -6,7 +6,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { getCookies } from '../../utils';
 // import { useSnackbar } from 'notistack';
 import CircleIcon from '@mui/icons-material/Circle';
-import DoneIcon from '@mui/icons-material/Done';
+import './modal.css'
+import PricingBoxDetailed from '../Pricing/PricingBoxDetailed';
 
 const ModalPricing = ({open}) => {
 
@@ -29,40 +30,40 @@ const ModalPricing = ({open}) => {
         await dispatch(setPurchaseAmount(amount))
         await dispatch(setPurchaseCredit(credits))
     }
-    // const packages = [
-    //     {
-    //         credits:10,
-    //         amount:10,
-    //         perCredit:1,
-    //         vs:'100 sec of video swap',
-    //         gs:'10 GIF swaps',
-    //         is:'20 image swaps'
-    //     },
-    //     {
-    //         credits:100,
-    //         amount:100,
-    //         perCredit:1,
-    //         vs:'1000 sec of video swap',
-    //         gs:'100 GIF swap',
-    //         is:'200 image swaps'
-    //     },
-    //     {
-    //         credits:500,
-    //         amount:500,
-    //         perCredit:1,
-    //         vs:'5000 sec of video swap',
-    //         gs:'500 GIF swap',
-    //         is:'1000 image swaps' 
-    //     },
-    //     {
-    //         credits:1000,
-    //         amount:975,
-    //         perCredit:0.975,
-    //         vs:'10000 sec of video swap',
-    //         gs:'1000 GIF swap',
-    //         is:'2000 image swaps'
-    //     },
-    // ]
+    const packages = [
+        {
+            credits:10,
+            amount:10,
+            perCredit:1,
+            vs:'100 sec of video swap',
+            gs:'10 GIF swaps',
+            is:'20 image swaps'
+        },
+        {
+            credits:100,
+            amount:100,
+            perCredit:1,
+            vs:'1000 sec of video swap',
+            gs:'100 GIF swap',
+            is:'200 image swaps'
+        },
+        {
+            credits:500,
+            amount:500,
+            perCredit:1,
+            vs:'5000 sec of video swap',
+            gs:'500 GIF swap',
+            is:'1000 image swaps' 
+        },
+        {
+            credits:1000,
+            amount:975,
+            perCredit:0.975,
+            vs:'10000 sec of video swap',
+            gs:'1000 GIF swap',
+            is:'2000 image swaps'
+        },
+    ]
 
     const handleClick = (amount, credits) => {
             handleChange(amount, credits)
@@ -75,23 +76,23 @@ const ModalPricing = ({open}) => {
             PaperProps={{
                 style: {
                     backgroundColor: '#1F1F1F',
-                    height: '80%',
-                    width: '79%',
+                    height: '85%',
+                    width: '85%',
                     borderRadius: '10px',
                     
 
                 },
             }}>
-            <Box p={2} pt={4} pb={4} sx={{ color:'white',display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%', boxSizing:'border-box', rowGap:'50px', 
+            <Box className='pricing-background'  p={2} pt={2} pb={4} sx={{ color:'white',display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%', boxSizing:'border-box', rowGap:'25px', 
                 
              }}>
             <Box  sx={{ display: 'flex', flexDirection: 'column', }}>
-                <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
-                    <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600' }}>Pay as you go</Typography>
+                <Box  mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
+                    <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} fontFamily={'Raleway'}>Pay as you go</Typography>
                 </Box>
             
 
-            <Box sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
+            {/* <Box sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
                 <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
                     <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
                     <Typography fontFamily={'Raleway'}>1 Credit/10 Sec video swap</Typography>
@@ -107,14 +108,44 @@ const ModalPricing = ({open}) => {
                     <Typography fontFamily={'Raleway'}>1 Credit/1 Gif swap</Typography>
                 </Box>
 
+            </Box> */}
+            <Box pl={4} pr={4} sx={{display:'flex', justifyContent:'center'}}>
+
+            <Box sx={{display:'flex', justifyContent:'space-evenly',flexDirection:'column',backgroundColor: '#1F1F1F', alignItems:'center',rowGap:'15px', columnGap:'8px', padding:'15px 30px 15px 30px',border:'6px solid #272727', borderRadius:'20px','@media(max-width:1350px)':{  padding:0} }}>
+                <Typography fontFamily={'Raleway'} fontStyle={'italic'} fontSize={23}>Credits Breakdown</Typography>
+                <Box sx={{display:'flex', justifyContent:'space-evenly',columnGap:'30px', flexWrap:'wrap', rowGap:'10px'}}>
+                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
+                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
+                    <Typography fontFamily={'Raleway'}>1 Credit/10 Sec video swap</Typography>
+                </Box>
+
+                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
+                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
+                    <Typography fontFamily={'Raleway'}>1 Credit/2 image swaps</Typography>
+                </Box>
+
+                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
+                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
+                    <Typography fontFamily={'Raleway'}>1 Credit/1 Gif swap</Typography>
+                </Box>
+                </Box>
+
+            </Box> 
             </Box>
 
 
-
-
-            <Box sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
-                <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
-                    {/* <Box sx={{display:'flex', justifyContent:'space-between', flexDirection:'column'}}> */}
+            <Box pb={4} sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
+            {/* <PricingBox planName={'Startup'} planPrice={10} planCreds={10} handleClick={handleClick}/>
+                        <PricingBox planName={'Enterprise'} planPrice={100} planCreds={100} handleClick={handleClick}/>
+                        <PricingBox planName={'Fortune'} planPrice={500} planCreds={550} handleClick={handleClick} bonusCred={50}/>
+                        <PricingBox planName={'Lift Off'} planPrice={975} planCreds={1100} handleClick={handleClick} bonusCred={125} /> */}
+                        <PricingBoxDetailed planName={'Startup'} planPrice={10} planCreds={10} handleClick={handleClick} detail={packages[0]}/>
+                        <PricingBoxDetailed planName={'Enterprise'} planPrice={100} planCreds={100} handleClick={handleClick} detail={packages[1]}/>
+                        <PricingBoxDetailed planName={'Fortune'} planPrice={500} planCreds={550} handleClick={handleClick} bonusCred={50} detail={packages[2]}/>
+                        <PricingBoxDetailed planName={'Lift Off'} planPrice={975} planCreds={1100} handleClick={handleClick} bonusCred={125} detail={packages[3]}/>
+             </Box>
+            {/* <Box sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
+                <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column',backgroundColor: '#1F1F1F',}}>
                     <Typography fontSize={28} fontFamily='Raleway'>
                      10$   
                     </Typography>
@@ -143,7 +174,7 @@ const ModalPricing = ({open}) => {
                     </Box>
 
 
-                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
+                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column',backgroundColor: '#1F1F1F',}}>
                     <Typography fontSize={28} fontFamily='Raleway'>
                      100$   
                     </Typography>
@@ -171,8 +202,7 @@ const ModalPricing = ({open}) => {
                     </Box>
                     </Box>
 
-                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
-                    {/* <Box sx={{display:'flex', justifyContent:'space-between', flexDirection:'column'}}> */}
+                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column',backgroundColor: '#1F1F1F',}}>
                     <Typography fontSize={28} fontFamily='Raleway'>
                      500$   
                     </Typography>
@@ -200,8 +230,7 @@ const ModalPricing = ({open}) => {
                     </Box>
                     </Box>
 
-                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
-                    {/* <Box sx={{display:'flex', justifyContent:'space-between', flexDirection:'column'}}> */}
+                    <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column',backgroundColor: '#1F1F1F',}}>
                     <Typography fontSize={28} fontFamily='Raleway'>
                      1000$   
                     </Typography>
@@ -235,7 +264,7 @@ const ModalPricing = ({open}) => {
 
 
 
-                </Box>
+                </Box> */}
             
 
 

@@ -16,6 +16,9 @@ import ModalStripe from '../modal/ModalStripe';
 import ModalLocker from '../modal/ModalLocker';
 import ModalLockerPricing from '../modal/ModalLockerPricing';
 import { setInProgress } from '../../store/reducers/user';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ImageIcon from '@mui/icons-material/Image';
+import GifIcon from '@mui/icons-material/Gif';
 
 const Header = ({ colorScheme }) => {
     const { modalState, pricingModalState, stripeModalState, lockerAdModalState, lockerPricingModalState, inProgress } = useSelector(state => state?.user)
@@ -118,7 +121,7 @@ const Header = ({ colorScheme }) => {
                         {!user
                             ?
                             <Box sx={{ display: 'flex', alignItems: 'center', width: 'fit-content', columnGap: '25px', justifyContent: 'space-between', }}>
-                                <Box onClick={() => navigate('/swap/imageSwap/upload')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                <Box onClick={() => navigate('/imageSwap/upload')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Swap it
                                 </Box>
                                 <Box>
@@ -136,22 +139,22 @@ const Header = ({ colorScheme }) => {
                                             sx: {
                                                 backgroundColor: '#2A2A2C',
                                                 borderRadius: '15px',
-                                                padding: '15px',
+                                                padding: '10px',
                                                 color: 'white',
-                                                width: '241px'
+                                                width: '180px'
                                             },
                                         }}
                                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                     >
-                                        <MenuItem onClick={() => handleNavigation('/swap/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'}}>
-                                            Video Swap
+                                        <MenuItem onClick={() => handleNavigation('/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '15px', fontFamily:'Raleway', fontSize:'14px'}}>
+                                        <PlayArrowIcon sx={{marginRight:'10px'}} /> Video Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/swap/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                            Image Swap
+                                        <MenuItem onClick={() => handleNavigation('/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '15px',fontFamily:'Raleway', fontSize:'14px'}}>
+                                        <ImageIcon  sx={{marginRight:'10px'}} /> Image Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/swap/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px'}}>
-                                            GIF Swap
+                                        <MenuItem onClick={() => handleNavigation('/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px',fontFamily:'Raleway',fontSize:'14px'}}>
+                                        <GifIcon fontSize='large' sx={{marginRight:'10px'}} />  GIF Swap
                                         </MenuItem>
                                     </Menu>
                                 </Box>
@@ -161,7 +164,7 @@ const Header = ({ colorScheme }) => {
                             </Box>
                             :
                             <Box sx={{ display: 'flex', alignItems: 'center', width: 'fit-content', columnGap: '25px', justifyContent: 'space-between' }}>
-                                <Box onClick={() => handleNavigationWhileProcessing('/swap/imageSwap/upload')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
+                                <Box onClick={() => handleNavigationWhileProcessing('/imageSwap/upload')} sx={colorScheme === 'light' ? { color: 'black', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'black' } } : colorScheme === 'video' ? { color: '#FFFFFF', fontWeight: 600, cursor: 'pointer', '&:hover': { color: '#FFFFFF' } } : { color: '#888888', fontWeight: 600, cursor: 'pointer', '&:hover': { color: 'white' } }}>
                                     Swap it
                                 </Box>
                                 <Box>
@@ -179,22 +182,22 @@ const Header = ({ colorScheme }) => {
                                             sx: {
                                                 backgroundColor: '#2A2A2C',
                                                 borderRadius: '15px',
-                                                padding: '15px',
+                                                padding: '10px',
                                                 color: 'white',
-                                                width: '241px'
+                                                width: '180px'
                                             },
                                         }}
                                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                     >
-                                        <MenuItem onClick={() => handleNavigation('/swap/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px' }}>
-                                            Video Swap
+                                        <MenuItem onClick={() => handleNavigation('/videoSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '15px', fontFamily:'Raleway', fontSize:'14px'}}>
+                                        <PlayArrowIcon sx={{marginRight:'10px'}} /> Video Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/swap/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '20px'  }}>
-                                            Image Swap
+                                        <MenuItem onClick={() => handleNavigation('/imageSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px', marginBottom: '15px',fontFamily:'Raleway', fontSize:'14px'}}>
+                                        <ImageIcon  sx={{marginRight:'10px'}} /> Image Swap
                                         </MenuItem>
-                                        <MenuItem onClick={() => handleNavigation('/swap/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px' }}>
-                                            GIF Swap
+                                        <MenuItem onClick={() => handleNavigation('/gifSwap/upload')} sx={{ backgroundColor: '#323235', borderRadius: '10px', height: '50px',fontFamily:'Raleway',fontSize:'14px'}}>
+                                        <GifIcon fontSize='large' sx={{marginRight:'10px'}} />  GIF Swap
                                         </MenuItem>
                                     </Menu>
                                 </Box>
@@ -272,7 +275,7 @@ const Header = ({ colorScheme }) => {
                     </>
                     :
                     <>
-                        <Button onClick={() => handleNavigationWhileProcessing('/swap/imageSwap/upload')} variant='contained' disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', borderRadius: '6px', width: 'fit-content', '&:hover': { backgroundColor: '#FFD600' }, marginRight: '10px', height: '35px' }}>Swap it</Button>
+                        <Button onClick={() => handleNavigationWhileProcessing('/imageSwap/upload')} variant='contained' disableElevation disableFocusRipple sx={{ backgroundColor: '#FFD600', borderRadius: '6px', width: 'fit-content', '&:hover': { backgroundColor: '#FFD600' }, marginRight: '10px', height: '35px' }}>Swap it</Button>
                         <IconButton sx={colorScheme === 'light' ? { color: 'black' } : { color: 'white' }} onClick={() => setopen(true)}><MenuIcon fontSize='large' /></IconButton>
                         <MenuDrawer open={open} toggleDrawer={toggleDrawer} />
                     </>

@@ -21,7 +21,7 @@ const Section3 = () => {
 
                 <img src={thor} alt='game of thrones' width={matches1200px ?'97%':matches700px ? '90%' : '80%'} height={matches1050px ?'450px' :matches700px ? '350px' : '500px'} style={{borderRadius:'30px'}} />
 
-                <Button onClick={() => navigate('/swap/videoSwap/upload')} variant='text' sx={{color:'#FFD600', marginTop:'30px', fontWeight:700}}>{'>> Try now'}</Button>
+                <Button onClick={() => navigate('/videoSwap/upload')} variant='text' sx={{color:'#FFD600', marginTop:'30px', fontWeight:700}}>{'>> Try now'}</Button>
 
             </Box>
 

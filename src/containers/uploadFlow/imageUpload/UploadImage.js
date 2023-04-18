@@ -259,10 +259,10 @@ const matches900pxw = useMediaQuery('(max-width:900px)')
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px', width: 'fit-content' }}>
               <Typography sx={{ fontSize: '20px', fontWeight: '700', background: 'linear-gradient(90deg, #0E33BE 30%, #14C483 25%, #FDE235 50%, #FF5757 100%)', '-webkit-background-clip': 'text', ' -webkit-text-fill-color': 'transparent', }}>Try these</Typography>
-              <Box onClick={() => handleNavigationWhileProcessing('/swap/videoSwap/upload')} sx={{ cursor: 'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
+              <Box onClick={() => handleNavigationWhileProcessing('/videoSwap/upload')} sx={{ cursor: 'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white' }}>
                 <PlayArrowIcon sx={{ fontSize: '30px' }} />
               </Box>
-              <Box onClick={() => handleNavigationWhileProcessing('/swap/gifSwap/upload')} sx={{ cursor: 'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '20px', fontWeight: '600' }}>
+              <Box onClick={() => handleNavigationWhileProcessing('/gifSwap/upload')} sx={{ cursor: 'pointer', borderRadius: '60px', width: '60px', height: '60px', background: 'linear-gradient(90deg, #0E33BE 1.68%, #FF3545 94.11%)', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', color: 'white', fontSize: '20px', fontWeight: '600' }}>
                 GIF
               </Box>
             </Box>

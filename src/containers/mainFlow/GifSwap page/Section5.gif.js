@@ -26,7 +26,7 @@ const Section5 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center',fontFamily:'Raleway' }}>
                             Using a high quality image, upload your base and hero image now.
                             </Typography>
-                            <Button onClick={() => navigate('/swap/imageSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() => navigate('/imageSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
 
@@ -38,7 +38,7 @@ const Section5 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center',fontFamily:'Raleway' }}>
                             Use only high quality video and hero face and watch the magic unfold!
                             </Typography>
-                            <Button onClick={() => navigate('/swap/videoSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() => navigate('/videoSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
                         </Box>
                     </Box>
                 </Box>

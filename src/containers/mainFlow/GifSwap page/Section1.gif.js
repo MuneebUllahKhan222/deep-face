@@ -22,7 +22,7 @@ const Section1 = () => {
                     <img src={stick}  alt='stick' />
                 </Box>
                 <Typography fontSize={14} fontWeight={500} sx={{color:'white','@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}}>Swap a face on your favorite GIFs today and be the hero of your text threads!</Typography>
-                <CustomButton  navigateTo={'/swap/gifSwap/upload'} text='Try Swap it' style={{width:'fit-content', marginTop:'25px'}} />
+                <CustomButton  navigateTo={'/gifSwap/upload'} text='Try Swap it' style={{width:'fit-content', marginTop:'25px'}} />
             </Box>
 
             

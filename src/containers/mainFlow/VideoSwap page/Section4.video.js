@@ -26,7 +26,7 @@ const Section4 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center',fontFamily:'Raleway' }}>
                             Using a high quality image, upload your base and hero image now.
                             </Typography>
-                            <Button onClick={() => navigate('/swap/imageSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() => navigate('/imageSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
 
@@ -38,7 +38,7 @@ const Section4 = () => {
                             <Typography sx={{ fontSize: '12px', fontWeight: 400, marginTop: '10px', textAlign:'center',fontFamily:'Raleway' }}>
                             Have a favorite GIF? Slap your face on it and give your friends a laugh.    
                             </Typography>
-                            <Button onClick={() => navigate('/swap/gifSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
+                            <Button onClick={() => navigate('/gifSwap/upload')} variant='text' sx={{color:'#FFD600', fontWeight:'700'}}>{'>> Try now'}</Button>
 
                         </Box>
                     </Box>
