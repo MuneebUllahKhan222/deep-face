@@ -36,7 +36,23 @@ const ModalLocker = ({open}) => {
                     borderRadius: '10px',
                 },
             }}>
-            <Box p={{sm:5, xs:2}} pt={3} pr={{sm:4, xs:2}} className='locker-background' sx={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }} >
+            <Box p={{sm:5, xs:2}} pt={3} pr={{sm:4, xs:2}} className='locker-background' sx={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box',
+                 overflow: 'auto',
+            scrollbarWidth: 'thin',
+            '&::-webkit-scrollbar': {
+              width: '0.6em',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: '#1F1F1F',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#272727',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              background: 'yellow',
+            },
+            
+             }} >
                 <Box onClick={handleClose} sx={{display: 'flex', justifyContent: 'flex-end', color: 'white', height:'7%' }}><CloseIcon sx={{cursor:'pointer'}} /></Box>
 
                 <Box  ml={2} sx={{display:'flex', flexDirection:'column', color:'white', height:'93%', justifyContent:'center', '@media(max-width:600px)':{alignItems:'center'}}}>

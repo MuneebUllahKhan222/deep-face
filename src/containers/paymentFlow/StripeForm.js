@@ -5,6 +5,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Checkoutform from "./Checkoutform";
 import { createIntent } from "../../store/services/user";
+import { useCallback } from "react";
 
 
 function StripeForm() {
@@ -21,20 +22,20 @@ function StripeForm() {
     }
     
     
-    const fetchData = async () => {
-        const info = {
-            amount: (Math.floor(total * 100)).toString(),
-        }
-        const stripePromise = await loadStripe("pk_live_51Mk7w0A5OVE42MIUZ1yrBiwYe5GxEnRKz4Cu3Dflh7QmhSUVTvgCMHV6MwdDBecdGkPmQWWW1X8PUkpXtSMMyema00fmu67Drq");
-        // const stripePromise = await loadStripe("pk_test_51Lj1VASGZP3p3zAFtVcaROPwiUqDuCIEVwh3cFK8320PfdnsZtbY6gqIcfiixLNaSEYaklsIpdBoM6RREobVrw9B0014tcuE1j");
-        setStripe(stripePromise)
-        const data = await dispatch(createIntent(info))
-        setClientSecret(data?.data?.client_secret)
-    }
+    const fetchData = useCallback(async () => {
+      const info = {
+          amount: (Math.floor(total * 100)).toString(),
+      }
+      const stripePromise = await loadStripe("pk_live_51Mk7w0A5OVE42MIUZ1yrBiwYe5GxEnRKz4Cu3Dflh7QmhSUVTvgCMHV6MwdDBecdGkPmQWWW1X8PUkpXtSMMyema00fmu67Drq");
+      // const stripePromise = await loadStripe("pk_test_51Lj1VASGZP3p3zAFtVcaROPwiUqDuCIEVwh3cFK8320PfdnsZtbY6gqIcfiixLNaSEYaklsIpdBoM6RREobVrw9B0014tcuE1j");
+      setStripe(stripePromise)
+      const data = await dispatch(createIntent(info))
+      setClientSecret(data?.data?.client_secret)
+  },[dispatch, total]) 
     // fetchData()
   useEffect(() => {
     fetchData()
-  }, []);
+  }, [fetchData]);
 
   const appearance = {
     theme: 'night',

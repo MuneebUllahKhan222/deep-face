@@ -136,7 +136,7 @@ const saveImage = async() => {
   const user = getCookies('user');
     // setDownloaded(false);
     const data = {url:result, uid:user?._id, type:'gif'}
-    if (user?.lockerSubscription === true){
+    if (user?.showLocker === true){
     const save = await dispatch(saveContent(data))
     if (save?.status === 201) {
       enqueueSnackbar("GIF saved successfully", { variant: 'success', autoHideDuration: 3000 })

@@ -161,6 +161,26 @@ export const purchaseSubscription = (data) => async (dispatch) => {
   }
 }
 
+export const unSubscribe = (data) => async (dispatch) => {
+  try {
+      const response = await axios.post(`${basePath}/payment/unsubscribe`, data)
+      if (response?.data?.success === true) {
+        const saveObj = {
+          ...response?.data?.data
+        }
+        delete saveObj.hash
+        delete saveObj.__v
+      updateCookie('user',saveObj, {
+        path:'/'
+      })  
+      }
+        return response?.data
+
+  } catch (error) {
+      return error
+  }
+}
+
 
   export const getStatus = (docToken) => async (dispatch) => {
     try {

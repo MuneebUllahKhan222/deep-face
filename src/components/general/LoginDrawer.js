@@ -88,7 +88,7 @@ const LoginDrawer = ({ toggleDrawer }) => {
                 {user?.lockerSubscription === true
                     &&
                     <Box p={2} pt={3} pb={3} mt={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '95%', height: '10px', backgroundColor: '#1E1E1E', borderRadius: '10px', cursor: 'pointer' }}>
-                        <Box onClick={() => handleNavigationWhileProcessing('/gallery')} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <Box onClick={() => handleNavigationWhileProcessing('/locker')} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                             <Typography ml={1} fontSize={15} fontWeight={400} fontFamily={'Raleway'}>Gallery</Typography>
 
                             <Typography sx={{ color: '#737373' }}>{'>'}</Typography>

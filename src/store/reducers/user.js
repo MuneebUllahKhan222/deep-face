@@ -6,6 +6,7 @@ const initialState = {
   modalState:false,
   pricingModalState:false,
   stripeModalState:false,
+  unsubscribeModalState:false,
   lockerAdModalState:false,
   lockerPricingModalState:false,
   purchaseAmount:null,
@@ -55,6 +56,12 @@ export const userSlice = createSlice({
     setLockerPricingModalOpen: (state) => {   
       state.lockerPricingModalState = true;
     },
+    setUnsubcribeModalOpen: (state) => {   
+      state.unsubscribeModalState = true;
+    },
+    setUnsubcribeModalClose: (state) => {   
+      state.unsubscribeModalState = false;
+    },
     setInProgress: (state,action) => {   
       const {payload} = action 
       state.inProgress = payload;
@@ -97,6 +104,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {setUserData, setModalClose, setModalOpen, setPricingModalClose, setPricingModalOpen, setStripeModalClose, setStripeModalOpen, setPurchaseAmount, setPurchaseCredit, setLockerAdModalClose, setLockerAdModalOpen, setPurchaseSubAmount, setPurchaseSubMonth, resetFlows, setSubcriptionFlow, setLockerPricingModalClose, setLockerPricingModalOpen, resetAll, resetAllModals, setInProgress } = userSlice.actions
+export const {setUserData, setModalClose, setModalOpen, setPricingModalClose, setPricingModalOpen, setStripeModalClose, setStripeModalOpen, setPurchaseAmount, setPurchaseCredit, setLockerAdModalClose, setLockerAdModalOpen, setPurchaseSubAmount, setPurchaseSubMonth, resetFlows, setSubcriptionFlow, setLockerPricingModalClose, setLockerPricingModalOpen, resetAll, resetAllModals, setInProgress, setUnsubcribeModalClose, setUnsubcribeModalOpen } = userSlice.actions
 
 export default userSlice.reducer

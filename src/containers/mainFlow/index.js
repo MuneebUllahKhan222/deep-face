@@ -17,7 +17,7 @@ export default function MainFlow() {
         <Route path="/gifSwap" exact element={<GifSwap />} /> */}
         {/* <Route path="/termsAndCondition" exact element={<TermsAndCondition />} />
         <Route path="/refundPolicy" exact element={<RefundPolicy />} />
-        <Route path="/gallery" exact element={<RequireSubscription><Gallery /></RequireSubscription>} /> */}
+        <Route path="/locker" exact element={<RequireSubscription><Gallery /></RequireSubscription>} /> */}
       </Routes>
       </>
   );

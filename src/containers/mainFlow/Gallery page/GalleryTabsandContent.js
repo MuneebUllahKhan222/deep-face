@@ -80,7 +80,23 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
                             ?
                             <Box p={4} pt={8} pb={8} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-                                <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' } }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
+                                <ImageList sx={{
+                                    height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' }, 
+                                    overflow: 'auto',
+                                    scrollbarWidth: 'thin',
+                                    '&::-webkit-scrollbar': {
+                                        width: '0.6em',
+                                    },
+                                    '&::-webkit-scrollbar-track': {
+                                        background: '#1F1F1F',
+                                    },
+                                    '&::-webkit-scrollbar-thumb': {
+                                        backgroundColor: '#272727',
+                                    },
+                                    '&::-webkit-scrollbar-thumb:hover': {
+                                        background: '#272727',
+                                    },
+                                }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
                                     {
                                         images?.map(img => (
                                             <ImageListItem key={img?._id}>
@@ -132,7 +148,21 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
                             ?
                             <Box p={4} pt={8} pb={8} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
-                                <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' } }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
+                                <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' }, 
+                                overflow: 'auto',
+                                    scrollbarWidth: 'thin',
+                                    '&::-webkit-scrollbar': {
+                                        width: '0.6em',
+                                    },
+                                    '&::-webkit-scrollbar-track': {
+                                        background: '#1F1F1F',
+                                    },
+                                    '&::-webkit-scrollbar-thumb': {
+                                        backgroundColor: '#272727',
+                                    },
+                                    '&::-webkit-scrollbar-thumb:hover': {
+                                        background: '#272727',
+                                    }, }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
                                     {
                                         gifs?.map(gif => (
                                             <ImageListItem key={gif?._id}>
@@ -177,18 +207,32 @@ const GalleryTabsandContent = ({ images, gifs, videos }) => {
                         value === 2 && videos?.length !== 0
                             ?
                             <Box p={4} pb={10} sx={{ color: 'white', backgroundColor: '#1F1F1F', borderRadius: '20px', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                            <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' } }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
+                                <ImageList sx={{ height: 'fit-content', width: '80%', backgroundColor: 'black', borderRadius: '20px', '@media(max-width:600px)': { width: '100%' },
+                                 overflow: 'auto',
+                                    scrollbarWidth: 'thin',
+                                    '&::-webkit-scrollbar': {
+                                        width: '0.6em',
+                                    },
+                                    '&::-webkit-scrollbar-track': {
+                                        background: '#1F1F1F',
+                                    },
+                                    '&::-webkit-scrollbar-thumb': {
+                                        backgroundColor: '#272727',
+                                    },
+                                    '&::-webkit-scrollbar-thumb:hover': {
+                                        background: '#272727',
+                                    }, }} cols={matches1200w ? 3 : matches800w ? 2 : matches500w ? 2 : 5} rowHeight={300} variant='masonary'>
                                     {
                                         videos?.map(video => (
                                             <ImageListItem key={video?._id}>
-                                            <video
-                                            width="100%"
-                                            autoPlay={true}
-                                            loop={true}
-                                            // controls={true}
-                                            >
-                                            <source src={video?.url} ref={videoRef} type="video/mp4" />
-                                            </video>
+                                                <video
+                                                    width="100%"
+                                                    autoPlay={true}
+                                                    loop={true}
+                                                // controls={true}
+                                                >
+                                                    <source src={video?.url} ref={videoRef} type="video/mp4" />
+                                                </video>
 
                                                 <ImageListItemBar
                                                     position='top'

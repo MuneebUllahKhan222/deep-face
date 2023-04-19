@@ -83,7 +83,21 @@ const ModalPricing = ({open}) => {
 
                 },
             }}>
-            <Box className='pricing-background'  p={2} pt={2} pb={4} sx={{ color:'white',display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%', boxSizing:'border-box', rowGap:'25px', 
+            <Box className='pricing-background'  p={2} pt={2} pb={4} sx={{ color:'white',display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', height: '100%', boxSizing:'border-box', rowGap:'25px',
+            overflow: 'auto',
+            scrollbarWidth: 'thin',
+            '&::-webkit-scrollbar': {
+              width: '0.6em',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: '#1F1F1F',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#272727',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+                background: '#272727',
+            },
                 
              }}>
             <Box  sx={{ display: 'flex', flexDirection: 'column', }}>

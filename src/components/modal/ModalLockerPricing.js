@@ -1,4 +1,4 @@
-import { Box, Dialog, Radio, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material'
+import { Box, Button, Dialog, Radio, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { resetFlows,  setLockerPricingModalClose, setPurchaseSubAmount, setPurchaseSubMonth, setStripeModalOpen, setSubcriptionFlow } from '../../store/reducers/user';
@@ -52,7 +52,7 @@ const ModalLockerPricing = ({open}) => {
                 <Box pt={4} sx={{ display: 'flex', flexDirection: 'column', }}>
                 <Box mb={1} mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon sx={{cursor:'pointer'}} /></Box>
                     <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} sx={{ color: '#FFD600', fontFamily:'Raleway' }}>Buy Locker Storage</Typography>
-                    <Typography textAlign={'center'} fontSize={{sm:22, xs:19}} fontWeight={400} sx={{ color: '#A2A2A2',fontFamily:'Raleway' }}>Unlimited Locker Storage</Typography>
+                    <Typography textAlign={'center'} fontSize={{sm:22, xs:19}} fontWeight={400} sx={{ color: '#A2A2A2',fontFamily:'Raleway' }}>Unlimited Storage - Billed Monthly</Typography>
                 </Box>
 
                 {/* <Typography textAlign={'center'} fontWeight={600} fontSize={32} sx={{ color: '#FFD600' }}>USD $1 <Typography component={'span'} fontSize={18}>/credit</Typography></Typography> */}
@@ -82,7 +82,7 @@ const ModalLockerPricing = ({open}) => {
                                                 },
                                             }}
                                         />
-                                        {`${p?.month} month`}
+                                        {`Billed Monthly`}
                                     </TableCell>
                                     <TableCell align='center' sx={{ color: '#E9E9E9', fontSize: '16px',fontFamily:'Raleway' }}>
                                         ${p?.amount}
@@ -92,9 +92,15 @@ const ModalLockerPricing = ({open}) => {
                                     </TableCell>
                                     <TableCell  align='center'  sx={{ height:'100%',color: 'white', fontSize: '18px', textAlign:'center' }}>
                                     <Box sx={{display:'flex',justifyContent:'center', alignItems:'center', height:'100%', width:'100%'}}>
-                                    <Box onClick={handleClick} sx={{padding:'0px 20px 0px 20px', width:'145px',cursor:'pointer',height:'45px', borderBottom:'none',backgroundColor:'#FFD600', borderRadius:'50px', display:'flex', justifyContent:'center', alignItems:'center', fontSize:'15px'}}>
+                                    {/* <Box onClick={handleClick} sx={{padding:'0px 20px 0px 20px', width:'145px',cursor:'pointer',height:'45px', borderBottom:'none',backgroundColor:'#FFD600', borderRadius:'50px', display:'flex', justifyContent:'center', alignItems:'center', fontSize:'15px'}}>
                                     Subscribe $4.99/mo
-                                        </Box>
+                                        </Box> */}
+                                        <Box sx={{display:'flex', alignItems:'flex-end', }}>
+                    <Button onClick={handleClick} variant='contained' disableFocusRipple disableTouchRipple  sx={{borderRadius:'50px', width:'fit-content', backgroundColor:'#FFD600', fontWeight:'600', padding:'10px 20px 10px 20px'}}>
+                        Subscribe
+                    </Button>
+                    <Typography fontFamily={'Raleway'} sx={{marginLeft:'5px'}}>$4.99 /mo</Typography>
+                    </Box>
                                     </Box>
                                         
                                     </TableCell>

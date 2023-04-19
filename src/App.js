@@ -12,7 +12,6 @@ import RefundPolicy from './containers/mainFlow/Terms page/RefundPolicy';
 import RequireSubscription from './components/ProtectedRoutes/RequireSubscription';
 import Gallery from './containers/mainFlow/Gallery page/Gallery';
 import PricingPage from './containers/paymentFlow/PricingPage';
-// import LandingPage from './containers/mainFlow/Landing page/LandingPage';
 
 function App() {
   return (
@@ -27,7 +26,7 @@ function App() {
           <Route path="/gif-swap" exact element={<GifSwap />} />
           <Route path="/termsAndCondition" exact element={<TermsAndCondition />} />
           <Route path="/refund" exact element={<RefundPolicy />} />
-          <Route path="/gallery" exact element={<RequireSubscription><Gallery /></RequireSubscription>} />
+          <Route path="/locker" exact element={<RequireSubscription><Gallery /></RequireSubscription>} />
 
 
           <Route path='auth/*' element={<AuthFlow />} />
