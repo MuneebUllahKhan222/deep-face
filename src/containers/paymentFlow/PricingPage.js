@@ -116,52 +116,12 @@ const PricingPage = () => {
 
 
 
-                    <Box pl={{ xl: 7, lg: 3 }} pr={{ xl: 7, lg: 3 }} sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', rowGap: '15px', columnGap: '20px' }}>
-
-
-                        {/* <PricingBox planName={'Startup'} planPrice={10} planCreds={10} handleClick={handleClick}/> */}
-                        {/* <PricingBox planName={'Enterprise'} planPrice={100} planCreds={100} handleClick={handleClick}/> */}
-                        {/* <PricingBox planName={'Fortune'} planPrice={500} planCreds={550} handleClick={handleClick} bonusCred={50}/> */}
-                        {/* <PricingBox planName={'Lift Off'} planPrice={975} planCreds={1100} handleClick={handleClick} bonusCred={125} /> */}
+                    <Box pl={{ xl: 7, lg: 3 }} pr={{ xl: 7, lg: 3 }} sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', rowGap: '15px', columnGap: '20px' }}>                       
                         <PricingBoxDetailed planName={'Startup'} planPrice={10} planCreds={10} handleClick={handleClick} detail={packages[0]} />
                         <PricingBoxDetailed planName={'Enterprise'} planPrice={100} planCreds={100} handleClick={handleClick} detail={packages[1]} />
-                        <PricingBoxDetailed planName={'Fortune'} planPrice={500} planCreds={550} handleClick={handleClick} bonusCred={50} detail={packages[2]} />
-                        <PricingBoxDetailed planName={'Lift Off'} planPrice={975} planCreds={1100} handleClick={handleClick} bonusCred={100} detail={packages[3]}>
-                            {/* <Box component={'img'} src={Bonus50} sx={{position:'absolute', right:'54%', bottom:'66%', transform:'rotate(-0.1turn)'}} /> */}
+                        <PricingBoxDetailed planName={'Fortune 500'} planPrice={500} planCreds={550} handleClick={handleClick} bonusCred={50} detail={packages[2]} />
+                        <PricingBoxDetailed planName={'Lift Off!'} planPrice={975} planCreds={1100} handleClick={handleClick} bonusCred={100} detail={packages[3]}>
                         </PricingBoxDetailed>
-                        {/* <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column'}}>
-                    <Typography fontSize={28} fontFamily='Raleway'>
-                     100$   
-                    </Typography>
-
-                    <Box sx={{display:'flex', flexDirection:'column', rowGap:'10px'}}>
-                        <Box sx={{display:'flex'}}>
-                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
-                            <Typography fontFamily={'Raleway'}>1000 Sec Video Swap </Typography>
-                        </Box>
-
-                        <Box sx={{display:'flex'}}>
-                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
-                            <Typography fontFamily={'Raleway'}>100 Gifs swap  </Typography>
-                        </Box>
-
-                        <Box sx={{display:'flex'}}>
-                            <DoneIcon  sx={{color:'#FFD600', marginRight:'10px'}}/>
-                            <Typography fontFamily={'Raleway'}>200 Image swap </Typography>
-                        </Box>
-
-                    </Box>
-
-                    <Box sx={{display:'flex', justifyContent:'center'}}>
-                        <Button onClick={() => handleClick(100, 100)}  sx={{backgroundColor:'#FFD600', color:'white', fontWeight:'550', borderRadius:'40px', padding:'7px 20px 7px 20px'}}>Buy Credits</Button>
-                    </Box>
-                    </Box> */}
-
-
-
-
-
-
                     </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-around', columnGap: '30px', alignItems: 'center', '@media(max-width:1350px)': { flexDirection: 'column', rowGap: '30px', } }}>

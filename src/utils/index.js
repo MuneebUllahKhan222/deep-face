@@ -29,7 +29,7 @@ export const setCookies = (key, value, options) => {
         });
     } 
     else {
-        const expiryDate = new Date(new Date().getTime() + 1000 * 60 * 120);
+        const expiryDate = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7);
         cookies.set(key, { ...value, expiryDate }, {
             ...options,
             path: '/',

@@ -104,25 +104,7 @@ const ModalPricing = ({open}) => {
                 <Box  mr={2} onClick={handleClose} sx={{display:'flex', justifyContent:'flex-end', color:'white'}}><CloseIcon /></Box>
                     <Typography textAlign={'center'} fontWeight={600} fontSize={{sm:32, xs:28}} fontFamily={'Raleway'}>Pay as you go</Typography>
                 </Box>
-            
 
-            {/* <Box sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
-                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
-                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
-                    <Typography fontFamily={'Raleway'}>1 Credit/10 Sec video swap</Typography>
-                </Box>
-
-                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
-                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
-                    <Typography fontFamily={'Raleway'}>1 Credit/2 image swaps</Typography>
-                </Box>
-
-                <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
-                    <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
-                    <Typography fontFamily={'Raleway'}>1 Credit/1 Gif swap</Typography>
-                </Box>
-
-            </Box> */}
             <Box pl={4} pr={4} sx={{display:'flex', justifyContent:'center'}}>
 
             <Box sx={{display:'flex', justifyContent:'space-evenly',flexDirection:'column',backgroundColor: '#1F1F1F', alignItems:'center',rowGap:'15px', columnGap:'8px', padding:'15px 30px 15px 30px',border:'6px solid #272727', borderRadius:'20px','@media(max-width:1350px)':{  padding:0} }}>
@@ -155,8 +137,8 @@ const ModalPricing = ({open}) => {
                         <PricingBox planName={'Lift Off'} planPrice={975} planCreds={1100} handleClick={handleClick} bonusCred={125} /> */}
                         <PricingBoxDetailed planName={'Startup'} planPrice={10} planCreds={10} handleClick={handleClick} detail={packages[0]}/>
                         <PricingBoxDetailed planName={'Enterprise'} planPrice={100} planCreds={100} handleClick={handleClick} detail={packages[1]}/>
-                        <PricingBoxDetailed planName={'Fortune'} planPrice={500} planCreds={550} handleClick={handleClick} bonusCred={50} detail={packages[2]}/>
-                        <PricingBoxDetailed planName={'Lift Off'} planPrice={975} planCreds={1100} handleClick={handleClick} bonusCred={125} detail={packages[3]}/>
+                        <PricingBoxDetailed planName={'Fortune 500'} planPrice={500} planCreds={550} handleClick={handleClick} bonusCred={50} detail={packages[2]}/>
+                        <PricingBoxDetailed planName={'Lift Off!'} planPrice={975} planCreds={1100} handleClick={handleClick} bonusCred={100} detail={packages[3]}/>
              </Box>
             {/* <Box sx={{display:'flex', justifyContent:'space-evenly',flexWrap:'wrap', rowGap:'15px', columnGap:'8px' }}>
                 <Box p={2} sx={{border:'6px solid #272727', borderRadius:'20px', boxSizing:'border-box', width:'280px', height:'320px',display:'flex', justifyContent:'space-between', flexDirection:'column',backgroundColor: '#1F1F1F',}}>

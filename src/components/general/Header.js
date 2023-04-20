@@ -32,7 +32,6 @@ const Header = ({ colorScheme }) => {
     const [anchorElFeature, setAnchorElFeature] = useState(null);
     const matches = useMediaQuery('(min-width:700px)')
     const dispatch = useDispatch();
-    console.log(unsubscribeModalState, 'unsub')
 
     const toggleDrawer = (bool) => {
         setopen(bool)
