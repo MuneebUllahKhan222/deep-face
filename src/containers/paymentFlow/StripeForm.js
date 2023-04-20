@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, addStripeJS  } from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import { Box, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Checkoutform from "./Checkoutform";
@@ -31,20 +31,12 @@ function StripeForm() {
       }
       const stripePromise = await loadStripe("pk_live_51Mk7w0A5OVE42MIUZ1yrBiwYe5GxEnRKz4Cu3Dflh7QmhSUVTvgCMHV6MwdDBecdGkPmQWWW1X8PUkpXtSMMyema00fmu67Drq");
       // const stripePromise = await loadStripe("pk_test_51Lj1VASGZP3p3zAFtVcaROPwiUqDuCIEVwh3cFK8320PfdnsZtbY6gqIcfiixLNaSEYaklsIpdBoM6RREobVrw9B0014tcuE1j");
-      addStripeJS(stripePromise);
+      // addStripeJS(stripePromise);
       setStripe(stripePromise)
       const data = await dispatch(createIntent(info))
       setClientSecret(data?.data?.client_secret);
-      stripe.addStripeJSListener(function(event) {
-        TagManager.dataLayer({
-          'event': 'stripe',
-          'eventCategory': 'Stripe',
-          'eventAction': event.type,
-          'eventLabel': event.data.object.id,
-          'eventValue': event.data.object.amount
-        });
-      });
-  },[dispatch, total,stripe]) 
+
+  },[dispatch, total]) 
     // fetchData()
   useEffect(() => {
     fetchData()
