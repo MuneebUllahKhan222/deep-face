@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { resetFlows, setLockerAdModalOpen, setLockerPricingModalClose, setModalOpen, setPricingModalClose, setStripeModalClose } from '../../store/reducers/user';
 import { purchaseCredits, purchaseSubscription } from '../../store/services/user';
 import { getCookies } from '../../utils';
+import ReactGA from 'react-ga4';
 
 
 
@@ -26,6 +27,12 @@ function Checkoutform({total}) {
         const user = getCookies('user')
 
             await dispatch(purchaseCredits({uid:user?._id, amount: purchaseAmount, credits:credits}));
+            ReactGA.event({
+                category: "credits purchase",
+                action: "purchase successful",
+                label: `${credits} credits purchased`, // optional
+                value: purchaseAmount, // optional, must be a number
+              });
             
             dispatch(setStripeModalClose());
             enqueueSnackbar('Payment successful', { variant: 'success' });
@@ -41,7 +48,13 @@ function Checkoutform({total}) {
         const user = getCookies('user')
             dispatch(setLockerPricingModalClose())
 
-            await dispatch(purchaseSubscription({uid:user?._id, amount: purchaseSubscriptionAmount, month:purchaseSubscriptionMonth, subscriptionId}))       
+            await dispatch(purchaseSubscription({uid:user?._id, amount: purchaseSubscriptionAmount, month:purchaseSubscriptionMonth, subscriptionId}))   
+            ReactGA.event({
+                category: "Subcription purchased",
+                action: "purchase successful",
+                label: `${purchaseSubscriptionMonth} month subscription purchased`, // optional
+                value: purchaseAmount, // optional, must be a number
+              });    
             dispatch(setStripeModalClose())
             dispatch(resetFlows())
             enqueueSnackbar('Payment successful', { variant: 'success' })

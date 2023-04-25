@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { unSubscribe } from '../../store/services/user';
 import { getCookies } from '../../utils';
 import { useSnackbar } from 'notistack';
+import ReactGA from 'react-ga4';
 
 const ModalUnsubscribe = ({open}) => {
 
@@ -18,6 +19,10 @@ const ModalUnsubscribe = ({open}) => {
       const user = getCookies('user')
       const data = await dispatch(unSubscribe({uid: user?._id, subscriptionId: user?.subscriptionId}))
       enqueueSnackbar(data?.message, {variant:'success', autoHideDuration:3000})
+      ReactGA.event({
+        category: "Unsubscription",
+        action: "unsubscribed successful",
+      }); 
       dispatch(setUnsubcribeModalClose())
     }
 

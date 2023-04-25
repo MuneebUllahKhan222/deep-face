@@ -12,7 +12,7 @@ import RefundPolicy from './containers/mainFlow/Terms page/RefundPolicy';
 import RequireSubscription from './components/ProtectedRoutes/RequireSubscription';
 import Gallery from './containers/mainFlow/Gallery page/Gallery';
 import PricingPage from './containers/paymentFlow/PricingPage';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
 
 const tracking_id = 'G-6NSWZJ8DWL'
@@ -20,7 +20,7 @@ ReactGA.initialize(tracking_id)
 
 function App() {
   useEffect(() => {
-    ReactGA.pageview(window.location.pathname);
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname, title: "Page being viewd" });
   },[])
 
 
