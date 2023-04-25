@@ -19,7 +19,7 @@ function Checkoutform({total}) {
     const dispatch= useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const [buttonDisable, setbuttonDisable] = useState(true);
-    const {purchaseAmount, purchaseCredits:credits, subscriptionFlow, purchaseSubscriptionAmount, purchaseSubscriptionMonth} = useSelector(state => state?.user)
+    const {purchaseAmount, purchaseCredits:credits, subscriptionFlow, purchaseSubscriptionAmount, purchaseSubscriptionMonth, subscriptionId} = useSelector(state => state?.user)
 
 
     const handleAfterPurchaseCreds = async() => {
@@ -40,7 +40,8 @@ function Checkoutform({total}) {
     const handleAfterPurchaseSubscribtion = async() => {
         const user = getCookies('user')
             dispatch(setLockerPricingModalClose())
-            await dispatch(purchaseSubscription({uid:user?._id, amount: purchaseSubscriptionAmount, month:purchaseSubscriptionMonth}))
+
+            await dispatch(purchaseSubscription({uid:user?._id, amount: purchaseSubscriptionAmount, month:purchaseSubscriptionMonth, subscriptionId}))       
             dispatch(setStripeModalClose())
             dispatch(resetFlows())
             enqueueSnackbar('Payment successful', { variant: 'success' })

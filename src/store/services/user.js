@@ -112,6 +112,18 @@ export const createIntent = (data) => async (dispatch) => {
   }
 }
 
+export const createSubscriptionIntent = (data) => async (dispatch) => {
+  try {
+
+      const response = await axios.post(`${basePath}/payment/subscribeNew`, data)
+
+        return response?.data
+
+  } catch (error) {
+      return error
+  }
+}
+
 export const fetchContent = (data) => async (dispatch) => {
   try {
     const {uid, type} = data

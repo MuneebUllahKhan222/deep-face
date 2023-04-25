@@ -16,7 +16,7 @@ const ModalUnsubscribe = ({open}) => {
     }
     const handleClick = async () => {
       const user = getCookies('user')
-      const data = await dispatch(unSubscribe({uid: user?._id}))
+      const data = await dispatch(unSubscribe({uid: user?._id, subscriptionId: user?.subscriptionId}))
       enqueueSnackbar(data?.message, {variant:'success', autoHideDuration:3000})
       dispatch(setUnsubcribeModalClose())
     }

@@ -8,6 +8,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 // import DoneIcon from '@mui/icons-material/Done';
 import '../../components/Pricing/pricing.css';
 import PricingBoxDetailed from '../../components/Pricing/PricingBoxDetailed'
+import { getCookies } from '../../utils'
 
 
 const PricingPage = () => {
@@ -53,6 +54,8 @@ const PricingPage = () => {
             is: '2000 image swaps'
         },
     ]
+
+    const { showLocker } = getCookies('user')
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'black', }}>
@@ -116,7 +119,7 @@ const PricingPage = () => {
 
 
 
-                    <Box pl={{ xl: 7, lg: 3 }} pr={{ xl: 7, lg: 3 }} sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', rowGap: '15px', columnGap: '20px' }}>                       
+                    <Box pl={{ xl: 7, lg: 3 }} pr={{ xl: 7, lg: 3 }} sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', rowGap: '15px', columnGap: '20px' }}>
                         <PricingBoxDetailed planName={'Startup'} planPrice={10} planCreds={10} handleClick={handleClick} detail={packages[0]} />
                         <PricingBoxDetailed planName={'Enterprise'} planPrice={100} planCreds={100} handleClick={handleClick} detail={packages[1]} />
                         <PricingBoxDetailed planName={'Fortune 500'} planPrice={500} planCreds={550} handleClick={handleClick} bonusCred={50} detail={packages[2]} />
@@ -124,34 +127,41 @@ const PricingPage = () => {
                         </PricingBoxDetailed>
                     </Box>
 
-                    <Box sx={{ display: 'flex', justifyContent: 'space-around', columnGap: '30px', alignItems: 'center', '@media(max-width:1350px)': { flexDirection: 'column', rowGap: '30px', } }}>
+                    {
+                        !showLocker
+                        &&
 
-                        <Box p={2} pl={3} pr={3} pt={{ sm: 2, xs: 4 }} pb={{ sm: 2, xs: 4 }} sx={{ border: '6px solid #272727', borderRadius: '20px', boxSizing: 'border-box', display: 'flex', columnGap: '30px', alignItems: 'center', height: 'fit-content', '@media(max-width:900px)': { flexDirection: 'column', rowGap: '15px' } }}>
-                            <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '7px' }}>
-                                <Typography fontSize={{ sm: 26, xs: 20 }} textAlign={{ sm: 'left', xs: 'center' }} fontWeight={600} fontFamily={'Raleway'}>
-                                    Creation Locker <Typography component={'span'} fontFamily={'Raleway'} fontSize={{ sm: 20, xs: 16 }} fontWeight={500}> $4.99/mo</Typography>
-                                </Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-around', columnGap: '30px', alignItems: 'center', '@media(max-width:1350px)': { flexDirection: 'column', rowGap: '30px', } }}>
 
-                                <Typography fontSize={{ md: 23, sm: 18, xs: 16 }} textAlign={{ sm: 'left', xs: 'center' }} fontWeight={550} fontFamily={'Raleway'}>
-                                    Save your creations in a private, easy-to-access cloud locker!
-                                </Typography>
+                            <Box p={2} pl={3} pr={3} pt={{ sm: 2, xs: 4 }} pb={{ sm: 2, xs: 4 }} sx={{ border: '6px solid #272727', borderRadius: '20px', boxSizing: 'border-box', display: 'flex', columnGap: '30px', alignItems: 'center', height: 'fit-content', '@media(max-width:900px)': { flexDirection: 'column', rowGap: '15px' } }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '7px' }}>
+                                    <Typography fontSize={{ sm: 26, xs: 20 }} textAlign={{ sm: 'left', xs: 'center' }} fontWeight={600} fontFamily={'Raleway'}>
+                                        Creation Locker <Typography component={'span'} fontFamily={'Raleway'} fontSize={{ sm: 20, xs: 16 }} fontWeight={500}> $4.99/mo</Typography>
+                                    </Typography>
+
+                                    <Typography fontSize={{ md: 23, sm: 18, xs: 16 }} textAlign={{ sm: 'left', xs: 'center' }} fontWeight={550} fontFamily={'Raleway'}>
+                                        Save your creations in a private, easy-to-access cloud locker!
+                                    </Typography>
 
 
-                            </Box>
+                                </Box>
 
-                            {/* <Button onClick={handleSubscribeClick} variant='contained' disableFocusRipple disableTouchRipple sx={{ borderRadius: '50px', width: 'fit-content', height:'50px',backgroundColor: '#FFD600', fontWeight: '600', padding:'0px 35px 0px 35px'  }}>
+                                {/* <Button onClick={handleSubscribeClick} variant='contained' disableFocusRipple disableTouchRipple sx={{ borderRadius: '50px', width: 'fit-content', height:'50px',backgroundColor: '#FFD600', fontWeight: '600', padding:'0px 35px 0px 35px'  }}>
                                     Subscribe
                                 </Button> */}
-                            <Box sx={{ display: 'flex', alignItems: 'flex-end', }}>
-                                <Button onClick={handleSubscribeClick} variant='contained' disableFocusRipple disableTouchRipple sx={{ borderRadius: '50px', width: 'fit-content', backgroundColor: '#FFD600', fontWeight: '600', padding: '10px 20px 10px 20px' }}>
-                                    Subscribe
-                                </Button>
-                                <Typography fontFamily={'Raleway'} sx={{ marginLeft: '5px' }}>$4.99 /mo</Typography>
+
+                                <Box sx={{ display: 'flex', alignItems: 'flex-end', }}>
+                                    <Button onClick={handleSubscribeClick} variant='contained' disableFocusRipple disableTouchRipple sx={{ borderRadius: '50px', width: 'fit-content', backgroundColor: '#FFD600', fontWeight: '600', padding: '10px 20px 10px 20px' }}>
+                                        Subscribe
+                                    </Button>
+                                    <Typography fontFamily={'Raleway'} sx={{ marginLeft: '5px' }}>$4.99 /mo</Typography>
+                                </Box>
+
+
                             </Box>
-                        </Box>
 
 
-                        {/* <Box sx={{display:'flex', justifyContent:'space-evenly',flexDirection:'column', rowGap:'15px', columnGap:'8px', padding:'0px 30px 30px 30px', borderLeft:'1px solid gray', '@media(max-width:1350px)':{border:'none' ,padding:0} }}>
+                            {/* <Box sx={{display:'flex', justifyContent:'space-evenly',flexDirection:'column', rowGap:'15px', columnGap:'8px', padding:'0px 30px 30px 30px', borderLeft:'1px solid gray', '@media(max-width:1350px)':{border:'none' ,padding:0} }}>
                 <Typography fontFamily={'Raleway'} fontStyle={'italic'} fontSize={23}>Credits Breakdown</Typography>
                 <Box sx={{display:'flex', color:'white', alignItems:'center'}}>
                     <CircleIcon size='small' sx={{color:'#FFD600', height:'15px', width:'15px', marginRight:'6px'}} />
@@ -172,7 +182,8 @@ const PricingPage = () => {
 
 
 
-                    </Box>
+                        </Box>
+                    }
 
                 </Box>
                 {/* <Box p={3} pt={6} pl={{sm:8, xs:2}} pr={{sm:8, xs:3}} pb={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '90%', borderRadius: '20px', backgroundColor: '#1F1F1F', height: '100%', boxSizing: 'border-box' }}>
