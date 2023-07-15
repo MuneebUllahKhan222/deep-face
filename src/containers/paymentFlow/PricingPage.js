@@ -55,8 +55,8 @@ const PricingPage = () => {
         },
     ]
 
-    const { showLocker } = getCookies('user')
-
+    // const { showLocker } = getCookies('user')
+    const showLocker = false;
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', backgroundColor: 'black', }}>
 

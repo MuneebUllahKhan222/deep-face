@@ -14,7 +14,7 @@ const Section4 = () => {
     
     <Box mt={{sm:10, xs:4}} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center',width:'60%','@media(max-width:900px)':{width:'75%'}, '@media(max-width:650px)':{width:'85%'} }}>
                     <Typography sx={{ fontSize: '40px', fontWeight: 700, marginBottom: '40px', textAlign:'center','@media(max-width:650px)':{fontSize:'32px', marginTop:'30px'},fontFamily:'Raleway' }}>
-                    Other Exciting Deep Duck Features
+                    Other Exciting deep face Features
                     </Typography>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-around', width:'80%',flexWrap: 'wrap', columnGap: '15px', rowGap: '15px', '@media(max-width:650px)':{width:'85%'}, '@media(max-width:450px)':{flexDirection:'column', alignItems:'center'} }}>

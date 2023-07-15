@@ -15,7 +15,7 @@ const Section3 = () => {
         <Box pt={5} pb={5} sx={{ width: '100%', backgroundColor:'#1E1E1E',display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box sx={{ display: 'flex', color:'white',width: '60%', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', '@media(max-width:900px)':{width:'75%'}, '@media(max-width:650px)':{width:'85%'} }}>
                 <Typography sx={{ fontSize: '40px', fontWeight: 600, textAlign:'center', lineHeight:'45px', '@media(max-width:650px)':{fontSize:'32px'},fontFamily:'Raleway' }}>
-                Deep Duck provides very accurate results.
+                deep face provides very accurate results.
                 </Typography>
                 <Typography sx={{ fontSize: '14px', fontWeight: 500, textAlign: 'center', marginBottom: '40px', marginTop:'10px',fontFamily:'Raleway', }}>Enjoy near perfect results using our one-of-a-kind face swap tool.</Typography>
 

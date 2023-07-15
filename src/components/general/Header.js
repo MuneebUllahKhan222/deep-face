@@ -132,7 +132,7 @@ const Header = ({ colorScheme }) => {
                     <img src={logoDark} width={80} height={80} alt='logo' />
                 }
                     {/* <img src={logo} alt='logo' />
-                    <Typography fontWeight={550} sx={colorScheme === 'light' ? { color: '#363636' } : { color: 'white' }}>Deep duck</Typography> */}
+                    <Typography fontWeight={550} sx={colorScheme === 'light' ? { color: '#363636' } : { color: 'white' }}>deep face</Typography> */}
                 </Box>
 
                 <Box sx={{ flexGrow: 1 }}></Box>

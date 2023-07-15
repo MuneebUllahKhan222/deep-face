@@ -17,7 +17,7 @@ const Section1 = () => {
                 <Box sx={{ display:'flex', alignItems:'center'}}>
                     <Typography fontWeight={600} sx={{color:'#1A1A1A',fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}, fontFamily:'Raleway'}}>Image Face Swap</Typography>
                 </Box>
-                <Typography fontSize={15} fontWeight={500} sx={{color:'#1A1A1A','@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}} > You’re joking? you’re joking? I can’t believe my eyes! Deep Duck offers 99.9% accuracy on all face swaps.</Typography>
+                <Typography fontSize={15} fontWeight={500} sx={{color:'#1A1A1A','@media(max-width:800px)':{textAlign:'center'},fontFamily:'Raleway'}} > You’re joking? you’re joking? I can’t believe my eyes! deep face offers 99.9% accuracy on all face swaps.</Typography>
                 <CustomButton navigateTo={'/imageSwap/upload'} style={{marginTop:'25px', width:'fit-content'}} text={'Try Swap it'}/>
             </Box>
 

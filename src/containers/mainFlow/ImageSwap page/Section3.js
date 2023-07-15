@@ -19,15 +19,15 @@ const Section3 = () => {
         <Box pt={5} sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Box sx={{ display: 'flex', width: '60%', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', '@media(max-width:900px)':{width:'75%'}, '@media(max-width:650px)':{width:'85%'} }}>
                 <Typography sx={{ fontSize: '40px', fontWeight: 600, textAlign:'center', lineHeight:'45px', '@media(max-width:650px)':{fontSize:'32px'},fontFamily:'Raleway' }}>
-                Master the Art of the Swap with Deep Duck!
+                Master the Art of the Swap with deep face!
                 </Typography>
-                <Typography sx={{ fontSize: '14px', fontWeight: 500, textAlign: 'center', marginBottom: '20px', marginTop:'10px',fontFamily:'Raleway' }}>Everyone is getting in on the AI craze. Test your abilities today with our one-of-a-kind swap tool, found only on Deep Duck.<br /> Nothing to be embarrassed about! Remember, all of your creations remain encrypted and for your eyes only.</Typography>
+                <Typography sx={{ fontSize: '14px', fontWeight: 500, textAlign: 'center', marginBottom: '20px', marginTop:'10px',fontFamily:'Raleway' }}>Everyone is getting in on the AI craze. Test your abilities today with our one-of-a-kind swap tool, found only on deep face.<br /> Nothing to be embarrassed about! Remember, all of your creations remain encrypted and for your eyes only.</Typography>
 
                 <img src={got} alt='game of thrones' width={matches1200px ?'97%':matches700px ? '90%' : '80%'} height={matches1050px ?'450px' :matches700px ? '350px' : '500px'} />
                 <Button onClick={() => navigate('/imageSwap/upload')} variant='text' sx={{color:'#FFD600', marginTop:'30px', fontWeight:700}}>{'>> Try now'}</Button>
                 <Box mt={{sm:10, xs:4}} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography sx={{ fontSize: '40px', fontWeight: 700, marginBottom: '40px', textAlign:'center','@media(max-width:650px)':{fontSize:'32px', marginTop:'30px'} }}>
-                    Other Exciting Deep Duck Features
+                    Other Exciting deep face Features
                     </Typography>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-around', width:'80%',flexWrap: 'wrap', columnGap: '15px', rowGap: '15px', '@media(max-width:650px)':{width:'85%'}, '@media(max-width:450px)':{flexDirection:'column', alignItems:'center'} }}>

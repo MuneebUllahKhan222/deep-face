@@ -15,7 +15,7 @@ const Section2 = () => {
                     <Typography fontWeight={600} sx={{fontSize:'40px','@media(max-width:900px)':{fontSize:'35px'},'@media(max-width:800px)':{fontSize:'30px'}, fontFamily:'Raleway'}}>Image Swap</Typography>
                     <img src={stick}  alt='stick' />
                 </Box>
-                <Typography fontSize={16} fontWeight={500} sx={{fontFamily:'Raleway'}}>With Deep Duck, swapping faces on any image is as simple as an upload and a click.</Typography>
+                <Typography fontSize={16} fontWeight={500} sx={{fontFamily:'Raleway'}}>With deep face, swapping faces on any image is as simple as an upload and a click.</Typography>
                 <Button variant='contained' disableElevation onClick={() =>navigate('/image-swap')} sx={{backgroundColor:'#FFD600', fontWeight:600,height:'45px',borderRadius:'12px',width:'fit-content', marginTop:'25px', '&:hover':{backgroundColor:'#FFD600'}}}>Try Image Swap</Button>           
             </Box>
 

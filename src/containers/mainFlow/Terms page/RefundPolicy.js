@@ -26,7 +26,7 @@ const RefundPolicy = () => {
 
 
                         <Typography fontFamily={'Raleway'} sx={{ fontSize: '15px', fontWeight: 500, marginTop: '20px' }}>
-                        As a Deep Duck customer, you are entitled to a refund under the conditional terms listed here. At the time that credits are purchased, if a customer chooses to forego any swap service within the first 24 hours, those credits are refundable. If a customer spends any credits at all, the account becomes activated, and the funds are no longer refundable. Also, any time past the 24 hour (buyers remorse) window is also considered an active account without the possibility of a refund.
+                        As a deep face customer, you are entitled to a refund under the conditional terms listed here. At the time that credits are purchased, if a customer chooses to forego any swap service within the first 24 hours, those credits are refundable. If a customer spends any credits at all, the account becomes activated, and the funds are no longer refundable. Also, any time past the 24 hour (buyers remorse) window is also considered an active account without the possibility of a refund.
                         </Typography>
 
 
@@ -35,7 +35,7 @@ const RefundPolicy = () => {
                         </Typography>
 
                         <Typography fontFamily={'Raleway'} sx={{ fontSize: '15px', fontWeight: 500, marginTop: '20px' }}>
-                        As a Deep Duck customer, you are entitled to a refund under the conditional terms listed here. If you have purchased the Creation Locker subscription, and not utilized your locker for any storage whatsoever within the first 24 hours, you are entitled to a full refund and termination of service. Anything beyond the 24 hour (buyers remorse) window is considered an active subscription.
+                        As a deep face customer, you are entitled to a refund under the conditional terms listed here. If you have purchased the Creation Locker subscription, and not utilized your locker for any storage whatsoever within the first 24 hours, you are entitled to a full refund and termination of service. Anything beyond the 24 hour (buyers remorse) window is considered an active subscription.
                         </Typography>
 
 
